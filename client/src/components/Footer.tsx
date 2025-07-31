@@ -4,42 +4,42 @@ import { CONTACT_INFO } from "@/lib/constants";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="section-teal-dark py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-2">
             <div className="flex items-center mb-4">
-              <Mountain className="w-8 h-8 text-blue-400 mr-2" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
+              <Mountain className="w-8 h-8 text-teal-400 mr-2" />
+              <span className="text-2xl font-bold gradient-text-light brand-heading">
                 Bhutan Mind Break
               </span>
             </div>
-            <p className="text-gray-300 mb-6 max-w-md">
+            <p className="text-white mb-6 max-w-md brand-body">
               Your gateway to the Last Shangri-La. We create transformative journeys that connect you 
               with Bhutan's ancient wisdom, pristine nature, and authentic culture.
             </p>
             <div className="flex space-x-4">
               <a
                 href={CONTACT_INFO.social.facebook}
-                className="bg-gray-800 hover:bg-blue-600 p-3 rounded-full transition-colors"
+                className="bg-teal-800/50 hover:bg-teal-600 p-3 rounded-full transition-colors teal-glow"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a
                 href={CONTACT_INFO.social.instagram}
-                className="bg-gray-800 hover:bg-pink-600 p-3 rounded-full transition-colors"
+                className="bg-teal-800/50 hover:bg-pink-600 p-3 rounded-full transition-colors teal-glow"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a
                 href={CONTACT_INFO.social.twitter}
-                className="bg-gray-800 hover:bg-blue-400 p-3 rounded-full transition-colors"
+                className="bg-teal-800/50 hover:bg-teal-400 p-3 rounded-full transition-colors teal-glow"
               >
                 <Twitter className="w-5 h-5" />
               </a>
               <a
                 href={CONTACT_INFO.social.youtube}
-                className="bg-gray-800 hover:bg-red-600 p-3 rounded-full transition-colors"
+                className="bg-teal-800/50 hover:bg-red-600 p-3 rounded-full transition-colors teal-glow"
               >
                 <Youtube className="w-5 h-5" />
               </a>
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4 brand-heading text-white">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/tours" className="text-gray-300 hover:text-white transition-colors">
@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
+            <h3 className="text-lg font-semibold mb-4 brand-heading text-white">Contact Info</h3>
             <div className="space-y-3">
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2 text-gray-400" />
@@ -100,8 +100,8 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-gray-400 text-sm">
+        <div className="border-t border-teal-700/50 mt-8 pt-8 text-center">
+          <p className="text-gray-300 text-sm">
             © 2024 Bhutan Mind Break. All rights reserved. | Licensed by Tourism Council of Bhutan
           </p>
         </div>

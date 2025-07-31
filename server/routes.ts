@@ -30,9 +30,141 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Specific category routes (must come before the generic :id route)
+  app.get("/api/tours/cultural", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Cultural", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch cultural tours" });
+    }
+  });
+
+  app.get("/api/tours/luxury", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Luxury", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch luxury tours" });
+    }
+  });
+
+  app.get("/api/tours/adventure", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Adventure", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch adventure tours" });
+    }
+  });
+
+  app.get("/api/tours/spiritual", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Spiritual", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch spiritual tours" });
+    }
+  });
+
+  app.get("/api/tours/festival", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Cultural", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch festival tours" });
+    }
+  });
+
+  app.get("/api/tours/bespoke", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { 
+          OR: [
+            { category: "Custom" },
+            { category: "Luxury" }
+          ],
+          isActive: true 
+        }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch bespoke tours" });
+    }
+  });
+
+  app.get("/api/tours/photography", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Photography", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch photography tours" });
+    }
+  });
+
+  app.get("/api/tours/birdwatching", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Birdwatching", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch bird watching tours" });
+    }
+  });
+
+  app.get("/api/tours/cycling", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Cycling", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch cycling tours" });
+    }
+  });
+
+  app.get("/api/tours/pilgrimage", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Pilgrimage", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch pilgrimage tours" });
+    }
+  });
+
+  app.get("/api/tours/wellness", async (req, res) => {
+    try {
+      const tours = await db.tour.findMany({
+        where: { category: "Wellness", isActive: true }
+      });
+      res.json(tours);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch wellness tours" });
+    }
+  });
+
   app.get("/api/tours/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid tour ID" });
+      }
+      
       const tour = await storage.getTour(id);
       
       if (!tour) {
@@ -114,6 +246,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Tours CRUD
+  app.post("/api/tours", async (req, res) => {
+    try {
+      const tourData = req.body;
+      const tour = await db.tour.create({ data: tourData });
+      res.status(201).json(tour);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create tour" });
+    }
+  });
+
+  app.put("/api/tours/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updates = req.body;
+      const tour = await db.tour.update({ where: { id }, data: updates });
+      res.json(tour);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update tour" });
+    }
+  });
+
+  app.delete("/api/tours/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await db.tour.delete({ where: { id } });
+      res.json({ message: "Tour deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete tour" });
+    }
+  });
+
   // Testimonials
   app.get("/api/testimonials", async (req, res) => {
     try {
@@ -124,6 +288,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/testimonials", async (req, res) => {
+    try {
+      const testimonialData = req.body;
+      const testimonial = await db.testimonial.create({ data: testimonialData });
+      res.status(201).json(testimonial);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create testimonial" });
+    }
+  });
+
   // Blog Posts
   app.get("/api/blog", async (req, res) => {
     try {
@@ -131,6 +305,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(posts);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch blog posts" });
+    }
+  });
+
+  app.post("/api/blog", async (req, res) => {
+    try {
+      const blogData = req.body;
+      const post = await db.blogPost.create({ data: blogData });
+      res.status(201).json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create blog post" });
     }
   });
 
@@ -819,6 +1003,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(booking);
     } catch (error) {
       res.status(500).json({ message: "Failed to update hotel booking status" });
+    }
+  });
+
+  // Authentication Routes
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      
+      // Mock authentication - in real app, verify against database
+      const mockUsers = [
+        { id: 1, email: 'admin@bhutan.com', password: 'admin123', firstName: 'Admin', lastName: 'User', role: 'admin' },
+        { id: 2, email: 'guide@bhutan.com', password: 'guide123', firstName: 'Tenzin', lastName: 'Guide', role: 'guide' },
+        { id: 3, email: 'driver@bhutan.com', password: 'driver123', firstName: 'Karma', lastName: 'Driver', role: 'driver' },
+        { id: 4, email: 'tourist@bhutan.com', password: 'tourist123', firstName: 'John', lastName: 'Tourist', role: 'tourist' },
+      ];
+
+      const user = mockUsers.find(u => u.email === email && u.password === password);
+      
+      if (user) {
+        const { password: _, ...userWithoutPassword } = user;
+        res.json({ user: userWithoutPassword, token: 'mock-jwt-token' });
+      } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Authentication failed' });
     }
   });
 

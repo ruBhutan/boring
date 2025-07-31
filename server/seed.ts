@@ -671,6 +671,356 @@ async function seed() {
           "Optional activities"
         ],
         tourOperatorId: createdOperators[9].id
+      },
+
+      // New Cycling Tours
+      {
+        name: "Thimphu Valley Cycling Adventure",
+        description: "Explore Bhutan's capital valley on two wheels, combining urban cycling with scenic mountain trails. Perfect for eco-conscious travelers seeking active exploration.",
+        duration: 3,
+        price: 450,
+        category: "Cycling",
+        imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.7,
+        reviewCount: 89,
+        highlights: [
+          "Thimphu city exploration",
+          "Traditional villages",
+          "Mountain trails",
+          "Cultural sites",
+          "Eco-friendly travel"
+        ],
+        maxGroupSize: 8,
+        difficulty: "Moderate",
+        bestSeason: "Spring & Autumn",
+        includes: [
+          "Premium mountain bikes",
+          "Safety equipment",
+          "Expert cycling guide",
+          "Support vehicle",
+          "Traditional meals"
+        ],
+        excludes: [
+          "International flights",
+          "Personal cycling gear",
+          "Travel insurance",
+          "Bike maintenance"
+        ],
+        tourOperatorId: createdOperators[0].id
+      },
+      {
+        name: "Paro to Punakha Cycling Expedition",
+        description: "Epic cycling journey through Bhutan's most scenic landscapes, from Paro valley to the ancient capital of Punakha. Cross mountain passes and river valleys.",
+        duration: 7,
+        price: 1200,
+        category: "Cycling",
+        imageUrl: "https://images.unsplash.com/photo-1544191696-15693072b5d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.8,
+        reviewCount: 67,
+        highlights: [
+          "Cross-country cycling",
+          "Dochula Pass",
+          "Ancient fortresses",
+          "River valleys",
+          "Mountain passes"
+        ],
+        maxGroupSize: 10,
+        difficulty: "Challenging",
+        bestSeason: "Spring & Autumn",
+        includes: [
+          "High-end mountain bikes",
+          "Professional guide",
+          "Support vehicle",
+          "Camping equipment",
+          "All meals"
+        ],
+        excludes: [
+          "International flights",
+          "Personal gear",
+          "Travel insurance",
+          "Emergency evacuation"
+        ],
+        tourOperatorId: createdOperators[3].id
+      },
+
+      // New Pilgrimage Tours
+      {
+        name: "Sacred Tiger's Nest Pilgrimage",
+        description: "Journey to Bhutan's most iconic monastery, perched dramatically on a cliff face 3,000 feet above Paro valley. Experience deep spiritual connection and meditation.",
+        duration: 3,
+        price: 650,
+        category: "Pilgrimage",
+        imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.9,
+        reviewCount: 156,
+        highlights: [
+          "Paro Taktsang Monastery",
+          "Meditation sessions",
+          "Prayer flag ceremony",
+          "Sacred caves",
+          "Spiritual guidance"
+        ],
+        maxGroupSize: 12,
+        difficulty: "Moderate",
+        bestSeason: "Spring & Autumn",
+        includes: [
+          "Monastery entrance fees",
+          "Spiritual guide",
+          "Meditation materials",
+          "Traditional meals",
+          "Blessing ceremonies"
+        ],
+        excludes: [
+          "International flights",
+          "Personal offerings",
+          "Travel insurance",
+          "Photography fees"
+        ],
+        tourOperatorId: createdOperators[2].id
+      },
+      {
+        name: "Bumthang Sacred Valley Pilgrimage",
+        description: "Explore the spiritual heartland of Bhutan, visiting ancient temples and sacred sites in the blessed Bumthang valleys. Connect with centuries of Buddhist tradition.",
+        duration: 7,
+        price: 1400,
+        category: "Pilgrimage",
+        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.8,
+        reviewCount: 134,
+        highlights: [
+          "Jambay Lhakhang",
+          "Kurjey Lhakhang",
+          "Tamshing Monastery",
+          "Guru Rinpoche sites",
+          "Sacred valley walks"
+        ],
+        maxGroupSize: 15,
+        difficulty: "Easy",
+        bestSeason: "Spring & Autumn",
+        includes: [
+          "Temple entrance fees",
+          "Spiritual guide",
+          "Monastery stays",
+          "Vegetarian meals",
+          "Prayer materials"
+        ],
+        excludes: [
+          "International flights",
+          "Personal donations",
+          "Travel insurance",
+          "Optional ceremonies"
+        ],
+        tourOperatorId: createdOperators[2].id
+      },
+
+      // New Wellness Tours
+      {
+        name: "Himalayan Wellness Retreat",
+        description: "Rejuvenate your mind, body, and soul with traditional Bhutanese wellness practices in serene mountain settings. Experience holistic healing and inner peace.",
+        duration: 7,
+        price: 1800,
+        category: "Wellness",
+        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.9,
+        reviewCount: 98,
+        highlights: [
+          "Hot stone baths",
+          "Meditation sessions",
+          "Yoga classes",
+          "Herbal treatments",
+          "Mountain wellness"
+        ],
+        maxGroupSize: 10,
+        difficulty: "Relaxing",
+        bestSeason: "Year-round",
+        includes: [
+          "Wellness accommodations",
+          "Spa treatments",
+          "Yoga instructor",
+          "Healthy meals",
+          "Meditation guide"
+        ],
+        excludes: [
+          "International flights",
+          "Personal spa items",
+          "Travel insurance",
+          "Additional treatments"
+        ],
+        tourOperatorId: createdOperators[5].id
+      },
+      {
+        name: "Traditional Medicine & Spa Experience",
+        description: "Experience authentic Bhutanese traditional medicine combined with luxury spa treatments for holistic healing. Learn about Sowa Rigpa healing practices.",
+        duration: 5,
+        price: 1200,
+        category: "Wellness",
+        imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.8,
+        reviewCount: 76,
+        highlights: [
+          "Sowa Rigpa medicine",
+          "Herbal consultations",
+          "Therapeutic massages",
+          "Detox programs",
+          "Wellness education"
+        ],
+        maxGroupSize: 8,
+        difficulty: "Gentle",
+        bestSeason: "Year-round",
+        includes: [
+          "Medical consultations",
+          "Herbal treatments",
+          "Spa services",
+          "Wellness meals",
+          "Health assessments"
+        ],
+        excludes: [
+          "International flights",
+          "Personal medications",
+          "Travel insurance",
+          "Extended treatments"
+        ],
+        tourOperatorId: createdOperators[5].id
+      },
+
+      // Additional Photography Tours
+      {
+        name: "Bhutan Photography Masterclass",
+        description: "Professional photography workshop covering landscape, portrait, and cultural photography in Bhutan's most photogenic locations.",
+        duration: 10,
+        price: 2200,
+        category: "Photography",
+        imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.9,
+        reviewCount: 87,
+        highlights: [
+          "Professional instruction",
+          "Tiger's Nest photography",
+          "Festival documentation",
+          "Portrait sessions",
+          "Equipment provided"
+        ],
+        maxGroupSize: 8,
+        difficulty: "Moderate",
+        bestSeason: "Spring & Autumn",
+        includes: [
+          "Professional photographer guide",
+          "Photography equipment",
+          "Editing workshops",
+          "Print portfolio",
+          "All entrance fees"
+        ],
+        excludes: [
+          "International flights",
+          "Personal camera gear",
+          "Travel insurance",
+          "Photo processing"
+        ],
+        tourOperatorId: createdOperators[4].id
+      },
+      {
+        name: "Himalayan Sunrise Photography Tour",
+        description: "Capture the golden hour magic of the Himalayas with early morning photography sessions at the most scenic viewpoints.",
+        duration: 6,
+        price: 1500,
+        category: "Photography",
+        imageUrl: "https://images.unsplash.com/photo-1544191696-15693072b5d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.8,
+        reviewCount: 65,
+        highlights: [
+          "Sunrise photography",
+          "Mountain panoramas",
+          "Golden hour techniques",
+          "Composition training",
+          "Digital editing"
+        ],
+        maxGroupSize: 6,
+        difficulty: "Easy",
+        bestSeason: "Autumn & Winter",
+        includes: [
+          "Photography guide",
+          "Tripods and filters",
+          "Transportation to viewpoints",
+          "Hot beverages",
+          "Photo critique sessions"
+        ],
+        excludes: [
+          "International flights",
+          "Camera equipment",
+          "Travel insurance",
+          "Accommodation upgrades"
+        ],
+        tourOperatorId: createdOperators[4].id
+      },
+
+      // Additional Bird Watching Tours
+      {
+        name: "Bhutan Birding Expedition",
+        description: "Comprehensive birding tour covering all major habitats from subtropical forests to alpine meadows, targeting 200+ species.",
+        duration: 14,
+        price: 3200,
+        category: "Birdwatching",
+        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.9,
+        reviewCount: 92,
+        highlights: [
+          "200+ bird species",
+          "Endemic species focus",
+          "Professional birding guide",
+          "High-quality optics",
+          "Habitat diversity"
+        ],
+        maxGroupSize: 8,
+        difficulty: "Moderate",
+        bestSeason: "Spring & Autumn",
+        includes: [
+          "Expert birding guide",
+          "Binoculars and scopes",
+          "Bird identification books",
+          "Transportation",
+          "All park fees"
+        ],
+        excludes: [
+          "International flights",
+          "Personal birding gear",
+          "Travel insurance",
+          "Photography equipment"
+        ],
+        tourOperatorId: createdOperators[3].id
+      },
+      {
+        name: "Rare Birds of Eastern Bhutan",
+        description: "Specialized birding tour focusing on rare and endemic species in Bhutan's eastern regions, including the elusive Ward's Trogon.",
+        duration: 12,
+        price: 2800,
+        category: "Birdwatching",
+        imageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        rating: 4.8,
+        reviewCount: 74,
+        highlights: [
+          "Ward's Trogon",
+          "Beautiful Nuthatch",
+          "Rufous-necked Hornbill",
+          "Endemic species",
+          "Remote locations"
+        ],
+        maxGroupSize: 6,
+        difficulty: "Challenging",
+        bestSeason: "Spring",
+        includes: [
+          "Specialist birding guide",
+          "High-end optics",
+          "Remote area permits",
+          "4WD transportation",
+          "Field notebooks"
+        ],
+        excludes: [
+          "International flights",
+          "Personal equipment",
+          "Travel insurance",
+          "Emergency evacuation"
+        ],
+        tourOperatorId: createdOperators[3].id
       }
     ];
 
@@ -789,61 +1139,73 @@ async function seed() {
     // Seed comprehensive blog posts
     const blogData = [
       {
-        title: "Understanding Bhutan's Gross National Happiness",
-        content: "Discover how Bhutan measures success not by GDP but by the happiness and well-being of its people. The four pillars of Gross National Happiness - sustainable development, environmental conservation, cultural preservation, and good governance - form the foundation of Bhutanese society. This unique philosophy has made Bhutan a model for sustainable development worldwide, showing that economic growth and environmental protection can coexist harmoniously.",
-        excerpt: "Learn about Bhutan's unique approach to measuring national success through the four pillars of Gross National Happiness.",
+        title: "Understanding Bhutan's Gross National Happiness Philosophy",
+        content: "Bhutan stands unique among nations for prioritizing Gross National Happiness over Gross Domestic Product. This revolutionary approach, introduced by the Fourth King of Bhutan, Jigme Singye Wangchuck, is built on four fundamental pillars: sustainable and equitable socio-economic development, environmental conservation, preservation and promotion of cultural values, and good governance.\n\nUnlike traditional economic models that focus solely on material wealth, GNH recognizes that true progress encompasses the spiritual, physical, social and environmental health of citizens. The philosophy emphasizes that development should be holistic, serving not just the economy but the collective well-being of all people.\n\nThe four pillars work in harmony: sustainable development ensures economic growth doesn't come at the expense of future generations; environmental conservation maintains Bhutan's pristine natural heritage with over 70% forest coverage mandated by the constitution; cultural preservation keeps alive the rich traditions, language, and values that define Bhutanese identity; and good governance ensures transparent, accountable leadership that serves the people.\n\nThis approach has made Bhutan carbon-negative, one of the happiest countries in Asia, and a model for sustainable development worldwide. The GNH philosophy proves that a nation can prosper while maintaining its soul, environment, and cultural integrity.",
+        excerpt: "Discover how Bhutan revolutionized national development by prioritizing citizen happiness over economic growth through the four pillars of Gross National Happiness.",
         imageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
         category: "Culture",
         readTime: "8 min read",
-        author: "Tenzin Norbu",
+        author: "Tashi Dorji",
         authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
         isPublished: true,
         publishedAt: new Date()
       },
       {
-        title: "Best Time to Visit Bhutan: A Seasonal Guide",
-        content: "Planning your trip to Bhutan? Here's everything you need to know about the best times to visit this Himalayan kingdom. Spring (March-May) brings rhododendron blooms and clear mountain views, while autumn (September-November) offers perfect weather and festival seasons. Summer brings monsoons but fewer crowds, and winter provides clear skies but cold temperatures. Each season has its unique charm and advantages for different types of travelers.",
-        excerpt: "From spring rhododendrons to autumn festivals, discover the perfect season for your Bhutan adventure.",
+        title: "The Sacred Tiger's Nest: Journey to Paro Taktsang",
+        content: "Perched dramatically on a cliff face 900 meters above the Paro Valley, Paro Taktsang, known as Tiger's Nest Monastery, is Bhutan's most iconic landmark and a testament to human devotion and architectural marvel. This sacred site holds profound spiritual significance as the place where Guru Rinpoche (Padmasambhava) meditated for three years, three months, three weeks, and three days in the 8th century.\n\nLegend tells that Guru Rinpoche flew to this location on the back of a tigress, who was actually his consort Yeshe Tsogyal in her wrathful form. The monastery, built around the cave where he meditated, has been a pilgrimage site for over 1,300 years, drawing devotees from across the Buddhist world.\n\nThe journey to Tiger's Nest is as transformative as the destination itself. The trek begins at the base in Paro Valley and winds through pine forests adorned with colorful prayer flags. The path offers breathtaking views of the valley below and the monastery clinging impossibly to the cliff face above. Pilgrims and visitors alike find the 2-3 hour hike a moving meditation, with each step bringing them closer to one of Buddhism's most sacred sites.\n\nThe monastery complex consists of four main temples and residential quarters for monks, all connected by narrow staircases carved into the rock face. Inside, ancient murals, golden statues, and the sacred cave where Guru Rinpoche meditated create an atmosphere of profound spirituality that has remained unchanged for centuries.",
+        excerpt: "Explore the legendary Tiger's Nest Monastery, where Guru Rinpoche meditated for over three years and established one of Buddhism's most sacred pilgrimage sites.",
+        imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        category: "Culture",
+        readTime: "10 min read",
+        author: "Tashi Dorji",
+        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        isPublished: true,
+        publishedAt: new Date()
+      },
+      {
+        title: "Bhutan's High Value, Low Impact Tourism Model",
+        content: "Bhutan has pioneered a revolutionary approach to tourism that prioritizes quality over quantity, environmental protection over profit, and cultural preservation over commercialization. The 'High Value, Low Impact' tourism policy, implemented since the 1970s, has made Bhutan a global leader in sustainable travel.\n\nAt the heart of this policy is the Sustainable Development Fee (SDF), which ensures that tourism contributes meaningfully to the country's development while limiting visitor numbers to protect the environment and culture. This fee supports free healthcare and education for all Bhutanese citizens, infrastructure development, and environmental conservation programs.\n\nUnlike mass tourism destinations that often suffer from overcrowding, environmental degradation, and cultural erosion, Bhutan maintains strict limits on visitor numbers. This approach ensures that tourists receive personalized, authentic experiences while local communities benefit directly from tourism revenue without being overwhelmed by crowds.\n\nThe policy mandates that all tourists (except those from India, Bangladesh, and the Maldives) travel through licensed tour operators, ensuring quality services and authentic cultural exchanges. Visitors must book comprehensive packages that include accommodation, meals, transportation, and guide services, guaranteeing that tourism revenue reaches local communities.\n\nThis model has preserved Bhutan's pristine environment, with over 70% forest coverage, and maintained its rich cultural heritage while providing sustainable livelihoods for thousands of Bhutanese. It proves that tourism can be a force for good when managed responsibly.",
+        excerpt: "Learn how Bhutan's innovative tourism policy balances visitor experiences with environmental protection and cultural preservation through sustainable practices.",
+        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        category: "Travel Tips",
+        readTime: "7 min read",
+        author: "Tashi Dorji",
+        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        isPublished: true,
+        publishedAt: new Date()
+      },
+      {
+        title: "The Seasons of Bhutan: When to Visit the Last Shangri-La",
+        content: "Bhutan's diverse geography, from subtropical plains in the south to towering Himalayan peaks in the north, creates distinct seasons that each offer unique experiences for travelers. Understanding these seasonal variations is crucial for planning the perfect Bhutanese adventure.\n\nSpring (March to May) is arguably the most spectacular time to visit Bhutan. The valleys come alive with blooming rhododendrons, Bhutan's national flower, painting the mountainsides in brilliant reds, pinks, and whites. The weather is mild and pleasant, with clear skies offering stunning views of the snow-capped Himalayas. This is also the season when many festivals take place, including the famous Paro Tsechu.\n\nAutumn (September to November) is considered the peak tourist season, and for good reason. The monsoon rains have cleared, leaving crystal-clear skies and excellent visibility of the mountain ranges. The weather is crisp and comfortable, perfect for trekking and outdoor activities. Many of Bhutan's most important festivals occur during this period, offering visitors authentic cultural experiences.\n\nSummer (June to August) brings the monsoon season, with frequent afternoon showers that keep the landscape lush and green. While some may avoid this season due to rain, it offers unique advantages: fewer tourists, lower prices, and the most vibrant green landscapes. The rain typically falls in the afternoon and evening, leaving mornings clear for sightseeing.\n\nWinter (December to February) offers clear, crisp days with stunning mountain views, though temperatures can be quite cold, especially at higher elevations. This is an excellent time for photography and experiencing Bhutan's winter festivals, though some high-altitude areas may be inaccessible due to snow.",
+        excerpt: "Discover the best time to visit Bhutan based on weather, festivals, and seasonal highlights from spring rhododendrons to autumn's crystal-clear mountain views.",
         imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
         category: "Travel Tips",
         readTime: "6 min read",
-        author: "Pema Lhamo",
-        authorImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        author: "Tashi Dorji",
+        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
         isPublished: true,
         publishedAt: new Date()
       },
       {
-        title: "Tiger's Nest Monastery: A Complete Guide",
-        content: "Everything you need to know about visiting Bhutan's most iconic monastery perched on a cliff 3,000 feet above the Paro Valley. Paro Taktsang, or Tiger's Nest, is where Guru Rinpoche is said to have meditated for three years, three months, three weeks, and three days. The hike takes 2-3 hours each way, with stunning views and spiritual significance at every step. Learn about the history, hiking tips, what to expect, and how to make the most of your visit to this sacred site.",
-        excerpt: "Your comprehensive guide to visiting Paro Taktsang, including hiking tips, history, and what to expect.",
-        imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "Attractions",
-        readTime: "10 min read",
-        author: "Karma Wangchuk",
-        authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        isPublished: true,
-        publishedAt: new Date()
-      },
-      {
-        title: "Sustainable Tourism in Bhutan: Leading by Example",
-        content: "Bhutan's 'High Value, Low Impact' tourism policy has made it a global leader in sustainable tourism. With a daily sustainable development fee and limits on tourist numbers, Bhutan ensures that tourism benefits local communities while preserving the environment and culture. Learn how this approach has created a model for responsible tourism that other destinations are now trying to emulate.",
-        excerpt: "Discover how Bhutan's sustainable tourism policy protects the environment while benefiting local communities.",
-        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "Sustainability",
-        readTime: "7 min read",
-        author: "Sonam Choden",
-        authorImage: "https://images.unsplash.com/photo-1494790108755-2616b612b830?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        isPublished: true,
-        publishedAt: new Date()
-      },
-      {
-        title: "Bhutanese Festivals: A Calendar of Celebrations",
-        content: "Bhutan's festival calendar is filled with colorful celebrations throughout the year. From the famous Paro Tsechu to the remote Bumthang festivals, each celebration offers unique insights into Bhutanese culture and Buddhism. These festivals feature masked dances (cham), traditional music, and community gatherings that have remained unchanged for centuries. Plan your visit around these festivals for an authentic cultural experience.",
-        excerpt: "Explore Bhutan's vibrant festival calendar and plan your visit around these colorful celebrations.",
+        title: "Bhutanese Festivals: Windows into an Ancient Culture",
+        content: "Bhutan's festival calendar is a vibrant tapestry of spiritual celebration, cultural preservation, and community bonding that has remained largely unchanged for centuries. These festivals, known as 'tsechus' and 'drupchens,' are not mere tourist attractions but living expressions of Bhutanese Buddhist culture and identity.\n\nThe most famous of these celebrations is the Paro Tsechu, held annually in spring at the Paro Dzong. This four-day festival culminates with the unfurling of a giant thangka (religious painting) at dawn, believed to cleanse sins simply by viewing it. Masked dancers, representing various Buddhist deities and demons, perform sacred cham dances that tell stories of good triumphing over evil.\n\nEach festival has deep spiritual significance rooted in Bhutanese Buddhism. The masked dances are not entertainment but religious ceremonies that purify the environment and bring blessings to spectators. The elaborate costumes, intricate masks, and rhythmic movements have been passed down through generations of monks and lay performers.\n\nThimphu Tshechu, the capital's grandest festival, showcases the full spectrum of Bhutanese culture. Families dress in their finest traditional attire - the gho for men and kira for women - and gather to witness the sacred performances while socializing and sharing meals. The festival serves as a reunion for extended families and a reaffirmation of cultural identity.\n\nSmaller, more intimate festivals in remote valleys like Bumthang offer visitors authentic experiences away from crowds. These celebrations maintain their traditional character, with entire communities participating in age-old rituals that connect them to their ancestors and Buddhist heritage.\n\nAttending a Bhutanese festival is like stepping back in time, witnessing traditions that have survived in their original form while the rest of the world has modernized around them.",
+        excerpt: "Experience Bhutan's sacred festivals where ancient Buddhist traditions come alive through masked dances, spiritual ceremonies, and community celebrations.",
         imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
         category: "Culture",
         readTime: "9 min read",
-        author: "Jigme Dorji",
+        author: "Tashi Dorji",
+        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        isPublished: true,
+        publishedAt: new Date()
+      },
+      {
+        title: "The Last Carbon-Negative Country: Bhutan's Environmental Legacy",
+        content: "In a world grappling with climate change, Bhutan stands as a beacon of environmental stewardship, holding the unique distinction of being the world's only carbon-negative country. This remarkable achievement is not accidental but the result of deliberate policies, constitutional mandates, and a deep-rooted cultural reverence for nature.\n\nBhutan's constitution mandates that at least 60% of the country must remain under forest cover for all time. Currently, over 70% of the country is forested, making it a massive carbon sink that absorbs more carbon dioxide than the entire nation produces. This constitutional provision ensures that future generations will inherit a pristine environment regardless of development pressures.\n\nThe country's commitment to environmental conservation extends beyond forest coverage. Bhutan has banned the export of raw timber, prohibited hunting of wildlife, and established an extensive network of protected areas covering over 50% of the country. These protected areas are connected by biological corridors, allowing wildlife to migrate freely and maintaining ecosystem integrity.\n\nHydroelectric power, generated from Bhutan's abundant rivers, provides clean energy not only for domestic use but also for export to neighboring countries, further contributing to regional carbon reduction. The government has committed to remaining carbon-neutral for all time, even as the country develops economically.\n\nBhutan's environmental philosophy is deeply rooted in Buddhist principles that emphasize the interconnectedness of all life. This spiritual foundation, combined with practical policies and strong governance, has created a model that other nations are studying and attempting to replicate.\n\nThe country's environmental success proves that economic development and environmental protection are not mutually exclusive but can work in harmony when guided by wisdom, foresight, and genuine commitment to future generations.",
+        excerpt: "Discover how Bhutan became the world's only carbon-negative country through constitutional forest protection, renewable energy, and Buddhist environmental philosophy.",
+        imageUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        category: "Environment",
+        readTime: "8 min read",
+        author: "Tashi Dorji",
         authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
         isPublished: true,
         publishedAt: new Date()
@@ -860,8 +1222,8 @@ async function seed() {
         name: "Paro Tsechu 2025",
         description: "One of Bhutan's most famous festivals featuring sacred mask dances, traditional music, and colorful celebrations at Paro Dzong. Witness the unfurling of the giant thangka and receive blessings from the monks.",
         location: "Paro Dzong, Paro",
-        startDate: new Date("2025-04-15"),
-        endDate: new Date("2025-04-19"),
+        startDate: new Date("2025-03-15"),
+        endDate: new Date("2025-03-19"),
         imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
         category: "religious",
         highlights: [
@@ -879,8 +1241,8 @@ async function seed() {
         name: "Thimphu Tshechu 2025",
         description: "The capital's grandest festival held at Tashichho Dzong, featuring elaborate mask dances, traditional costumes, and spiritual ceremonies. A perfect introduction to Bhutanese culture and Buddhism.",
         location: "Tashichho Dzong, Thimphu",
-        startDate: new Date("2025-09-20"),
-        endDate: new Date("2025-09-22"),
+        startDate: new Date("2025-02-20"),
+        endDate: new Date("2025-02-22"),
         imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
         category: "religious",
         highlights: [
@@ -898,8 +1260,8 @@ async function seed() {
         name: "Punakha Drubchen 2025",
         description: "A unique festival recreating the 17th-century battle against Tibetan invaders, featuring dramatic war dances and historical reenactments at the beautiful Punakha Dzong.",
         location: "Punakha Dzong, Punakha",
-        startDate: new Date("2025-03-08"),
-        endDate: new Date("2025-03-10"),
+        startDate: new Date("2025-02-08"),
+        endDate: new Date("2025-02-10"),
         imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
         category: "cultural",
         highlights: [
@@ -1274,6 +1636,9 @@ async function seed() {
     console.log(`🎯 Created ${toursData.length} tours`);
     console.log(`💬 Created ${testimonialsData.length} testimonials`);
     console.log(`📝 Created ${blogData.length} blog posts`);
+    console.log(`🎉 Created ${festivalsData.length} festivals`);
+    console.log(`🏨 Created ${hotelsData.length} hotels`);
+    console.log(`🛏️ Created ${hotelRoomsData.length} hotel rooms`);
     console.log(`🎉 Created ${festivalsData.length} festivals`);
     console.log(`🏨 Created ${hotelsData.length} hotels`);
     console.log(`🛏️ Created ${hotelRoomsData.length} hotel rooms`);

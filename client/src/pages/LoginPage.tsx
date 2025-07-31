@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/components/AuthContext";
 import { Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 
 export default function LoginPage() {
@@ -21,42 +22,66 @@ export default function LoginPage() {
     role: "tourist",
   });
   const { toast } = useToast();
+  const { user, login } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      // Redirect based on role if already logged in
+      if (user.role === 'admin') {
+        setLocation('/admin');
+      } else if (user.role === 'guide' || user.role === 'driver') {
+        setLocation('/dashboard');
+      } else {
+        setLocation('/');
+      }
+    }
+  }, [user, setLocation]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
       if (isLogin) {
-        // Login logic
-        const response = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: formData.email,
-            password: formData.password,
-          }),
-        });
+        // Try backend API first, then fallback to AuthContext
+        try {
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: formData.email,
+              password: formData.password,
+            }),
+          });
 
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem("user", JSON.stringify(data.user));
-          localStorage.setItem("token", data.token);
-          
+          if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("token", data.token);
+            
+            toast({
+              title: "Login Successful!",
+              description: `Welcome back, ${data.user.firstName}!`,
+            });
+            
+            // Force page reload to trigger auth context update
+            window.location.reload();
+            return;
+          }
+        } catch (apiError) {
+          console.log('API login failed, trying AuthContext...');
+        }
+        
+        // Fallback to AuthContext login
+        const success = await login(formData.email, formData.password);
+        
+        if (success) {
           toast({
             title: "Login Successful!",
-            description: `Welcome back, ${data.user.firstName}!`,
+            description: "Welcome back!",
           });
-          
-          // Redirect based on role
-          if (data.user.role === "admin") {
-            setLocation("/admin");
-          } else if (data.user.role === "guide" || data.user.role === "driver") {
-            setLocation("/dashboard");
-          } else {
-            setLocation("/");
-          }
+          // Redirect will be handled by useEffect when user state changes
         } else {
           throw new Error("Invalid credentials");
         }
@@ -98,7 +123,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-teal-50 to-teal-100 flex items-center justify-center py-12 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">
@@ -237,13 +262,13 @@ export default function LoginPage() {
           </div>
           
           {isLogin && (
-            <div className="mt-4 p-3 bg-gray-50 rounded-lg text-sm">
+            <div className="mt-4 p-3 bg-gradient-to-br from-teal-50 to-emerald-50 rounded-lg text-sm">
               <p className="font-semibold mb-2">Demo Accounts:</p>
               <div className="space-y-1 text-xs">
-                <p><strong>Tourist:</strong> tourist@demo.com / password</p>
-                <p><strong>Guide:</strong> guide@demo.com / password</p>
-                <p><strong>Driver:</strong> driver@demo.com / password</p>
-                <p><strong>Admin:</strong> admin@demo.com / password</p>
+                <p><strong>Admin:</strong> admin@bhutan.com / admin123</p>
+                <p><strong>Guide:</strong> guide@bhutan.com / guide123</p>
+                <p><strong>Driver:</strong> driver@bhutan.com / driver123</p>
+                <p><strong>Tourist:</strong> tourist@bhutan.com / tourist123</p>
               </div>
             </div>
           )}

@@ -3,24 +3,24 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link } from "wouter";
 import { 
   Clock, Users, Mountain, Calendar, MapPin, Star, 
   Camera, Binoculars, TreePine, Heart, Award, CheckCircle 
 } from "lucide-react";
 import { AUTHENTIC_TOURS, BHUTAN_DESTINATIONS, BHUTAN_CULTURE_INFO } from "@/data/authenticTours";
+import { TOUR_FILTER_CATEGORIES } from "@/lib/tourCategories";
 
 export function AuthenticToursSection() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   
-  const categories = [
-    { id: 'all', label: 'All Tours(package)', count: AUTHENTIC_TOURS.length },
-    { id: 'Cultural', label: 'Cultural', count: AUTHENTIC_TOURS.filter(t => t.category === 'Cultural').length },
-    { id: 'Trekking', label: 'Trekking', count: AUTHENTIC_TOURS.filter(t => t.category === 'Trekking').length },
-    { id: 'Festival', label: 'Festival', count: AUTHENTIC_TOURS.filter(t => t.category === 'Festival').length },
-    { id: 'Wildlife', label: 'Wildlife', count: AUTHENTIC_TOURS.filter(t => t.category === 'Wildlife').length },
-    { id: 'Adventure', label: 'Adventure', count: AUTHENTIC_TOURS.filter(t => t.category === 'Adventure').length },
-    { id: 'Spiritual', label: 'Spiritual', count: AUTHENTIC_TOURS.filter(t => t.category === 'Spiritual').length }
-  ];
+  const categories = TOUR_FILTER_CATEGORIES.map(cat => ({
+    id: cat.value,
+    label: cat.value === 'all' ? 'All Package' : cat.label,
+    count: cat.value === 'all' 
+      ? AUTHENTIC_TOURS.length 
+      : AUTHENTIC_TOURS.filter(t => t.category === cat.value).length
+  })).filter(cat => cat.count > 0);
 
   const filteredTours = selectedCategory === 'all' 
     ? AUTHENTIC_TOURS 
@@ -42,12 +42,12 @@ export function AuthenticToursSection() {
     <section className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-green-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <Badge className="bg-blue-600 text-white text-sm px-4 py-2 mb-4">
+          <Badge className="bg-teal-600 text-white text-sm px-4 py-2 mb-4">
             <Award className="w-4 h-4 mr-2" />
             Authentic Bhutan Experiences
           </Badge>
           <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            Discover <span className="gradient-text">Real Bhutan</span>
+            <span className="gradient-text">Transformative Journeys</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             Curated experiences from Bhutan's most trusted operators. Each tour is crafted 
@@ -66,8 +66,8 @@ export function AuthenticToursSection() {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`flex items-center gap-2 ${
                   selectedCategory === category.id 
-                    ? "bg-gradient-to-r from-blue-600 to-green-600 text-white" 
-                    : "hover:bg-blue-50"
+                    ? "bg-gradient-to-r from-teal-600 to-green-600 text-white" 
+                    : "hover:bg-teal-50"
                 }`}
               >
 {React.createElement(Icon, { className: "w-4 h-4" })}
@@ -93,7 +93,7 @@ export function AuthenticToursSection() {
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge className={`bg-gradient-to-r from-blue-600 to-green-600 text-white`}>
+                    <Badge className={`bg-gradient-to-r from-teal-600 to-green-600 text-white`}>
                       {React.createElement(Icon, { className: "w-3 h-3 mr-1" })}
                       {tour.category}
                     </Badge>
@@ -108,7 +108,7 @@ export function AuthenticToursSection() {
                 
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-teal-600 transition-colors">
                       {tour.name}
                     </h3>
                     <div className="text-right">
@@ -123,7 +123,7 @@ export function AuthenticToursSection() {
 
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center text-sm text-gray-600">
-                      <Users className="w-4 h-4 mr-2 text-blue-500" />
+                      <Users className="w-4 h-4 mr-2 text-teal-500" />
                       <span>{tour.groupSize}</span>
                       <div className="mx-3 w-1 h-1 bg-gray-300 rounded-full"></div>
                       <Mountain className="w-4 h-4 mr-2 text-green-500" />
@@ -145,7 +145,7 @@ export function AuthenticToursSection() {
                         </li>
                       ))}
                       {tour.highlights.length > 3 && (
-                        <li className="text-sm text-blue-600 font-medium">
+                        <li className="text-sm text-teal-600 font-medium">
                           +{tour.highlights.length - 3} more highlights
                         </li>
                       )}
@@ -153,11 +153,13 @@ export function AuthenticToursSection() {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button 
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white"
-                    >
-                      View Details
-                    </Button>
+                    <Link href={`/tours/${tour.id}`} className="flex-1">
+                      <Button 
+                        className="w-full bg-gradient-to-r from-teal-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
+                      >
+                        View Details
+                      </Button>
+                    </Link>
                     <Button variant="outline" className="flex-shrink-0">
                       <Heart className="w-4 h-4" />
                     </Button>
@@ -170,7 +172,7 @@ export function AuthenticToursSection() {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-white">
+          <div className="bg-gradient-to-r from-teal-600 to-green-600 rounded-2xl p-8 text-white">
             <h3 className="text-3xl font-bold mb-4">
               Can't Find Your Perfect Adventure?
             </h3>
@@ -179,10 +181,10 @@ export function AuthenticToursSection() {
               group size, and travel dates. Every journey is unique, just like you.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8">
+              <Button size="lg" className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 font-semibold px-8">
                 Create Custom Tour
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8">
+              <Button size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-teal-600 font-semibold px-8 transition-all duration-300">
                 Speak to Expert
               </Button>
             </div>
@@ -195,7 +197,7 @@ export function AuthenticToursSection() {
 
 export function BhutanDestinationsSection() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-br from-white to-teal-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
@@ -234,7 +236,7 @@ export function BhutanDestinationsSection() {
                   <ul className="space-y-1">
                     {destination.highlights.slice(0, 3).map((highlight, idx) => (
                       <li key={idx} className="flex items-center text-sm text-gray-600">
-                        <Star className="w-3 h-3 mr-2 text-yellow-500 flex-shrink-0" />
+                        <Star className="w-3 h-3 mr-2 text-amber-500 flex-shrink-0" />
                         {highlight}
                       </li>
                     ))}
@@ -246,9 +248,11 @@ export function BhutanDestinationsSection() {
                     <Calendar className="w-4 h-4 mr-1 text-green-500" />
                     <span>{destination.bestTime}</span>
                   </div>
-                  <Button variant="outline" size="sm">
-                    Learn More
-                  </Button>
+                  <Link href={`/destinations/${destination.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}>
+                    <Button variant="outline" size="sm">
+                      Learn More
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -291,7 +295,7 @@ export function BhutanCultureSection() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {BHUTAN_CULTURE_INFO.grossNationalHappiness.principles.map((principle, index) => (
-                  <div key={index} className="flex items-center p-4 bg-blue-50 rounded-lg">
+                  <div key={index} className="flex items-center p-4 bg-teal-50 rounded-lg">
                     <CheckCircle className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
                     <span className="text-gray-800">{principle}</span>
                   </div>
@@ -329,8 +333,8 @@ export function BhutanCultureSection() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {BHUTAN_CULTURE_INFO.textiles.crafts.map((craft, index) => (
-                  <div key={index} className="flex items-center p-4 bg-purple-50 rounded-lg">
-                    <Star className="w-5 h-5 text-purple-600 mr-3 flex-shrink-0" />
+                  <div key={index} className="flex items-center p-4 bg-teal-50 rounded-lg">
+                    <Star className="w-5 h-5 text-teal-600 mr-3 flex-shrink-0" />
                     <span className="text-gray-800">{craft}</span>
                   </div>
                 ))}

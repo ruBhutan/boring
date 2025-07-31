@@ -84,7 +84,7 @@ export default function BookingModal({ isOpen, onClose, tour }: BookingModalProp
           </DialogDescription>
         </DialogHeader>
         
-        <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-2xl mb-6">
+        <div className="bg-gradient-to-r from-teal-50 to-green-50 p-6 rounded-2xl mb-6">
           <h3 className="font-semibold text-gray-900 mb-2">{tour.name}</h3>
           <div className="flex items-center justify-between">
             <span className="text-gray-600">{tour.duration}</span>

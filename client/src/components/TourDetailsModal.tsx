@@ -58,10 +58,10 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm">
-      <div className="h-full overflow-y-auto">
-        <div className="min-h-full flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm">
+      <div className="h-full overflow-y-auto pt-20">
+        <div className="min-h-full flex items-start justify-center p-4">
+          <div className="bg-gradient-to-br from-white to-teal-50 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[85vh] overflow-hidden">
             {/* Header */}
             <div className="relative">
               <div className="relative h-80 overflow-hidden">
@@ -117,7 +117,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                         Max 12 people
                       </div>
                       <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 fill-current text-yellow-400" />
+                        <Star className="w-4 h-4 fill-current text-amber-400" />
                         {tour.rating} ({tour.reviewCount} reviews)
                       </div>
                     </div>
@@ -142,7 +142,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                   <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <MapPin className="w-5 h-5 text-blue-600" />
+                        <MapPin className="w-5 h-5 text-teal-600" />
                         Tour Overview
                       </CardTitle>
                     </CardHeader>
@@ -192,7 +192,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                     <Card key={index}>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                          <Calendar className="w-5 h-5 text-blue-600" />
+                          <Calendar className="w-5 h-5 text-teal-600" />
                           Day {day.day}: {day.title}
                         </CardTitle>
                         <CardDescription className="flex items-center gap-4">
@@ -274,7 +274,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                       <Card key={index}>
                         <CardHeader>
                           <CardTitle className="flex items-center gap-2">
-                            <Bed className="w-5 h-5 text-blue-600" />
+                            <Bed className="w-5 h-5 text-teal-600" />
                             {accommodation.name}
                           </CardTitle>
                           <CardDescription className="flex items-center gap-2">
@@ -314,7 +314,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                             <ul className="space-y-2">
                               {tourDetails.culturalExperiences.map((experience, index) => (
                                 <li key={index} className="flex items-start gap-2">
-                                  <Camera className="w-4 h-4 text-purple-600 mt-1 flex-shrink-0" />
+                                  <Camera className="w-4 h-4 text-teal-600 mt-1 flex-shrink-0" />
                                   <span className="text-gray-700">{experience}</span>
                                 </li>
                               ))}
@@ -326,7 +326,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                             <ul className="space-y-2">
                               {tourDetails.localCuisine.map((dish, index) => (
                                 <li key={index} className="flex items-start gap-2">
-                                  <Utensils className="w-4 h-4 text-orange-600 mt-1 flex-shrink-0" />
+                                  <Utensils className="w-4 h-4 text-amber-600 mt-1 flex-shrink-0" />
                                   <span className="text-gray-700">{dish}</span>
                                 </li>
                               ))}
@@ -380,7 +380,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                          <Car className="w-5 h-5 text-blue-600" />
+                          <Car className="w-5 h-5 text-teal-600" />
                           Transportation
                         </CardTitle>
                       </CardHeader>
@@ -425,7 +425,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                         onBookNow(tour);
                         onClose();
                       }}
-                      className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-8 py-3 rounded-full font-semibold"
+                      className="bg-gradient-to-r from-amber-500 to-amber-500 hover:from-amber-600 hover:to-amber-600 text-white px-8 py-3 rounded-full font-semibold"
                     >
                       Book This Tour
                     </Button>

@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import Hero from "@/components/Hero";
-import TourCard from "@/components/TourCard";
+import TourGrid from "@/components/TourGrid";
 import BookingModal from "@/components/BookingModal";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Map, Star, Camera, Heart, Users, Award, BookOpen, Calendar } from "lucide-react";
-import { TOUR_CATEGORIES, TEAM_MEMBERS, GALLERY_IMAGES } from "@/lib/constants";
+import { TOUR_CATEGORIES, TEAM_MEMBERS, GALLERY_IMAGES, BHUTAN_VIDEOS } from "@/lib/constants";
+import { VideoGallery } from "@/components/VideoModal";
 import { FeaturedToursSection, FestivalCalendarSection, LuxuryAccommodationsSection, ExpertGuidesSection } from "@/components/PremiumFeaturesSection";
 import { TrustIndicatorsSection, ReviewsSection } from "@/components/TrustIndicators";
 import { AuthenticToursSection, BhutanDestinationsSection, BhutanCultureSection } from "@/components/AuthenticToursSection";
 import { BhutanVisaSection, BhutanLifestyleSection, HotStoneBathSection, BhutanRaftingSection } from "@/components/BhutanInfoHub";
+import UpcomingEventsSection from "@/components/UpcomingEventsSection";
 import type { Tour, Testimonial, BlogPost } from "@shared/schema";
 
 export default function HomePage() {
@@ -32,7 +35,7 @@ export default function HomePage() {
   });
 
   const filteredTours = tours.filter(tour => 
-    activeFilter === "all" || tour.category === activeFilter
+    activeFilter === "all" || tour.category.toLowerCase() === activeFilter.toLowerCase()
   );
 
   const handleBookNow = (tour: Tour) => {
@@ -45,56 +48,60 @@ export default function HomePage() {
       <Hero />
       
       {/* Tour Packages Section */}
-      <section id="tours" className="py-20 bg-gray-50">
+      <section id="tours" className="py-20 section-teal-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-green-100 rounded-full mb-4">
-              <Map className="w-5 h-5 text-blue-500 mr-2" />
-              <span className="text-sm font-medium text-gray-700">Tour Packages</span>
+            <div className="brand-section-header mb-6">
+              <Map className="w-5 h-5" />
+              Tour Packages
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 brand-heading">
               Transformative
               <span className="gradient-text"> Journeys</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body brand-body">
               Carefully crafted experiences that blend adventure, culture, and spiritual discovery 
               in the heart of the Himalayas.
             </p>
           </div>
           
           {/* Filter buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {TOUR_CATEGORIES.map((category) => (
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            {TOUR_CATEGORIES.slice(0, 6).map((category) => (
               <Button
                 key={category.value}
                 variant={activeFilter === category.value ? "default" : "outline"}
                 onClick={() => setActiveFilter(category.value)}
-                className={activeFilter === category.value ? "btn-primary" : ""}
+                className={activeFilter === category.value ? "btn-teal text-white" : "btn-teal-outline"}
               >
                 {category.label}
               </Button>
             ))}
           </div>
           
-          {/* Tour Cards Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredTours.slice(0, 6).map((tour) => (
-              <TourCard
-                key={tour.id}
-                tour={tour}
-                onBookNow={handleBookNow}
-              />
-            ))}
+          <div className="text-center mb-12">
+            <Link href="/tours">
+              <Button className="btn-teal-outline">
+                View All Categories
+              </Button>
+            </Link>
           </div>
+          
+          {/* Tour Cards Grid */}
+          <TourGrid 
+            tours={filteredTours} 
+            onBookNow={handleBookNow} 
+            showAll={false}
+          />
         </div>
       </section>
 
       {/* About Section Preview */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-br from-white to-teal-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-green-500/20 rounded-2xl transform rotate-3"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-green-500/20 rounded-2xl transform rotate-3"></div>
               <img
                 src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&h=400&fit=crop"
                 alt="Ancient Bhutanese monastery nestled in mountain valley"
@@ -102,13 +109,13 @@ export default function HomePage() {
               />
               <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-xl">
                 <div className="flex items-center space-x-2">
-                  <Award className="w-6 h-6 text-yellow-500" />
+                  <Award className="w-6 h-6 text-amber-500" />
                   <span className="font-semibold text-gray-800">15+ Years Experience</span>
                 </div>
               </div>
             </div>
             <div className="space-y-6">
-              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-green-100 rounded-full">
+              <div className="inline-flex items-center px-4 py-2 brand-section-header">
                 <Heart className="w-5 h-5 text-red-500 mr-2" />
                 <span className="text-sm font-medium text-gray-700">Our Story</span>
               </div>
@@ -122,12 +129,12 @@ export default function HomePage() {
                 the visitor and the visited.
               </p>
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-blue-50 p-4 rounded-xl">
-                  <div className="text-2xl font-bold text-blue-600">500+</div>
+                <div className="bg-teal-50 p-4 rounded-xl">
+                  <div className="text-2xl font-bold text-teal-600">500+</div>
                   <div className="text-sm text-gray-600">Happy Travelers</div>
                 </div>
-                <div className="bg-green-50 p-4 rounded-xl">
-                  <div className="text-2xl font-bold text-green-600">98%</div>
+                <div className="bg-teal-50 p-4 rounded-xl">
+                  <div className="text-2xl font-bold text-teal-600">98%</div>
                   <div className="text-sm text-gray-600">Satisfaction Rate</div>
                 </div>
               </div>
@@ -136,19 +143,49 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Gallery Preview */}
-      <section className="py-20 bg-gray-50">
+      {/* Video Gallery Section */}
+      <section className="py-20 section-teal-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-green-100 rounded-full mb-4">
-              <Camera className="w-5 h-5 text-blue-500 mr-2" />
-              <span className="text-sm font-medium text-gray-700">Photo Gallery</span>
+            <div className="brand-section-header mb-6">
+              <Camera className="w-5 h-5" />
+              Video Gallery
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 brand-heading">
+              Immersive
+              <span className="gradient-text-light"> Bhutan</span>
+            </h2>
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto brand-body">
+              Experience the magic of Bhutan through cinematic journeys that capture 
+              the soul of the Last Shangri-La.
+            </p>
+          </div>
+          
+          <VideoGallery videos={BHUTAN_VIDEOS.slice(0, 6)} />
+          
+          <div className="text-center mt-12">
+            <Link href="/gallery">
+              <Button className="btn-teal px-8 py-3 rounded-full font-semibold teal-glow">
+                View All Videos & Photos
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Preview */}
+      <section className="py-20 section-mountain">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="brand-section-header mb-6">
+              <Camera className="w-5 h-5" />
+              Photo Gallery
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 brand-heading">
               Glimpses of
               <span className="gradient-text"> Paradise</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body brand-body">
               Experience the breathtaking beauty of Bhutan through the lens of our travelers 
               and expert photographers.
             </p>
@@ -174,12 +211,12 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-br from-white to-teal-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-green-100 rounded-full mb-4">
-              <Star className="w-5 h-5 text-yellow-500 mr-2" />
-              <span className="text-sm font-medium text-gray-700">What Travelers Say</span>
+            <div className="brand-section-header mb-6">
+              <Star className="w-5 h-5" />
+              What Travelers Say
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Stories from the
@@ -189,11 +226,11 @@ export default function HomePage() {
           
           {/* Featured Testimonial */}
           {testimonials.length > 0 && (
-            <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-3xl p-8 shadow-2xl mb-12 max-w-4xl mx-auto">
+            <div className="bg-teal-gradient-light rounded-3xl p-8 shadow-teal-lg mb-12 max-w-4xl mx-auto">
               <div className="text-center">
                 <div className="flex justify-center mb-6">
                   {[...Array(testimonials[0].rating)].map((_, i) => (
-                    <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                    <Star key={i} className="w-6 h-6 text-amber-400 fill-current" />
                   ))}
                 </div>
                 <blockquote className="text-2xl md:text-3xl text-gray-700 mb-8 italic leading-relaxed font-light">
@@ -208,7 +245,7 @@ export default function HomePage() {
                   <div className="text-left">
                     <div className="font-semibold text-gray-900 text-lg">{testimonials[0].name}</div>
                     <div className="text-gray-500">{testimonials[0].country} • {testimonials[0].tripName}</div>
-                    <div className="text-sm text-blue-600">{testimonials[0].duration}</div>
+                    <div className="text-sm text-teal-600">{testimonials[0].duration}</div>
                   </div>
                 </div>
               </div>
@@ -218,9 +255,9 @@ export default function HomePage() {
           {/* Testimonials Grid */}
           <div className="grid lg:grid-cols-3 gap-8">
             {testimonials.slice(1, 4).map((testimonial) => (
-              <div key={testimonial.id} className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100">
+              <div key={testimonial.id} className="bg-gradient-to-br from-white to-teal-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100">
                 <div className="flex items-center mb-4">
-                  <div className="flex text-yellow-400 mr-3">
+                  <div className="flex text-amber-400 mr-3">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-current" />
                     ))}
@@ -247,15 +284,18 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Upcoming Events Section */}
+      <UpcomingEventsSection />
+
       {/* Blog Preview */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 section-wellness">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-green-100 rounded-full mb-4">
-              <BookOpen className="w-5 h-5 text-blue-500 mr-2" />
-              <span className="text-sm font-medium text-gray-700">Travel Blog</span>
+            <div className="brand-section-header mb-6">
+              <BookOpen className="w-5 h-5" />
+              Travel Blog
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 brand-heading">
               Journey
               <span className="gradient-text"> Insights</span>
             </h2>
@@ -263,7 +303,7 @@ export default function HomePage() {
           
           <div className="grid lg:grid-cols-3 gap-8">
             {blogPosts.slice(0, 3).map((post) => (
-              <article key={post.id} className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group">
+              <article key={post.id} className="bg-gradient-to-br from-white to-teal-50 rounded-3xl shadow-xl bg-gradient-to-br from-white to-teal-50 hover:shadow-2xl transition-all duration-300 overflow-hidden group">
                 <div className="relative">
                   <img
                     src={post.imageUrl}
@@ -281,7 +321,10 @@ export default function HomePage() {
                     <span className="mx-2">•</span>
                     <span>{post.readTime}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                  <h3 
+                    className="text-xl font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors cursor-pointer"
+                    onClick={() => window.location.href = `/blog/${post.id}`}
+                  >
                     {post.title}
                   </h3>
                   <p className="text-gray-600 mb-4">
@@ -296,9 +339,9 @@ export default function HomePage() {
                       />
                       <span className="text-sm text-gray-600">{post.author}</span>
                     </div>
-                    <Button variant="link" className="text-blue-600 hover:text-blue-700">
-                      Read More →
-                    </Button>
+                    <span className="text-sm text-gray-500">
+                      {post.readTime}
+                    </span>
                   </div>
                 </div>
               </article>

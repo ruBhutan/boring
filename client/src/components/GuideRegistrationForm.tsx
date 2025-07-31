@@ -251,9 +251,9 @@ export default function GuideRegistrationForm() {
                   )}
                 />
 
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-medium text-blue-900 mb-2">Requirements:</h4>
-                  <ul className="text-sm text-blue-800 space-y-1">
+                <div className="bg-teal-50 p-4 rounded-lg">
+                  <h4 className="font-medium text-teal-900 mb-2">Requirements:</h4>
+                  <ul className="text-sm text-emerald-800 space-y-1">
                     <li>• Valid guide license or driving permit</li>
                     <li>• Minimum 2 years experience</li>
                     <li>• Good English communication skills</li>

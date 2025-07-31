@@ -36,8 +36,8 @@ export default function BottomNavigation() {
       id: 'management',
       icon: UserCog,
       label: 'Admin',
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
+      color: 'text-teal-600',
+      bgColor: 'bg-teal-50'
     },
     {
       id: 'social',
@@ -50,14 +50,14 @@ export default function BottomNavigation() {
       id: 'quicklinks',
       icon: Info,
       label: 'Quick Links',
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
+      color: 'text-teal-600',
+      bgColor: 'bg-teal-50'
     },
     {
       id: 'contact',
       icon: HeadphonesIcon,
       label: 'Contact',
-      color: 'text-orange-600',
+      color: 'text-amber-600',
       bgColor: 'bg-orange-50'
     }
   ];
@@ -105,7 +105,7 @@ export default function BottomNavigation() {
       icon: Users,
       title: "Services",
       links: [
-        { name: "Guide Registration", href: "/guide-registration" },
+        { name: "Join Us - Guide Registration", href: "/guide-registration" },
         { name: "Custom Tour Request", href: "/custom-tour" },
         { name: "Group Bookings", href: "/group-bookings" },
         { name: "Travel Insurance", href: "/insurance" }
@@ -124,7 +124,7 @@ export default function BottomNavigation() {
     {
       name: "Facebook",
       href: "https://www.facebook.com/bhutantourism",
-      color: "bg-blue-600 hover:bg-blue-700"
+      color: "bg-teal-600 hover:bg-teal-700"
     },
     {
       name: "Instagram", 
@@ -157,7 +157,7 @@ export default function BottomNavigation() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {emergencyContacts.map((contact, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg">
+                  <div key={index} className="flex items-center justify-between p-3 bg-gradient-to-br from-white to-teal-50 rounded-lg">
                     <span className="font-medium text-gray-900">{contact.label}:</span>
                     <a href={`tel:${contact.number}`} className="text-red-600 font-bold hover:text-red-700">
                       {contact.number}
@@ -171,21 +171,21 @@ export default function BottomNavigation() {
 
       case 'management':
         return (
-          <Card className="border-blue-200 bg-blue-50">
+          <Card className="border-teal-200 bg-teal-50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-800">
+              <CardTitle className="flex items-center gap-2 text-emerald-800">
                 <UserCog className="w-5 h-5" />
                 Management Access
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-blue-700 mb-4">
+              <p className="text-sm text-teal-700 mb-4">
                 Administrative access for tour operators and staff members.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <Button 
                   onClick={() => setShowAdminPanel(true)}
-                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  className="w-full bg-teal-600 hover:bg-teal-700"
                 >
                   <UserCog className="w-4 h-4 mr-2" />
                   Admin Panel
@@ -193,21 +193,21 @@ export default function BottomNavigation() {
                 <Button 
                   onClick={() => setShowAdminPanel(true)}
                   variant="outline"
-                  className="w-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                  className="w-full border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
                 >
                   Tour Management
                 </Button>
                 <Button 
                   onClick={() => setShowAdminPanel(true)}
                   variant="outline"
-                  className="w-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                  className="w-full border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
                 >
                   Guide Management
                 </Button>
                 <Button 
                   onClick={() => setShowAdminPanel(true)}
                   variant="outline"
-                  className="w-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                  className="w-full border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
                 >
                   Booking Reports
                 </Button>
@@ -249,9 +249,9 @@ export default function BottomNavigation() {
 
       case 'quicklinks':
         return (
-          <Card className="border-purple-200 bg-purple-50">
+          <Card className="border-teal-200 bg-teal-50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-purple-800">
+              <CardTitle className="flex items-center gap-2 text-teal-800">
                 <Info className="w-5 h-5" />
                 Quick Links & Information
               </CardTitle>
@@ -261,13 +261,13 @@ export default function BottomNavigation() {
                 {quickLinks.map((section, index) => (
                   <div key={index}>
                     <h4 className="flex items-center gap-2 text-lg font-semibold text-gray-900 mb-3">
-                      <section.icon className="w-5 h-5 text-purple-600" />
+                      <section.icon className="w-5 h-5 text-teal-600" />
                       {section.title}
                     </h4>
                     <ul className="space-y-2">
                       {section.links.map((link, linkIndex) => (
                         <li key={linkIndex}>
-                          <Link href={link.href} className="text-gray-600 hover:text-purple-600 transition-colors text-sm flex items-center gap-1 group">
+                          <Link href={link.href} className="text-gray-600 hover:text-teal-600 transition-colors text-sm flex items-center gap-1 group">
                             {link.name}
                             <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </Link>
@@ -283,7 +283,7 @@ export default function BottomNavigation() {
 
       case 'contact':
         return (
-          <Card className="border-orange-200 bg-orange-50">
+          <Card className="border-amber-200 bg-orange-50">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-orange-800">
                 <HeadphonesIcon className="w-5 h-5" />
@@ -293,9 +293,9 @@ export default function BottomNavigation() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-center gap-3 p-3 bg-white rounded-lg">
+                  <div key={index} className="flex items-center gap-3 p-3 bg-gradient-to-br from-white to-teal-50 rounded-lg">
                     <div className="bg-orange-100 p-2 rounded-full">
-                      <info.icon className="w-4 h-4 text-orange-600" />
+                      <info.icon className="w-4 h-4 text-amber-600" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">{info.label}</p>
@@ -304,7 +304,7 @@ export default function BottomNavigation() {
                   </div>
                 ))}
               </div>
-              <div className="mt-6 p-4 bg-white rounded-lg">
+              <div className="mt-6 p-4 bg-gradient-to-br from-white to-teal-50 rounded-lg">
                 <h5 className="font-semibold text-gray-900 mb-2">Office Address</h5>
                 <p className="text-gray-700">
                   Chang Lam, Thimphu 11001<br />
@@ -323,7 +323,7 @@ export default function BottomNavigation() {
   return (
     <>
       {/* Bottom Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-teal-50 to-emerald-50 border-t border-teal-200 shadow-lg z-40">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-around items-center py-2">
             {navigationItems.map((item) => (
@@ -333,7 +333,7 @@ export default function BottomNavigation() {
                 className={`flex flex-col items-center p-2 rounded-lg transition-all duration-200 ${
                   activeTab === item.id 
                     ? `${item.bgColor} ${item.color}` 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    : 'text-gray-600 hover:text-teal-600 hover:bg-teal-50'
                 }`}
               >
                 <item.icon className="w-5 h-5 mb-1" />

@@ -1,17 +1,25 @@
 export const TOUR_CATEGORIES = [
-  { value: 'all', label: 'All Tours' },
-  { value: 'Cultural', label: 'Cultural' },
-  { value: 'Adventure', label: 'Adventure' },
-  { value: 'Spiritual', label: 'Spiritual' },
+  { value: 'all', label: 'All Tours', color: 'bg-gray-600' },
+  { value: 'Cultural', label: 'Cultural', color: 'bg-teal-600' },
+  { value: 'Adventure', label: 'Adventure', color: 'bg-amber-600' },
+  { value: 'Spiritual', label: 'Spiritual', color: 'bg-teal-600' },
+  { value: 'Luxury', label: 'Luxury', color: 'bg-amber-600' },
+  { value: 'Budget', label: 'Budget', color: 'bg-emerald-600' },
+  { value: 'Family', label: 'Family', color: 'bg-teal-600' },
+  { value: 'Custom', label: 'Custom', color: 'bg-amber-600' },
+  { value: 'Classic', label: 'Classic', color: 'bg-teal-600' },
+  { value: 'Cycling', label: 'Cycling', color: 'bg-teal-600' },
+  { value: 'Pilgrimage', label: 'Pilgrimage', color: 'bg-amber-600' },
+  { value: 'Wellness', label: 'Wellness', color: 'bg-emerald-600' }
 ] as const;
 
 export const TEAM_MEMBERS = [
   {
-    name: "Tenzin Norbu",
-    role: "Founder & Cultural Guide",
+    name: "Tashi Dorji",
+    role: "Founder & Owner",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
-    bio: "Born in Thimphu, Tenzin has been sharing Bhutan's stories for over 15 years. Former monk with deep knowledge of Buddhist philosophy and Bhutanese traditions.",
-    specialties: ["Cultural Tours", "Monastery Visits", "Philosophy Sessions"]
+    bio: "Born in Thimphu, Tashi has been sharing Bhutan's stories for over 15 years. Expert in Bhutanese culture with deep knowledge of Buddhist philosophy and local traditions.",
+    specialties: ["Cultural Tours", "Monastery Visits", "Travel Planning"]
   },
   {
     name: "Pema Choden",
@@ -71,6 +79,57 @@ export const GALLERY_IMAGES = [
     title: "Local Culture",
     description: "The warm heart of Bhutanese society",
     category: "culture"
+  }
+];
+
+export const BHUTAN_VIDEOS = [
+  {
+    id: "tigers-nest",
+    title: "Tiger's Nest Monastery - Sacred Journey",
+    description: "Experience the spiritual pilgrimage to Bhutan's most iconic monastery, perched dramatically on a cliff face 900 meters above Paro Valley.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800&h=600&fit=crop",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    duration: "4:32"
+  },
+  {
+    id: "cultural-heritage",
+    title: "Living Buddhist Culture",
+    description: "Discover the authentic Buddhist traditions that have been preserved for centuries in the Last Shangri-La.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    duration: "6:15"
+  },
+  {
+    id: "himalayan-landscapes",
+    title: "Himalayan Majesty",
+    description: "Soar through the breathtaking landscapes of the Eastern Himalayas, from pristine forests to snow-capped peaks.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=800&h=600&fit=crop",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    duration: "3:45"
+  },
+  {
+    id: "festival-celebrations",
+    title: "Festival of Colors - Paro Tsechu",
+    description: "Immerse yourself in the vibrant mask dances and spiritual celebrations of Bhutan's most important festivals.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&h=600&fit=crop",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    duration: "5:28"
+  },
+  {
+    id: "sustainable-tourism",
+    title: "Carbon Negative Kingdom",
+    description: "Learn about Bhutan's unique approach to sustainable tourism and how we preserve our environment for future generations.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    duration: "7:12"
+  },
+  {
+    id: "luxury-experiences",
+    title: "Luxury in the Last Shangri-La",
+    description: "Experience world-class luxury accommodations and services while maintaining harmony with Bhutan's pristine environment.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    duration: "4:56"
   }
 ];
 

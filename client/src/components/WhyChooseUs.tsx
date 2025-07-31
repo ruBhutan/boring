@@ -15,7 +15,7 @@ export function WhyChooseUsSection() {
       icon: Users,
       title: "Expert Local Guides",
       description: "Born and raised Bhutanese guides with government certification, deep cultural knowledge, and genuine passion for sharing the beauty of our Himalayan kingdom.",
-      color: "bg-blue-100 text-blue-600"
+      color: "bg-teal-100 text-teal-600"
     },
     {
       icon: Shield,
@@ -27,13 +27,13 @@ export function WhyChooseUsSection() {
       icon: Star,
       title: "Luxury Accommodations",
       description: "Handpicked selection of premium resorts, boutique hotels, and luxury lodges. Each accommodation ensures exceptional quality and comfort throughout your stay.",
-      color: "bg-purple-100 text-purple-600"
+      color: "bg-teal-100 text-teal-600"
     },
     {
       icon: MapPin,
       title: "Best Transport Service",
       description: "Reliable, comfortable vehicles with experienced drivers. Explore bustling streets or tranquil landscapes in air-conditioned comfort with our professional drivers.",
-      color: "bg-orange-100 text-orange-600"
+      color: "bg-orange-100 text-amber-600"
     },
     {
       icon: Globe,
@@ -44,7 +44,7 @@ export function WhyChooseUsSection() {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-br from-white to-teal-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -72,7 +72,7 @@ export function WhyChooseUsSection() {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-white">
+          <div className="bg-gradient-to-r from-teal-600 to-green-600 rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">
               Ready to Experience the Best of Bhutan?
             </h3>
@@ -82,7 +82,7 @@ export function WhyChooseUsSection() {
             <div className="flex flex-wrap justify-center gap-4">
               <Button 
                 size="lg" 
-                className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8"
+                className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 font-semibold px-8"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call Us Now
@@ -90,7 +90,7 @@ export function WhyChooseUsSection() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8"
+                className="border-white text-white hover:bg-white hover:text-teal-600 font-semibold px-8"
               >
                 Get Free Quote
               </Button>
@@ -127,7 +127,7 @@ export function BookingProcessSection() {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gradient-to-br from-teal-50 to-emerald-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -143,11 +143,11 @@ export function BookingProcessSection() {
           {steps.map((step, index) => (
             <div key={index} className="text-center">
               <div className="relative mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto">
+                <div className="w-16 h-16 bg-gradient-to-br from-teal-600 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto">
                   {step.number}
                 </div>
                 {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 left-16 w-full h-0.5 bg-gradient-to-r from-blue-600 to-green-600 opacity-30"></div>
+                  <div className="hidden lg:block absolute top-8 left-16 w-full h-0.5 bg-gradient-to-r from-teal-600 to-green-600 opacity-30"></div>
                 )}
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>

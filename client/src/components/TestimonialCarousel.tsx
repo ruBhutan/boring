@@ -64,7 +64,7 @@ export default function TestimonialCarousel() {
       <Card className="bg-white/95 backdrop-blur-md border-0 shadow-2xl rounded-3xl overflow-hidden">
         <CardContent className="p-8 md:p-12">
           <div className="text-center">
-            <Quote className="w-12 h-12 text-blue-500 mx-auto mb-6 opacity-50" />
+            <Quote className="w-12 h-12 text-teal-500 mx-auto mb-6 opacity-50" />
             
             <blockquote className="text-xl md:text-2xl font-medium text-gray-800 mb-8 leading-relaxed">
               "{currentTestimonial.text}"
@@ -76,7 +76,7 @@ export default function TestimonialCarousel() {
                   key={i}
                   className={`w-6 h-6 ${
                     i < currentTestimonial.rating
-                      ? "text-yellow-400 fill-current"
+                      ? "text-amber-400 fill-current"
                       : "text-gray-300"
                   }`}
                 />
@@ -123,7 +123,7 @@ export default function TestimonialCarousel() {
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
               index === currentIndex
-                ? "bg-blue-500 scale-125"
+                ? "bg-teal-500 scale-125"
                 : "bg-gray-300 hover:bg-gray-400"
             }`}
           />

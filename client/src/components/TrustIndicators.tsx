@@ -29,14 +29,14 @@ export function TrustIndicatorsSection() {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-br from-white to-teal-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Statistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4">
-                <stat.icon className="w-6 h-6 text-blue-600" />
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-teal-100 rounded-full mb-4">
+                <stat.icon className="w-6 h-6 text-teal-600" />
               </div>
               <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
               <div className="text-gray-600">{stat.label}</div>
@@ -45,7 +45,7 @@ export function TrustIndicatorsSection() {
         </div>
 
         {/* Trust Badges */}
-        <div className="bg-gray-50 rounded-2xl p-8 mb-16">
+        <div className="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-2xl p-8 mb-16">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Certified & Trusted
@@ -78,8 +78,8 @@ export function TrustIndicatorsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Card className="border-0 shadow-sm">
             <CardContent className="p-6">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 rounded-full mb-4">
-                <Star className="w-6 h-6 text-purple-600" />
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-teal-100 rounded-full mb-4">
+                <Star className="w-6 h-6 text-teal-600" />
               </div>
               <h4 className="font-semibold text-gray-900 mb-2">Family-Owned Excellence</h4>
               <p className="text-gray-600 text-sm">
@@ -90,8 +90,8 @@ export function TrustIndicatorsSection() {
 
           <Card className="border-0 shadow-sm">
             <CardContent className="p-6">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4">
-                <Users className="w-6 h-6 text-blue-600" />
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-teal-100 rounded-full mb-4">
+                <Users className="w-6 h-6 text-teal-600" />
               </div>
               <h4 className="font-semibold text-gray-900 mb-2">Expert Local Guides</h4>
               <p className="text-gray-600 text-sm">
@@ -146,7 +146,7 @@ export function ReviewsSection() {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gradient-to-br from-teal-50 to-emerald-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -155,7 +155,7 @@ export function ReviewsSection() {
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                <Star key={i} className="w-5 h-5 fill-yellow-400 text-amber-400" />
               ))}
             </div>
             <Badge className="bg-green-600 text-white">
@@ -173,7 +173,7 @@ export function ReviewsSection() {
               <CardContent className="p-6">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-amber-400" />
                   ))}
                 </div>
                 

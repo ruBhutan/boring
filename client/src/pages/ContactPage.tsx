@@ -8,19 +8,19 @@ export default function ContactPage() {
   const [activeTab, setActiveTab] = useState<"inquiry" | "booking">("inquiry");
 
   return (
-    <div className="pt-24 pb-20 bg-gray-50 min-h-screen">
+    <div className="pt-20 pb-20 bg-gradient-to-br from-teal-50 to-emerald-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-green-100 rounded-full mb-4">
-            <Mail className="w-5 h-5 text-blue-500 mr-2" />
-            <span className="text-sm font-medium text-gray-700">Get in Touch</span>
+          <div className="brand-section-header mb-4">
+            <Mail className="w-5 h-5" />
+            Get in Touch
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 brand-heading mb-4 brand-heading">
             Start Your
             <span className="gradient-text"> Journey</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body brand-body">
             Ready to discover the magic of Bhutan? Let our local experts craft the perfect 
             adventure just for you. We're here to answer your questions and bring your 
             dreams to life.
@@ -29,15 +29,15 @@ export default function ContactPage() {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-white rounded-3xl p-8 shadow-xl">
+          <div className="brand-card p-8">
             {/* Form Type Tabs */}
-            <div className="flex space-x-1 bg-gray-100 rounded-xl p-1 mb-8">
+            <div className="flex space-x-1 bg-teal-50 rounded-xl p-1 mb-8">
               <button
                 onClick={() => setActiveTab("inquiry")}
                 className={`flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200 ${
                   activeTab === "inquiry"
-                    ? "bg-white text-blue-600 shadow-sm"
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-teal-gradient text-white shadow-teal"
+                    : "text-teal-600 hover:text-teal-700"
                 }`}
               >
                 General Inquiry
@@ -46,8 +46,8 @@ export default function ContactPage() {
                 onClick={() => setActiveTab("booking")}
                 className={`flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200 ${
                   activeTab === "booking"
-                    ? "bg-white text-blue-600 shadow-sm"
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-teal-gradient text-white shadow-teal"
+                    : "text-teal-600 hover:text-teal-700"
                 }`}
               >
                 Plan Your Trip
@@ -60,12 +60,12 @@ export default function ContactPage() {
           {/* Contact Information */}
           <div className="space-y-8">
             {/* Main Contact Info */}
-            <div className="bg-white rounded-3xl p-8 shadow-xl">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h3>
+            <div className="brand-card p-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 brand-heading">Get in Touch</h3>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="bg-blue-100 p-3 rounded-full mr-4 flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-blue-600" />
+                  <div className="bg-teal-100 p-3 rounded-full mr-4 flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-teal-600" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Visit Our Office</h4>
@@ -96,15 +96,15 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-yellow-100 p-3 rounded-full mr-4 flex-shrink-0">
-                    <Mail className="w-6 h-6 text-yellow-600" />
+                  <div className="bg-amber-100 p-3 rounded-full mr-4 flex-shrink-0">
+                    <Mail className="w-6 h-6 text-amber-600" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Email Us</h4>
                     <div className="text-gray-600">
                       {CONTACT_INFO.emails.map((email, index) => (
                         <div key={index}>
-                          <a href={`mailto:${email}`} className="hover:text-yellow-600 transition-colors">
+                          <a href={`mailto:${email}`} className="hover:text-amber-600 transition-colors">
                             {email}
                           </a>
                         </div>
@@ -114,13 +114,13 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-purple-100 p-3 rounded-full mr-4 flex-shrink-0">
-                    <Globe className="w-6 h-6 text-purple-600" />
+                  <div className="bg-teal-100 p-3 rounded-full mr-4 flex-shrink-0">
+                    <Globe className="w-6 h-6 text-teal-600" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Follow Us</h4>
                     <div className="flex space-x-3 mt-2">
-                      <a href={CONTACT_INFO.social.facebook} className="text-gray-400 hover:text-blue-600 transition-colors">
+                      <a href={CONTACT_INFO.social.facebook} className="text-gray-400 hover:text-teal-600 transition-colors">
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                         </svg>
@@ -130,7 +130,7 @@ export default function ContactPage() {
                           <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.621 5.367 11.988 11.988 11.988s11.987-5.367 11.987-11.988C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.491-3.323-1.295C3.851 14.604 3.29 13.467 3.29 12.017s.561-2.588 1.836-3.677c.875-.804 2.026-1.295 3.323-1.295 1.297 0 2.448.491 3.323 1.295 1.275 1.089 1.836 2.226 1.836 3.677s-.561 2.587-1.836 3.676c-.875.804-2.026 1.295-3.323 1.295z"/>
                         </svg>
                       </a>
-                      <a href={CONTACT_INFO.social.twitter} className="text-gray-400 hover:text-blue-400 transition-colors">
+                      <a href={CONTACT_INFO.social.twitter} className="text-gray-400 hover:text-teal-400 transition-colors">
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                         </svg>
@@ -147,10 +147,10 @@ export default function ContactPage() {
             </div>
 
             {/* Business Hours */}
-            <div className="bg-white rounded-3xl p-8 shadow-xl">
+            <div className="brand-card p-8">
               <div className="flex items-center mb-6">
-                <Clock className="w-6 h-6 text-blue-600 mr-3" />
-                <h3 className="text-xl font-bold text-gray-900">Business Hours</h3>
+                <Clock className="w-6 h-6 text-teal-600 mr-3" />
+                <h3 className="text-xl font-bold text-gray-900 brand-heading">Business Hours</h3>
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between">
@@ -174,8 +174,8 @@ export default function ContactPage() {
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-gradient-to-br from-blue-600 to-green-600 rounded-3xl p-8 text-white">
-              <h3 className="text-xl font-bold mb-6 flex items-center">
+            <div className="bg-teal-gradient rounded-3xl p-8 text-white shadow-teal-lg">
+              <h3 className="text-xl font-bold mb-6 flex items-center brand-heading">
                 <Award className="w-6 h-6 mr-3" />
                 Why Choose Us?
               </h3>
@@ -205,7 +205,7 @@ export default function ContactPage() {
         <section className="mt-20 bg-white rounded-3xl p-8 lg:p-12 shadow-xl">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center mb-4">
-              <MessageCircle className="w-8 h-8 text-blue-600 mr-3" />
+              <MessageCircle className="w-8 h-8 text-teal-600 mr-3" />
               <h2 className="text-3xl font-bold text-gray-900">Frequently Asked Questions</h2>
             </div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">

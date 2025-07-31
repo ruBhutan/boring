@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 import { PREMIUM_TOURS, FESTIVAL_CALENDAR, LUXURY_ACCOMMODATIONS, EXPERT_GUIDES } from "@/data/premiumTours";
 import { Star, Calendar, MapPin, Users, Clock, Award } from "lucide-react";
 
@@ -8,11 +9,11 @@ export function FeaturedToursSection() {
   const featuredTours = PREMIUM_TOURS.filter(tour => tour.featured);
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-br from-white to-teal-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Featured <span className="gradient-text">Premium Tours(package)</span>
+            Featured <span className="gradient-text">Premium Package</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Handcrafted experiences that showcase the very best of Bhutan's culture, 
@@ -30,7 +31,7 @@ export function FeaturedToursSection() {
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-4 left-4">
-                  <Badge className="bg-blue-600 text-white">
+                  <Badge className="bg-teal-600 text-white">
                     {tour.category}
                   </Badge>
                 </div>
@@ -62,7 +63,7 @@ export function FeaturedToursSection() {
                     <ul className="text-sm text-gray-600 space-y-1">
                       {tour.highlights.slice(0, 3).map((highlight, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <Star className="w-3 h-3 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <Star className="w-3 h-3 text-teal-600 mt-0.5 flex-shrink-0" />
                           {highlight}
                         </li>
                       ))}
@@ -76,9 +77,11 @@ export function FeaturedToursSection() {
                       </span>
                       <span className="text-gray-500 ml-1">per person</span>
                     </div>
-                    <Button className="btn-primary">
-                      View Details
-                    </Button>
+                    <Link href={`/tours/${tour.id}`}>
+                      <Button className="btn-primary">
+                        View Details
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </CardContent>
@@ -87,9 +90,11 @@ export function FeaturedToursSection() {
         </div>
 
         <div className="text-center">
-          <Button variant="outline" size="lg">
-            View All Premium Tours(package)
-          </Button>
+          <Link href="/tours?category=luxury">
+            <Button variant="outline" size="lg">
+              View All Premium Package
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
@@ -98,7 +103,7 @@ export function FeaturedToursSection() {
 
 export function FestivalCalendarSection() {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gradient-to-br from-teal-50 to-emerald-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -120,7 +125,7 @@ export function FestivalCalendarSection() {
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute top-4 left-4">
-                  <Badge className="bg-orange-600 text-white">
+                  <Badge className="bg-amber-600 text-white">
                     <Calendar className="w-3 h-3 mr-1" />
                     {festival.dates}
                   </Badge>
@@ -149,7 +154,7 @@ export function FestivalCalendarSection() {
 
 export function LuxuryAccommodationsSection() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-br from-white to-teal-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -171,7 +176,7 @@ export function LuxuryAccommodationsSection() {
                   className="w-full h-64 object-cover"
                 />
                 <div className="absolute top-4 left-4">
-                  <Badge className="bg-purple-600 text-white">
+                  <Badge className="bg-teal-600 text-white">
                     {hotel.category}
                   </Badge>
                 </div>
@@ -188,7 +193,7 @@ export function LuxuryAccommodationsSection() {
                   <ul className="text-sm text-gray-600 space-y-1">
                     {hotel.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <Star className="w-3 h-3 text-purple-600 mt-0.5 flex-shrink-0" />
+                        <Star className="w-3 h-3 text-teal-600 mt-0.5 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
@@ -216,7 +221,7 @@ export function LuxuryAccommodationsSection() {
 
 export function ExpertGuidesSection() {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gradient-to-br from-teal-50 to-emerald-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -236,7 +241,7 @@ export function ExpertGuidesSection() {
                   <img 
                     src={guide.image} 
                     alt={guide.name}
-                    className="w-full h-full object-cover rounded-full border-4 border-blue-100"
+                    className="w-full h-full object-cover rounded-full border-4 border-teal-100"
                   />
                   <div className="absolute -bottom-2 -right-2">
                     <Badge className="bg-green-600 text-white text-xs p-1">
@@ -245,7 +250,7 @@ export function ExpertGuidesSection() {
                   </div>
                 </div>
                 <CardTitle className="text-xl text-gray-900">{guide.name}</CardTitle>
-                <p className="text-blue-600 font-medium">{guide.title}</p>
+                <p className="text-teal-600 font-medium">{guide.title}</p>
                 <p className="text-sm text-gray-500">{guide.experience} Experience</p>
               </CardHeader>
               <CardContent>

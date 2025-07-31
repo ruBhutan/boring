@@ -135,7 +135,7 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+    <div className="bg-gradient-to-br from-white to-teal-50 rounded-2xl shadow-lg bg-gradient-to-br from-white to-teal-50 p-6 mb-8">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger asChild>
           <Button
@@ -166,9 +166,9 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="">All Categories</SelectItem>
-                  {TOUR_CATEGORIES.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
+                  {TOUR_CATEGORIES.filter(cat => cat.value !== 'all').map((category) => (
+                    <SelectItem key={category.value} value={category.value}>
+                      {category.label}
                     </SelectItem>
                   ))}
                 </SelectContent>

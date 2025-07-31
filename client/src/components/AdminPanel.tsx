@@ -265,7 +265,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Shield className="w-5 h-5 text-blue-600" />
+              <Shield className="w-5 h-5 text-teal-600" />
               Admin Login
             </DialogTitle>
             <DialogDescription>
@@ -303,7 +303,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
       <DialogContent className="max-w-7xl max-h-[90vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <UserCog className="w-5 h-5 text-blue-600" />
+            <UserCog className="w-5 h-5 text-teal-600" />
             Admin Management Panel
           </DialogTitle>
           <DialogDescription>
@@ -427,9 +427,9 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               </div>
 
               {seedingStatus && (
-                <Card className="border-blue-200 bg-blue-50">
+                <Card className="border-teal-200 bg-teal-50">
                   <CardContent className="p-4">
-                    <p className="text-sm font-medium text-blue-800">{seedingStatus}</p>
+                    <p className="text-sm font-medium text-emerald-800">{seedingStatus}</p>
                   </CardContent>
                 </Card>
               )}
@@ -456,7 +456,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <Building2 className="w-4 h-4 text-blue-600" />
+                            <Building2 className="w-4 h-4 text-teal-600" />
                             <h4 className="font-semibold">{operator.name}</h4>
                             <Badge variant={operator.isActive ? "default" : "secondary"}>
                               {operator.isActive ? "Active" : "Inactive"}
@@ -657,7 +657,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">Festival Management</h3>
                 <div className="flex gap-2">
-                  <Badge variant="secondary">Total: {festivals.length}</Badge>
+                  <Badge variant="secondary">Total: {Array.isArray(festivals) ? festivals.length : 0}</Badge>
                   <Button>
                     <Plus className="w-4 h-4 mr-2" />
                     Add Festival
@@ -666,7 +666,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               </div>
               
               <div className="grid gap-4">
-                {festivals.map((festival: any) => (
+                {Array.isArray(festivals) && festivals.map((festival: any) => (
                   <Card key={festival.id}>
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
@@ -714,7 +714,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">Hotel Management</h3>
                 <div className="flex gap-2">
-                  <Badge variant="secondary">Total: {hotels.length}</Badge>
+                  <Badge variant="secondary">Total: {Array.isArray(hotels) ? hotels.length : 0}</Badge>
                   <Button>
                     <Plus className="w-4 h-4 mr-2" />
                     Add Hotel
@@ -723,7 +723,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               </div>
               
               <div className="grid gap-4">
-                {hotels.map((hotel: any) => (
+                {Array.isArray(hotels) && hotels.map((hotel: any) => (
                   <Card key={hotel.id}>
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
@@ -733,7 +733,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                             <Badge variant="outline">{hotel.category}</Badge>
                             <div className="flex items-center">
                               {[...Array(hotel.starRating)].map((_, i) => (
-                                <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                                <Star key={i} className="w-3 h-3 fill-yellow-400 text-amber-400" />
                               ))}
                             </div>
                           </div>
@@ -767,7 +767,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">Testimonials & Reviews</h3>
                 <div className="flex gap-2">
-                  <Badge variant="secondary">Total: {testimonials.length}</Badge>
+                  <Badge variant="secondary">Total: {Array.isArray(testimonials) ? testimonials.length : 0}</Badge>
                   <Button>
                     <Plus className="w-4 h-4 mr-2" />
                     Add Review
@@ -776,7 +776,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               </div>
               
               <div className="grid gap-4">
-                {testimonials.map((testimonial: any) => (
+                {Array.isArray(testimonials) && testimonials.map((testimonial: any) => (
                   <Card key={testimonial.id}>
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
@@ -786,7 +786,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                             <Badge variant="outline">{testimonial.country}</Badge>
                             <div className="flex items-center">
                               {[...Array(testimonial.rating)].map((_, i) => (
-                                <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                                <Star key={i} className="w-3 h-3 fill-yellow-400 text-amber-400" />
                               ))}
                             </div>
                           </div>
@@ -822,7 +822,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">Blog Management</h3>
                 <div className="flex gap-2">
-                  <Badge variant="secondary">Total: {blogPosts.length}</Badge>
+                  <Badge variant="secondary">Total: {Array.isArray(blogPosts) ? blogPosts.length : 0}</Badge>
                   <Button>
                     <Plus className="w-4 h-4 mr-2" />
                     Add Post
@@ -831,7 +831,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               </div>
               
               <div className="grid gap-4">
-                {blogPosts.map((post: any) => (
+                {Array.isArray(blogPosts) && blogPosts.map((post: any) => (
                   <Card key={post.id}>
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
@@ -906,7 +906,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                               ))}
                             </div>
                             {request.specialRequests && (
-                              <p className="mt-2 p-2 bg-gray-50 rounded text-sm">
+                              <p className="mt-2 p-2 bg-gradient-to-br from-teal-50 to-emerald-50 rounded text-sm">
                                 <strong>Special Requests:</strong> {request.specialRequests}
                               </p>
                             )}

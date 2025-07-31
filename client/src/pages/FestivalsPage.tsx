@@ -132,7 +132,7 @@ export default function FestivalsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-teal-50 to-teal-100 py-12">
         <div className="container mx-auto px-4">
           <div className="text-center">Loading festivals...</div>
         </div>
@@ -141,16 +141,15 @@ export default function FestivalsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-teal-50 to-teal-100 py-12">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Festival Calendar 2025
+            Sacred Festivals of Bhutan
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Experience Bhutan's vibrant cultural heritage through traditional festivals, 
-            sacred ceremonies, and colorful celebrations throughout the year.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body">
+            Immerse yourself in Bhutan's most sacred celebrations where ancient Buddhist traditions come alive through colorful mask dances, spiritual ceremonies, and community gatherings that have remained unchanged for centuries. Each festival offers a unique window into the soul of the Last Shangri-La.
           </p>
         </div>
 
@@ -333,7 +332,7 @@ export default function FestivalsPage() {
                     <div className="space-y-2">
                       {selectedFestival.highlights.map((highlight, index) => (
                         <div key={index} className="flex items-center gap-2">
-                          <Star className="w-4 h-4 text-yellow-500" />
+                          <Star className="w-4 h-4 text-amber-500" />
                           <span className="text-sm">{highlight}</span>
                         </div>
                       ))}
@@ -422,7 +421,7 @@ export default function FestivalsPage() {
             </div>
             
             {selectedFestival?.ticketPrice && (
-              <div className="bg-gray-50 p-3 rounded-lg">
+              <div className="bg-gradient-to-br from-teal-50 to-emerald-50 p-3 rounded-lg">
                 <div className="flex justify-between items-center">
                   <span>Total Amount:</span>
                   <span className="font-semibold text-green-600">

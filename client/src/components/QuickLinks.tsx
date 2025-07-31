@@ -97,7 +97,7 @@ export default function QuickLinks() {
             <Card key={index} className="brand-card">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <section.icon className="w-5 h-5 text-blue-600" />
+                  <section.icon className="w-5 h-5 text-teal-600" />
                   {section.title}
                 </CardTitle>
               </CardHeader>
@@ -108,13 +108,13 @@ export default function QuickLinks() {
                       {"action" in link && link.action === "admin" ? (
                         <button
                           onClick={() => setShowAdminPanel(true)}
-                          className="text-gray-600 hover:text-blue-600 transition-colors text-sm flex items-center gap-1 group w-full text-left"
+                          className="text-gray-600 hover:text-teal-600 transition-colors text-sm flex items-center gap-1 group w-full text-left"
                         >
                           {link.name}
                           <UserCog className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </button>
                       ) : (
-                        <Link href={link.href} className="text-gray-600 hover:text-blue-600 transition-colors text-sm flex items-center gap-1 group">
+                        <Link href={link.href} className="text-gray-600 hover:text-teal-600 transition-colors text-sm flex items-center gap-1 group">
                           {link.name}
                           <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
@@ -154,7 +154,7 @@ export default function QuickLinks() {
 
         {/* Emergency Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card className="border-orange-200 bg-orange-50">
+          <Card className="border-amber-200 bg-orange-50">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-orange-800">
                 <Shield className="w-5 h-5" />
@@ -172,20 +172,20 @@ export default function QuickLinks() {
             </CardContent>
           </Card>
 
-          <Card className="border-blue-200 bg-blue-50">
+          <Card className="border-teal-200 bg-teal-50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-800">
+              <CardTitle className="flex items-center gap-2 text-emerald-800">
                 <UserCog className="w-5 h-5" />
                 Management Access
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-blue-700 mb-4">
+              <p className="text-sm text-teal-700 mb-4">
                 Administrative access for tour operators and staff members.
               </p>
               <Button 
                 onClick={() => setShowAdminPanel(true)}
-                className="w-full bg-blue-600 hover:bg-blue-700"
+                className="w-full bg-teal-600 hover:bg-teal-700"
               >
                 <UserCog className="w-4 h-4 mr-2" />
                 Admin Login
@@ -205,7 +205,7 @@ export default function QuickLinks() {
                 href="https://www.facebook.com/bhutantourism"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 p-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors"
               >
                 <ExternalLink className="w-4 h-4" />
                 Facebook

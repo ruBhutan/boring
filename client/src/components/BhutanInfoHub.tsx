@@ -109,10 +109,10 @@ export function BhutanVisaSection() {
               
               <div className="space-y-4">
                 {sustainableDevelopmentFee.rates.map((rate, index) => (
-                  <div key={index} className={`border rounded-lg p-4 ${rate.category === 'Bangladeshi Nationals' ? 'bg-emerald-50 border-emerald-200' : 'bg-gray-50'}`}>
+                  <div key={index} className={`border rounded-lg p-4 ${rate.category === 'Bangladeshi Nationals' ? 'bg-emerald-50 border-teal-200' : 'bg-gradient-to-br from-teal-50 to-emerald-50'}`}>
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-gray-900">{rate.category}</h4>
-                      <Badge className={`text-white ${rate.category === 'Bangladeshi Nationals' ? 'bg-emerald-600' : 'bg-blue-600'}`}>
+                      <Badge className={`text-white ${rate.category === 'Bangladeshi Nationals' ? 'bg-teal-600' : 'bg-teal-600'}`}>
                         ${rate.rate} {rate.currency}
                       </Badge>
                     </div>
@@ -120,12 +120,12 @@ export function BhutanVisaSection() {
                     
                     {/* Special Bangladesh information */}
                     {rate.specialNote && (
-                      <div className="bg-emerald-100 border border-emerald-300 rounded-md p-3 mb-3">
+                      <div className="bg-emerald-100 border border-teal-300 rounded-md p-3 mb-3">
                         <p className="text-sm font-semibold text-emerald-800 mb-2">{rate.specialNote}</p>
                         {rate.quota && (
                           <div className="space-y-1">
-                            <p className="text-xs text-emerald-700">• {rate.quota}</p>
-                            <p className="text-xs text-emerald-700">• {rate.afterQuota}</p>
+                            <p className="text-xs text-teal-700">• {rate.quota}</p>
+                            <p className="text-xs text-teal-700">• {rate.afterQuota}</p>
                           </div>
                         )}
                       </div>
@@ -151,15 +151,15 @@ export function BhutanVisaSection() {
 
               {/* Bangladesh Quick Summary */}
               {sustainableDevelopmentFee.bangladeshiSummary && (
-                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                <div className="bg-emerald-50 border border-teal-200 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-lg">🇧🇩</span>
                     <h5 className="font-semibold text-emerald-800">{sustainableDevelopmentFee.bangladeshiSummary.title}</h5>
                   </div>
                   <ul className="space-y-2">
                     {sustainableDevelopmentFee.bangladeshiSummary.points.map((point, index) => (
-                      <li key={index} className="flex items-start gap-2 text-emerald-700 text-sm">
-                        <CheckCircle className="w-4 h-4 mt-0.5 text-emerald-600 flex-shrink-0" />
+                      <li key={index} className="flex items-start gap-2 text-teal-700 text-sm">
+                        <CheckCircle className="w-4 h-4 mt-0.5 text-teal-600 flex-shrink-0" />
                         {point}
                       </li>
                     ))}
@@ -186,7 +186,7 @@ export function BhutanLifestyleSection() {
             Bhutanese Lifestyle
           </Badge>
           <h2 className="text-5xl font-bold text-gray-900 mb-6 brand-heading">
-            Living <span className="gradient-text-secondary">Traditions</span>
+            Living <span className="gradient-text-amber-600">Traditions</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto brand-body">
             {traditionalDress.description}
@@ -206,7 +206,7 @@ export function BhutanLifestyleSection() {
               <Card className="brand-card interactive-card">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3">
-                    <Users className="w-6 h-6 text-blue-600" />
+                    <Users className="w-6 h-6 text-teal-600" />
                     {traditionalDress.mensDress.name} - Men's National Dress
                   </CardTitle>
                 </CardHeader>
@@ -218,7 +218,7 @@ export function BhutanLifestyleSection() {
                     <ul className="space-y-2">
                       {traditionalDress.mensDress.features.map((feature, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <Star className="w-4 h-4 mt-1 text-yellow-500 flex-shrink-0" />
+                          <Star className="w-4 h-4 mt-1 text-amber-500 flex-shrink-0" />
                           <span className="text-gray-700">{feature}</span>
                         </li>
                       ))}
@@ -230,7 +230,7 @@ export function BhutanLifestyleSection() {
                     <ul className="space-y-2">
                       {traditionalDress.mensDress.modernAdaptations.map((adaptation, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <Sparkles className="w-4 h-4 mt-1 text-purple-500 flex-shrink-0" />
+                          <Sparkles className="w-4 h-4 mt-1 text-teal-500 flex-shrink-0" />
                           <span className="text-gray-700">{adaptation}</span>
                         </li>
                       ))}
@@ -267,7 +267,7 @@ export function BhutanLifestyleSection() {
                     <ul className="space-y-2">
                       {traditionalDress.womensDress.occasions.map((occasion, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <Camera className="w-4 h-4 mt-1 text-blue-500 flex-shrink-0" />
+                          <Camera className="w-4 h-4 mt-1 text-teal-500 flex-shrink-0" />
                           <span className="text-gray-700">{occasion}</span>
                         </li>
                       ))}
@@ -287,13 +287,13 @@ export function BhutanLifestyleSection() {
               <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                   <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-blue-600" />
+                    <Clock className="w-5 h-5 text-teal-600" />
                     Work Life
                   </h4>
                   <ul className="space-y-2">
                     {dailyLife.workLife.map((item, index) => (
                       <li key={index} className="text-sm text-gray-700 flex items-start gap-2">
-                        <div className="w-1 h-1 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="w-1 h-1 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
                         {item}
                       </li>
                     ))}
@@ -317,13 +317,13 @@ export function BhutanLifestyleSection() {
                 
                 <div>
                   <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-purple-600" />
+                    <Sparkles className="w-5 h-5 text-teal-600" />
                     Modern Blend
                   </h4>
                   <ul className="space-y-2">
                     {dailyLife.modernBlend.map((item, index) => (
                       <li key={index} className="text-sm text-gray-700 flex items-start gap-2">
-                        <div className="w-1 h-1 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="w-1 h-1 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
                         {item}
                       </li>
                     ))}
@@ -359,7 +359,7 @@ export function BhutanLifestyleSection() {
                   <ul className="space-y-3">
                     {traditionalDress.culturalSignificance.statusSymbols.map((symbol, index) => (
                       <li key={index} className="flex items-start gap-3">
-                        <Shield className="w-4 h-4 mt-1 text-blue-500 flex-shrink-0" />
+                        <Shield className="w-4 h-4 mt-1 text-teal-500 flex-shrink-0" />
                         <span className="text-gray-700 text-sm">{symbol}</span>
                       </li>
                     ))}
@@ -370,7 +370,7 @@ export function BhutanLifestyleSection() {
 
             <Card className="brand-card">
               <CardContent className="text-center py-8">
-                <Info className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <Info className="w-12 h-12 text-teal-600 mx-auto mb-4" />
                 <p className="text-lg font-semibold text-gray-900 mb-2">Economic Impact</p>
                 <p className="brand-body">{traditionalDress.culturalSignificance.economicImpact}</p>
               </CardContent>
@@ -405,7 +405,7 @@ export function HotStoneBathSection() {
           <Card className="brand-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
-                <Mountain className="w-6 h-6 text-orange-600" />
+                <Mountain className="w-6 h-6 text-amber-600" />
                 Traditional Process
               </CardTitle>
             </CardHeader>
@@ -415,7 +415,7 @@ export function HotStoneBathSection() {
                 <ul className="space-y-2">
                   {bathInfo.traditionalProcess.setup.map((step, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <div className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 text-xs font-bold flex items-center justify-center mt-0.5 flex-shrink-0">
+                      <div className="w-6 h-6 rounded-full bg-orange-100 text-amber-600 text-xs font-bold flex items-center justify-center mt-0.5 flex-shrink-0">
                         {index + 1}
                       </div>
                       <span className="text-gray-700 text-sm">{step}</span>
@@ -429,7 +429,7 @@ export function HotStoneBathSection() {
                 <ul className="space-y-2">
                   {bathInfo.traditionalProcess.experience.map((step, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <Sparkles className="w-4 h-4 mt-1 text-yellow-500 flex-shrink-0" />
+                      <Sparkles className="w-4 h-4 mt-1 text-amber-500 flex-shrink-0" />
                       <span className="text-gray-700 text-sm">{step}</span>
                     </li>
                   ))}
@@ -459,11 +459,11 @@ export function HotStoneBathSection() {
               </div>
 
               <div>
-                <h4 className="font-semibold mb-3 text-purple-700">Mental & Spiritual Benefits</h4>
+                <h4 className="font-semibold mb-3 text-teal-700">Mental & Spiritual Benefits</h4>
                 <ul className="space-y-2">
                   {bathInfo.healthBenefits.mentalSpiritual.map((benefit, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <Heart className="w-4 h-4 mt-1 text-purple-500 flex-shrink-0" />
+                      <Heart className="w-4 h-4 mt-1 text-teal-500 flex-shrink-0" />
                       <span className="text-gray-700 text-sm">{benefit}</span>
                     </li>
                   ))}
@@ -571,7 +571,7 @@ export function BhutanRaftingSection() {
               <ul className="space-y-3">
                 {raftingInfo.moChhuRiver.highlights.map((highlight, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <Star className="w-4 h-4 mt-1 text-blue-500 flex-shrink-0" />
+                    <Star className="w-4 h-4 mt-1 text-teal-500 flex-shrink-0" />
                     <span className="text-gray-700">{highlight}</span>
                   </li>
                 ))}
@@ -586,9 +586,9 @@ export function BhutanRaftingSection() {
             <Card key={index} className="brand-card text-center">
               <CardContent className="pt-6">
                 <h4 className="font-bold text-lg mb-2">{river.name}</h4>
-                <Badge className="mb-3 bg-purple-600 text-white">{river.difficulty}</Badge>
+                <Badge className="mb-3 bg-teal-600 text-white">{river.difficulty}</Badge>
                 <p className="text-sm text-gray-600 mb-2">{river.location}</p>
-                <p className="text-sm font-medium text-purple-700">{river.bestFor}</p>
+                <p className="text-sm font-medium text-teal-700">{river.bestFor}</p>
               </CardContent>
             </Card>
           ))}
@@ -601,8 +601,8 @@ export function BhutanRaftingSection() {
               <CardHeader>
                 <CardTitle className="capitalize flex items-center gap-2">
                   {category === 'mountain' && <Mountain className="w-5 h-5 text-green-600" />}
-                  {category === 'cultural' && <Camera className="w-5 h-5 text-blue-600" />}
-                  {category === 'nature' && <TreePine className="w-5 h-5 text-purple-600" />}
+                  {category === 'cultural' && <Camera className="w-5 h-5 text-teal-600" />}
+                  {category === 'nature' && <TreePine className="w-5 h-5 text-teal-600" />}
                   {category} Adventures
                 </CardTitle>
               </CardHeader>

@@ -28,7 +28,7 @@ export default function Hero() {
         <div className="animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Discover the Last
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-teal-600">
               {" "}Shangri-La
             </span>
           </h1>
@@ -39,7 +39,7 @@ export default function Hero() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link href="/tours">
-              <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+              <Button className="bg-gradient-to-r from-teal-600 to-teal-800 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                 <Compass className="w-5 h-5 mr-2" />
                 Explore Tours(package)
               </Button>
@@ -56,15 +56,15 @@ export default function Hero() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="text-3xl font-bold text-yellow-400 mb-2">15+</div>
+              <div className="text-3xl font-bold text-teal-400 mb-2">15+</div>
               <div className="text-sm text-gray-200">Years Experience</div>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="text-3xl font-bold text-yellow-400 mb-2">500+</div>
+              <div className="text-3xl font-bold text-teal-400 mb-2">500+</div>
               <div className="text-sm text-gray-200">Happy Travelers</div>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="text-3xl font-bold text-yellow-400 mb-2">98%</div>
+              <div className="text-3xl font-bold text-teal-400 mb-2">98%</div>
               <div className="text-sm text-gray-200">Satisfaction Rate</div>
             </div>
           </div>

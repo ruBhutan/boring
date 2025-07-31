@@ -14,6 +14,8 @@ import { apiRequest } from "@/lib/queryClient";
 import { z } from "zod";
 import { MapPin, Calendar, Users, DollarSign, Heart, Car } from "lucide-react";
 import { useState } from "react";
+import { ACCOMMODATION_SELECT_OPTIONS } from "@/lib/accommodationTypes";
+import { TOUR_CATEGORIES } from "@/lib/tourCategories";
 
 const customTourFormSchema = insertCustomTourRequestSchema.extend({
   interests: z.array(z.string()).min(1, "Please select at least one interest"),
@@ -23,9 +25,9 @@ const customTourFormSchema = insertCustomTourRequestSchema.extend({
 type CustomTourFormData = z.infer<typeof customTourFormSchema>;
 
 const INTERESTS_OPTIONS = [
-  "Cultural Heritage", "Buddhist Monasteries", "Trekking & Hiking", 
-  "Wildlife & Nature", "Photography", "Adventure Sports", 
-  "Spiritual Journey", "Local Cuisine", "Traditional Crafts", "Festivals"
+  ...TOUR_CATEGORIES.map(cat => cat.label.replace(' Tours', '')),
+  "Local Cuisine", "Traditional Crafts", "Festivals", "Hot Stone Baths",
+  "Archery", "Meditation", "Textile Weaving", "Yak Herding", "Farmhouse Experience"
 ];
 
 const DESTINATIONS_OPTIONS = [
@@ -51,14 +53,14 @@ export default function CustomTourRequestForm() {
       preferredDates: "",
       specialRequirements: "",
       destinations: [],
-      accommodationType: "standard",
+      accommodationType: "none",
       transportPreference: "private"
     }
   });
 
   const requestMutation = useMutation({
     mutationFn: (data: CustomTourFormData) => 
-      apiRequest("/api/custom-tours", { method: "POST", body: data }),
+      apiRequest("POST", "/api/custom-tours", data),
     onSuccess: () => {
       setIsSubmitted(true);
       toast({
@@ -83,39 +85,37 @@ export default function CustomTourRequestForm() {
 
   if (isSubmitted) {
     return (
-      <Card className="max-w-2xl mx-auto">
-        <CardContent className="pt-6">
-          <div className="text-center space-y-4">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-              <Heart className="w-8 h-8 text-green-600" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Request Submitted!</h3>
-              <p className="text-gray-600">
-                Thank you for your custom tour request. Our team will review your requirements 
-                and contact you within 24 hours with a personalized itinerary and pricing.
-              </p>
-            </div>
-            <Button onClick={() => setIsSubmitted(false)} variant="outline">
-              Submit Another Request
-            </Button>
+      <div className="brand-card max-w-2xl mx-auto p-8">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 bg-teal-gradient-light rounded-full flex items-center justify-center mx-auto teal-glow">
+            <Heart className="w-8 h-8 text-teal-600" />
           </div>
-        </CardContent>
-      </Card>
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2 brand-heading">Request Submitted!</h3>
+            <p className="text-gray-600 brand-body">
+              Thank you for your custom tour request. Our team will review your requirements 
+              and contact you within 24 hours with a personalized itinerary and pricing.
+            </p>
+          </div>
+          <Button onClick={() => setIsSubmitted(false)} className="btn-teal-outline">
+            Submit Another Request
+          </Button>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card className="max-w-4xl mx-auto">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">
+    <div className="brand-card max-w-4xl mx-auto">
+      <div className="p-8 border-b border-teal-100">
+        <h2 className="text-2xl font-bold text-center brand-heading">
           Design Your Perfect Bhutan Journey
-        </CardTitle>
-        <p className="text-center text-gray-600">
+        </h2>
+        <p className="text-center text-gray-600 brand-body mt-2">
           Tell us your preferences and we'll create a personalized itinerary just for you
         </p>
-      </CardHeader>
-      <CardContent>
+      </div>
+      <div className="p-8">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             {/* Personal Information */}
@@ -382,9 +382,11 @@ export default function CustomTourRequestForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="luxury">Luxury Hotels</SelectItem>
-                        <SelectItem value="standard">Standard Hotels</SelectItem>
-                        <SelectItem value="budget">Budget Accommodation</SelectItem>
+                        {ACCOMMODATION_SELECT_OPTIONS.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -440,7 +442,7 @@ export default function CustomTourRequestForm() {
             <div className="flex justify-center pt-6">
               <Button 
                 type="submit" 
-                className="w-full md:w-auto px-12 py-3"
+                className="btn-teal w-full md:w-auto px-12 py-3"
                 disabled={requestMutation.isPending}
               >
                 {requestMutation.isPending ? "Submitting Request..." : "Submit Custom Tour Request"}
@@ -448,7 +450,7 @@ export default function CustomTourRequestForm() {
             </div>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

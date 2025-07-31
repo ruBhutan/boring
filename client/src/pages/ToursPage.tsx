@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import TourCard from "@/components/TourCard";
-import BookingModal from "@/components/BookingModal";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Map, Search } from "lucide-react";
-import { TOUR_CATEGORIES } from "@/lib/constants";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Map, Search, Star, Calendar, Users, Clock, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 import type { Tour } from "@shared/schema";
+import BookingModal from "@/components/BookingModal";
+import TourGrid from "@/components/TourGrid";
+import { TOUR_FILTER_CATEGORIES } from "@/lib/tourCategories";
+
+
 
 export default function ToursPage() {
+  const [location] = useLocation();
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
@@ -18,8 +25,16 @@ export default function ToursPage() {
     queryKey: ["/api/tours"],
   });
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.split('?')[1] || '');
+    const categoryParam = urlParams.get('category');
+    if (categoryParam) {
+      setActiveFilter(categoryParam);
+    }
+  }, [location]);
+
   const filteredTours = tours.filter(tour => {
-    const matchesFilter = activeFilter === "all" || tour.category === activeFilter;
+    const matchesFilter = activeFilter === "all" || tour.category.toLowerCase() === activeFilter.toLowerCase();
     const matchesSearch = tour.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          tour.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFilter && matchesSearch;
@@ -30,20 +45,25 @@ export default function ToursPage() {
     setIsBookingModalOpen(true);
   };
 
+  const getCategoryColor = (category: string) => {
+    const cat = TOUR_FILTER_CATEGORIES.find(c => c.value === category);
+    return cat?.color || 'bg-gray-600';
+  };
+
   return (
-    <div className="pt-24 pb-20 bg-gray-50 min-h-screen">
+    <div className="pt-20 pb-20 bg-gradient-to-br from-teal-50 to-emerald-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-green-100 rounded-full mb-4">
-            <Map className="w-5 h-5 text-blue-500 mr-2" />
-            <span className="text-sm font-medium text-gray-700">Tour Packages</span>
+          <div className="brand-section-header mb-4">
+            <Map className="w-5 h-5" />
+            Packages
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 brand-heading mb-4 brand-heading">
             Discover
             <span className="gradient-text"> Bhutan</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body brand-body">
             Choose from our carefully curated selection of transformative journeys through 
             the Last Shangri-La, each designed to create unforgettable memories.
           </p>
@@ -65,12 +85,11 @@ export default function ToursPage() {
 
           {/* Filter Buttons */}
           <div className="flex flex-wrap justify-center gap-4">
-            {TOUR_CATEGORIES.map((category) => (
+            {TOUR_FILTER_CATEGORIES.map((category) => (
               <Button
                 key={category.value}
-                variant={activeFilter === category.value ? "default" : "outline"}
                 onClick={() => setActiveFilter(category.value)}
-                className={activeFilter === category.value ? "btn-primary" : ""}
+                className={activeFilter === category.value ? "btn-teal" : "btn-teal-outline"}
               >
                 {category.label}
               </Button>
@@ -78,19 +97,24 @@ export default function ToursPage() {
           </div>
         </div>
 
-        {/* Tour Count */}
-        <div className="mb-8">
+        {/* Tour Count and Custom Package */}
+        <div className="mb-8 flex justify-between items-center">
           <p className="text-gray-600">
             Showing {filteredTours.length} of {tours.length} tours
           </p>
+          <Link href="/custom-tour">
+            <Button className="btn-teal-outline">
+              Custom Package
+            </Button>
+          </Link>
         </div>
 
         {/* Tours Grid */}
         {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, index) => (
-              <div key={index} className="bg-white rounded-3xl shadow-xl animate-pulse">
-                <div className="h-64 bg-gray-300 rounded-t-3xl"></div>
+              <div key={index} className="bg-gradient-to-br from-white to-teal-50 rounded-2xl shadow-lg bg-gradient-to-br from-white to-teal-50 animate-pulse">
+                <div className="h-48 bg-gray-300 rounded-t-2xl"></div>
                 <div className="p-6 space-y-3">
                   <div className="h-4 bg-gray-300 rounded w-3/4"></div>
                   <div className="h-4 bg-gray-300 rounded w-1/2"></div>
@@ -99,37 +123,27 @@ export default function ToursPage() {
               </div>
             ))}
           </div>
-        ) : filteredTours.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredTours.map((tour) => (
-              <TourCard
-                key={tour.id}
-                tour={tour}
-                onBookNow={handleBookNow}
-              />
-            ))}
-          </div>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
-              No tours found matching your criteria. Try adjusting your search or filters.
-            </p>
-          </div>
+          <TourGrid 
+            tours={filteredTours} 
+            onBookNow={handleBookNow} 
+            showAll={true}
+          />
         )}
 
         {/* Why Choose Us Section */}
-        <section className="mt-20 bg-white rounded-3xl p-8 lg:p-12 shadow-xl">
+        <section className="mt-20 brand-card-teal p-8 lg:p-12">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose Our Tours(package)?</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4 brand-heading">Why Choose Our Package?</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto brand-body">
               Every journey with us is more than just a tour—it's a transformation.
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="bg-blue-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-blue-600 font-bold text-xl">15+</span>
+              <div className="bg-teal-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <span className="text-teal-600 font-bold text-xl">15+</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Years Experience</h3>
               <p className="text-gray-600 text-sm">Deep local knowledge and expertise</p>
@@ -144,16 +158,16 @@ export default function ToursPage() {
             </div>
             
             <div className="text-center">
-              <div className="bg-yellow-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-yellow-600 font-bold text-xl">500+</span>
+              <div className="bg-amber-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <span className="text-amber-600 font-bold text-xl">500+</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Happy Travelers</h3>
               <p className="text-gray-600 text-sm">Transformed lives and lasting memories</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-purple-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-purple-600 font-bold text-xl">24/7</span>
+              <div className="bg-teal-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <span className="text-teal-600 font-bold text-xl">24/7</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Support</h3>
               <p className="text-gray-600 text-sm">We're with you every step of the way</p>

@@ -190,7 +190,7 @@ export default function HotelsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 py-12">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-amber-50 to-amber-100 py-12">
         <div className="container mx-auto px-4">
           <div className="text-center">Loading luxury accommodations...</div>
         </div>
@@ -199,16 +199,15 @@ export default function HotelsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-amber-50 to-amber-100 py-12">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Luxury Accommodations
+            Exceptional Bhutanese Hospitality
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Experience Bhutan's finest hotels and resorts, from traditional heritage properties 
-            to modern luxury retreats, all offering exceptional comfort and authentic hospitality.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body">
+            Discover Bhutan's most distinguished accommodations where traditional architecture meets world-class luxury. From heritage palaces converted into boutique hotels to eco-luxury lodges nestled in pristine valleys, each property offers an authentic gateway to Bhutanese culture while providing unparalleled comfort and service.
           </p>
         </div>
 
@@ -242,7 +241,7 @@ export default function HotelsPage() {
                   </Badge>
                   <div className="flex items-center bg-white/90 rounded-full px-2 py-1">
                     {[...Array(hotel.starRating)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-3 h-3 fill-yellow-400 text-amber-400" />
                     ))}
                   </div>
                 </div>
@@ -392,7 +391,7 @@ export default function HotelsPage() {
                         <Badge variant="secondary">{selectedHotel.category}</Badge>
                         <div className="flex items-center">
                           {[...Array(selectedHotel.starRating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-amber-400" />
                           ))}
                         </div>
                       </div>
@@ -418,7 +417,7 @@ export default function HotelsPage() {
                         const IconComponent = amenityIcons[amenity] || CheckCircle;
                         return (
                           <div key={index} className="flex items-center gap-2">
-                            <IconComponent className="w-4 h-4 text-blue-500" />
+                            <IconComponent className="w-4 h-4 text-teal-500" />
                             <span className="text-sm">{amenity}</span>
                           </div>
                         );
@@ -614,7 +613,7 @@ export default function HotelsPage() {
             </div>
             
             {selectedRoom && bookingData.checkInDate && bookingData.checkOutDate && (
-              <div className="bg-gray-50 p-3 rounded-lg">
+              <div className="bg-gradient-to-br from-teal-50 to-emerald-50 p-3 rounded-lg">
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
                     <span>Room rate per night:</span>
