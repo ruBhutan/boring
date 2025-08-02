@@ -1,16 +1,22 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import TourCard from "@/components/TourCard";
 import BookingModal from "@/components/BookingModal";
-import { 
-  Heart, Flower2, Mountain, Clock, Users, 
-  Sunrise, Moon, Flame, Bell, Compass,
-  ChevronRight, Award, Sparkles
-} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Tour } from "@shared/schema";
+import { useQuery } from "@tanstack/react-query";
+import {
+    Bell,
+    ChevronRight,
+    Clock,
+    Flame,
+    Flower2,
+    Heart,
+    Mountain,
+    Sparkles,
+    Sunrise,
+    Users
+} from "lucide-react";
+import { useState } from "react";
 
 const spiritualExperiences = [
   {
@@ -278,8 +284,8 @@ export default function SpiritualToursPage() {
                     className="w-full h-48 object-cover"
                   />
                   <Badge className={`absolute top-4 left-4 ${
-                    program.level === 'Beginner' ? 'bg-green-500' :
-                    program.level === 'Advanced' ? 'bg-red-500' : 'bg-teal-500'
+                    program.level === 'Beginner' ? 'bg-teal-500' :
+                    program.level === 'Advanced' ? 'bg-amber-600' : 'bg-teal-600'
                   } text-white`}>
                     {program.level}
                   </Badge>

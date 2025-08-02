@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { ChevronDown, Compass, Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
+import { ChevronDown, Compass, Play } from "lucide-react";
+import { useState } from "react";
+import { Link } from "wouter";
 
 export default function Hero() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -39,14 +39,15 @@ export default function Hero() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link href="/tours">
-              <Button className="bg-gradient-to-r from-teal-600 to-teal-800 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+              <Button size="lg" className="px-8 py-4 rounded-full font-semibold text-lg">
                 <Compass className="w-5 h-5 mr-2" />
-                Explore Tours(package)
+                Explore Tours
               </Button>
             </Link>
             <Button 
               variant="outline" 
-              className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-gray-900 transition-all duration-300 backdrop-blur-sm bg-white/10"
+              size="lg"
+              className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-teal-900 transition-all duration-300 backdrop-blur-sm bg-white/10"
               onClick={() => setIsVideoModalOpen(true)}
             >
               <Play className="w-5 h-5 mr-2 fill-current" />

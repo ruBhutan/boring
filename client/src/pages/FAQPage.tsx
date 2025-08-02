@@ -1,12 +1,19 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { 
-  HelpCircle, ChevronDown, Plane, Globe, DollarSign,
-  Calendar, Mountain, Users, Shield, Camera, Utensils,
-  Phone, Clock, MapPin, Star, Info, CheckCircle
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+    CheckCircle,
+    ChevronDown,
+    Globe,
+    HelpCircle,
+    Info,
+    Phone,
+    Plane,
+    Shield,
+    Star,
+    Users
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
@@ -351,7 +358,7 @@ export default function FAQPage() {
                 Our travel experts are here to help with any specific questions about your Bhutan journey.
               </p>
               <Link href="/contact">
-                <Button className="bg-green-600 hover:bg-green-700 text-white">
+                <Button className="btn-teal">
                   Contact Our Experts
                 </Button>
               </Link>

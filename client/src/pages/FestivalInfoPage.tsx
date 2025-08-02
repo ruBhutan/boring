@@ -2,9 +2,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Calendar, Clock, MapPin, Star, Users, Camera, 
-  Music, Palette, Heart, Info, BookOpen, Ticket
+import {
+    BookOpen,
+    Calendar,
+    Heart, Info,
+    MapPin,
+    Music,
+    Star,
+    Ticket
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -238,7 +243,7 @@ export default function FestivalInfoPage() {
                         
                         <div className="mt-4">
                           <Link href="/festivals">
-                            <Button size="sm" className="bg-amber-600 hover:bg-amber-700">
+                            <Button size="sm" variant="secondary">
                               <Ticket className="w-4 h-4 mr-2" />
                               Book Festival Tour
                             </Button>

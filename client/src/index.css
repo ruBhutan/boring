@@ -94,7 +94,47 @@
   }
   
   .btn-secondary {
-    @apply border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-gray-900 transition-all duration-300;
+    @apply border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-teal-900 transition-all duration-300;
+  }
+
+  /* Brand Typography */
+  .brand-heading {
+    @apply font-bold tracking-tight;
+  }
+  
+  .brand-body {
+    @apply leading-relaxed;
+  }
+
+  /* Navigation Brand Styles */
+  .nav-teal {
+    @apply bg-white/95 backdrop-blur-sm border-b border-teal-100;
+  }
+
+  .mega-menu-teal {
+    @apply bg-gradient-to-br from-white to-teal-50 rounded-lg shadow-xl border border-teal-100;
+  }
+
+  /* Brand Glow Effects */
+  .teal-glow {
+    @apply hover:shadow-lg hover:shadow-teal-500/25 transition-all duration-300;
+  }
+
+  .amber-glow {
+    @apply hover:shadow-lg hover:shadow-amber-500/25 transition-all duration-300;
+  }
+
+  /* Status Colors - Brand Aligned */
+  .status-success {
+    @apply bg-teal-100 text-teal-800 border-teal-200;
+  }
+
+  .status-warning {
+    @apply bg-amber-100 text-amber-800 border-amber-200;
+  }
+
+  .status-info {
+    @apply bg-teal-50 text-teal-700 border-teal-100;
   }
 }
 

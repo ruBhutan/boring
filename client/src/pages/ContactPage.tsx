@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { MapPin, Phone, Mail, Globe, Clock, Award, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ContactForm";
+import { Button } from "@/components/ui/button";
 import { CONTACT_INFO } from "@/lib/constants";
+import { Award, Clock, Globe, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { useState } from "react";
 
 export default function ContactPage() {
   const [activeTab, setActiveTab] = useState<"inquiry" | "booking">("inquiry");
@@ -286,7 +286,7 @@ export default function ContactPage() {
                 If you're currently in Bhutan and need immediate assistance, call our 24/7 emergency line:
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="tel:+97517112436" className="bg-red-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-red-700 transition-colors">
+                <a href="tel:+97517112436" className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 rounded-full font-semibold hover:from-amber-700 hover:to-amber-800 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/25">
                   Emergency: +975 17 112 436
                 </a>
                 <span className="text-red-600 text-sm">Available 24/7</span>

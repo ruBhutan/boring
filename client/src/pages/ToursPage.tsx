@@ -1,16 +1,13 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Map, Search, Star, Calendar, Users, Clock, ArrowRight } from "lucide-react";
-import { Link } from "wouter";
-import type { Tour } from "@shared/schema";
 import BookingModal from "@/components/BookingModal";
 import TourGrid from "@/components/TourGrid";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { TOUR_FILTER_CATEGORIES } from "@/lib/tourCategories";
+import type { Tour } from "@shared/schema";
+import { useQuery } from "@tanstack/react-query";
+import { Map, Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "wouter";
 
 
 
@@ -150,8 +147,8 @@ export default function ToursPage() {
             </div>
             
             <div className="text-center">
-              <div className="bg-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-green-600 font-bold text-xl">100%</span>
+              <div className="bg-teal-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <span className="text-teal-600 font-bold text-xl">100%</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Local Guides</h3>
               <p className="text-gray-600 text-sm">Authentic insights from Bhutanese experts</p>

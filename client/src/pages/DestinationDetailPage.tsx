@@ -1,10 +1,17 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  ArrowLeft, MapPin, Calendar, Mountain, Camera, Star, 
-  Clock, Users, Thermometer, Cloud, Sun, Snowflake
+import {
+    ArrowLeft,
+    Calendar,
+    Camera,
+    Cloud,
+    MapPin,
+    Mountain,
+    Snowflake,
+    Star,
+    Sun,
+    Thermometer
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -260,7 +267,7 @@ export default function DestinationDetailPage() {
             </p>
             <div className="flex justify-center gap-4">
               <Link href="/tours">
-                <Button className="bg-gradient-to-r from-teal-600 to-green-600 text-white">
+                <Button>
                   View Tour Packages
                 </Button>
               </Link>

@@ -1,17 +1,24 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import TourCard from "@/components/TourCard";
 import BookingModal from "@/components/BookingModal";
-import { 
-  Mountain, Compass, Activity, MapPin, Clock, Users, 
-  Zap, Target, Shield, Heart, Sunrise, Camera,
-  ChevronRight, Award, Backpack, Route, Calendar, Star
-} from "lucide-react";
-import { Link } from "wouter";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Tour } from "@shared/schema";
+import { useQuery } from "@tanstack/react-query";
+import {
+    Activity,
+    Award, Backpack,
+    Calendar,
+    ChevronRight,
+    Clock,
+    Compass,
+    Heart,
+    Mountain,
+    Route,
+    Shield,
+    Target,
+    Users
+} from "lucide-react";
+import { useState } from "react";
 
 const adventureActivities = [
   {
@@ -226,14 +233,14 @@ export default function AdventureToursPage() {
               <Card key={index} className="brand-card">
                 <CardHeader>
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 ${
-                    level.color === 'green' ? 'bg-green-100' :
+                    level.color === 'green' ? 'bg-teal-100' :
                     level.color === 'yellow' ? 'bg-amber-100' :
-                    level.color === 'orange' ? 'bg-orange-100' : 'bg-red-100'
+                    level.color === 'orange' ? 'bg-amber-100' : 'bg-amber-100'
                   }`}>
                     <div className={`w-6 h-6 rounded-full ${
-                      level.color === 'green' ? 'bg-green-500' :
+                      level.color === 'green' ? 'bg-teal-500' :
                       level.color === 'yellow' ? 'bg-amber-500' :
-                      level.color === 'orange' ? 'bg-orange-500' : 'bg-red-500'
+                      level.color === 'orange' ? 'bg-amber-600' : 'bg-amber-700'
                     }`}></div>
                   </div>
                   <CardTitle className="text-center">{level.level}</CardTitle>
@@ -278,9 +285,9 @@ export default function AdventureToursPage() {
                     className="w-full h-64 object-cover"
                   />
                   <Badge className={`absolute top-4 left-4 ${
-                    trek.difficulty === 'Easy' ? 'bg-green-500' :
+                    trek.difficulty === 'Easy' ? 'bg-teal-500' :
                     trek.difficulty === 'Moderate' ? 'bg-amber-500' :
-                    trek.difficulty === 'Challenging' ? 'bg-orange-500' : 'bg-red-500'
+                    trek.difficulty === 'Challenging' ? 'bg-amber-600' : 'bg-amber-700'
                   } text-white`}>
                     {trek.difficulty}
                   </Badge>
