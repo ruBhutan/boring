@@ -68,7 +68,7 @@ export default function ContactPage() {
                     <MapPin className="w-6 h-6 text-teal-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Visit Our Office</h4>
+                    <h4 className="font-semibold text-gray-700 mb-1">Visit Our Office</h4>
                     <p className="text-gray-600">
                       {CONTACT_INFO.address.street}<br />
                       {CONTACT_INFO.address.city}<br />
@@ -82,7 +82,7 @@ export default function ContactPage() {
                     <Phone className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Call Us</h4>
+                    <h4 className="font-semibold text-gray-700 mb-1">Call Us</h4>
                     <div className="text-gray-600">
                       {CONTACT_INFO.phones.map((phone, index) => (
                         <div key={index}>
@@ -100,7 +100,7 @@ export default function ContactPage() {
                     <Mail className="w-6 h-6 text-amber-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Email Us</h4>
+                    <h4 className="font-semibold text-gray-700 mb-1">Email Us</h4>
                     <div className="text-gray-600">
                       {CONTACT_INFO.emails.map((email, index) => (
                         <div key={index}>
@@ -118,7 +118,7 @@ export default function ContactPage() {
                     <Globe className="w-6 h-6 text-teal-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Follow Us</h4>
+                    <h4 className="font-semibold text-gray-700 mb-1">Follow Us</h4>
                     <div className="flex space-x-3 mt-2">
                       <a href={CONTACT_INFO.social.facebook} className="text-gray-400 hover:text-teal-600 transition-colors">
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -189,7 +189,7 @@ export default function ContactPage() {
                   <div className="text-sm opacity-90">Local Team</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold mb-1">15+</div>
+                  <div className="text-2xl font-bold mb-1">7+</div>
                   <div className="text-sm opacity-90">Years Experience</div>
                 </div>
                 <div className="text-center">

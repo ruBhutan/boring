@@ -1,6 +1,7 @@
-import { Mountain, MapPin, Phone, Mail, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { Link } from "wouter";
 import { CONTACT_INFO } from "@/lib/constants";
+import BhutanLogo from "@/components/BhutanLogo";
 
 export default function Footer() {
   return (
@@ -9,12 +10,12 @@ export default function Footer() {
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-2">
             <div className="flex items-center mb-4">
-              <Mountain className="w-8 h-8 text-teal-400 mr-2" />
-              <span className="text-2xl font-bold gradient-text-light brand-heading">
+              <BhutanLogo size="md" className="mr-3" />
+              <span className="text-2xl font-bold !text-white brand-heading">
                 Bhutan Mind Break
               </span>
             </div>
-            <p className="text-white mb-6 max-w-md brand-body">
+            <p className="!text-white mb-6 max-w-md brand-body leading-relaxed">
               Your gateway to the Last Shangri-La. We create transformative journeys that connect you 
               with Bhutan's ancient wisdom, pristine nature, and authentic culture.
             </p>

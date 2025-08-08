@@ -35,7 +35,7 @@ export default function AboutPage() {
               <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-teal">
                 <div className="flex items-center space-x-2">
                   <Award className="w-6 h-6 text-amber-500" />
-                  <span className="font-semibold text-gray-800">15+ Years Experience</span>
+                  <span className="font-semibold text-gray-600">7+ Years Experience</span>
                 </div>
               </div>
             </div>

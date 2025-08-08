@@ -78,6 +78,58 @@ export default function LiveChat(): JSX.Element {
     scrollToBottom();
   }, [messages]);
 
+  const generateIntelligentResponse = (question: string): string => {
+    const lowerQuestion = question.toLowerCase();
+    
+    // Bhutan general information
+    if (lowerQuestion.includes('bhutan') && (lowerQuestion.includes('about') || lowerQuestion.includes('what is') || lowerQuestion.includes('tell me'))) {
+      return "🏔️ **About Bhutan - The Last Shangri-La**\n\nBhutan is a mystical Himalayan kingdom known as the 'Land of the Thunder Dragon.' Here's what makes it special:\n\n🌍 **Unique Features:**\n• World's only carbon-negative country\n• Gross National Happiness philosophy\n• 70% forest coverage (constitutional requirement)\n• No traffic lights in the entire country!\n\n🏛️ **Rich Culture:**\n• Living Buddhist heritage\n• Ancient dzongs (fortresses) & monasteries\n• Traditional architecture everywhere\n• Preserved arts & crafts\n\n✨ **Why Visit:**\n• Authentic cultural experiences\n• Pristine Himalayan landscapes\n• Spiritual transformation\n• Sustainable tourism model\n\nWould you like to know about specific tours or destinations?";
+    }
+    
+    // Weather and climate
+    if (lowerQuestion.includes('weather') || lowerQuestion.includes('climate') || lowerQuestion.includes('temperature')) {
+      return "🌤️ **Bhutan Weather Guide**\n\n**Spring (Mar-May):** 15-20°C\n• Perfect for trekking\n• Rhododendron blooms\n• Clear mountain views\n\n**Summer (Jun-Aug):** 20-25°C\n• Monsoon season\n• Lush green landscapes\n• Some road closures\n\n**Autumn (Sep-Nov):** 10-20°C\n• Best season overall\n• Crystal clear skies\n• Festival season\n\n**Winter (Dec-Feb):** 5-15°C\n• Clear mountain views\n• Fewer crowds\n• Cultural focus\n\nWhen are you planning to visit?";
+    }
+    
+    // Cost and budget
+    if (lowerQuestion.includes('cost') || lowerQuestion.includes('price') || lowerQuestion.includes('budget') || lowerQuestion.includes('expensive')) {
+      return "💰 **Bhutan Travel Costs**\n\n**Daily Sustainable Development Fee:** $200/person/day\n\n**What's Included:**\n• 3-4 star accommodation\n• All meals\n• Private guide & driver\n• Transportation\n• Entrance fees\n• Government taxes\n\n**Sample Package Costs:**\n• 7-day Cultural: $2,500-3,500\n• 10-day Adventure: $3,500-4,500\n• 12-day Luxury: $5,500-8,500\n\n**Additional Costs:**\n• International flights\n• Travel insurance\n• Personal expenses\n• Tips (optional)\n\nWould you like a custom quote?";
+    }
+    
+    // Visa information
+    if (lowerQuestion.includes('visa') || lowerQuestion.includes('permit') || lowerQuestion.includes('entry')) {
+      return "📋 **Bhutan Visa Information**\n\n✅ **We Handle Everything:**\n• Visa application processing\n• Tourism permit arrangements\n• Entry/exit documentation\n\n📝 **Required Documents:**\n• Passport (6+ months validity)\n• Passport photos\n• Travel insurance\n• Flight itinerary\n\n⏰ **Processing:** 5-7 working days\n\n🎯 **Important:** All tourists must book through licensed operators like us!\n\nReady to start your visa process?";
+    }
+    
+    // Tiger's Nest
+    if (lowerQuestion.includes('tiger') || lowerQuestion.includes('nest') || lowerQuestion.includes('taktsang') || lowerQuestion.includes('monastery')) {
+      return "🏔️ **Tiger's Nest Monastery**\n\n📍 **Location:** 900m above Paro Valley\n⏰ **Hike:** 2-3 hours each way\n🎯 **Difficulty:** Moderate\n\n✨ **Why It's Special:**\n• Most sacred site in Bhutan\n• Built around Guru Rinpoche's meditation cave\n• Breathtaking valley views\n• Ancient Buddhist art\n\n🥾 **Hiking Tips:**\n• Start early (8 AM)\n• Wear comfortable shoes\n• Bring water & snacks\n• Allow 5-6 hours total\n\nIncluded in all our cultural packages!";
+    }
+    
+    // Festivals
+    if (lowerQuestion.includes('festival') || lowerQuestion.includes('tsechu') || lowerQuestion.includes('celebration')) {
+      return "🎭 **Bhutan Festivals**\n\n**Major Festivals:**\n• Paro Tsechu (April)\n• Thimphu Tshechu (September)\n• Punakha Drubchen (March)\n\n**What You'll See:**\n• Sacred mask dances (Cham)\n• Colorful traditional costumes\n• Giant thangka unfurling\n• Local food & crafts\n\n**Festival Packages:**\n• 6-day Paro Festival: $2,400\n• 7-day Thimphu Festival: $2,600\n\nWhich festival interests you?";
+    }
+    
+    // Food
+    if (lowerQuestion.includes('food') || lowerQuestion.includes('cuisine') || lowerQuestion.includes('eat') || lowerQuestion.includes('meal')) {
+      return "🍽️ **Bhutanese Cuisine**\n\n**Signature Dishes:**\n• Ema Datshi (chili with cheese)\n• Momos (dumplings)\n• Red rice\n• Yak meat dishes\n• Butter tea\n\n**Dining Experience:**\n• All meals included in packages\n• Mix of Bhutanese & international\n• Fresh organic ingredients\n• Vegetarian options available\n• Special dietary needs accommodated\n\n**Cultural Dining:**\n• Traditional farmhouse meals\n• Cooking classes available\n• Local market visits\n\nAny dietary restrictions we should know about?";
+    }
+    
+    // Trekking
+    if (lowerQuestion.includes('trek') || lowerQuestion.includes('hiking') || lowerQuestion.includes('mountain') || lowerQuestion.includes('adventure')) {
+      return "🥾 **Bhutan Trekking Adventures**\n\n**Popular Treks:**\n• Druk Path (11 days) - $2,800\n• Jomolhari Base Camp (16 days) - $4,800\n• Snowman Trek (25 days) - $8,500\n\n**What's Included:**\n• Professional guides\n• Camping equipment\n• Porter services\n• Safety gear\n• Emergency support\n\n**Best Season:** April-June, Sep-Nov\n\n**Difficulty Levels:**\n• Easy: Valley walks\n• Moderate: Druk Path\n• Challenging: High altitude treks\n\nWhat's your trekking experience level?";
+    }
+    
+    // Accommodation
+    if (lowerQuestion.includes('hotel') || lowerQuestion.includes('accommodation') || lowerQuestion.includes('stay') || lowerQuestion.includes('lodge')) {
+      return "🏨 **Bhutan Accommodations**\n\n**Luxury (5-star):**\n• Amankora - $1,200/night\n• Uma Paro by COMO - $950/night\n• Six Senses - $1,100/night\n\n**Heritage Properties:**\n• Traditional architecture\n• Cultural authenticity\n• Modern amenities\n\n**Standard (3-4 star):**\n• Comfortable rooms\n• Local hospitality\n• Great value\n\n**All Include:**\n• Daily breakfast\n• WiFi\n• Cultural experiences\n• Mountain views\n\nWhat level of accommodation interests you?";
+    }
+    
+    // Default intelligent response
+    return `Thank you for your question about "${question}"! 🙏\n\nI'd be happy to help you with information about:\n\n🎯 **Tour Packages & Pricing**\n🏔️ **Destinations & Attractions**\n🎭 **Festivals & Cultural Events**\n🥾 **Trekking & Adventures**\n🏨 **Accommodations**\n📋 **Visa & Travel Planning**\n\nFor detailed information about your specific question, please contact our travel experts:\n\n📧 info@bhutanmindbreak.com\n📞 +975-2-323251\n\nWe'll provide personalized recommendations within 24 hours! ✨\n\nOr try asking about specific topics like 'Bhutan weather', 'Tiger's Nest', 'festival dates', or 'trekking options'.`;
+  };
+
   const sendMessage = (text: string) => {
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -91,7 +143,7 @@ export default function LiveChat(): JSX.Element {
 
     // Simulate bot response
     setTimeout(() => {
-      const botResponse = botResponses[text] || "Thank you for your question! For detailed information about our premium Bhutan experiences, please contact our travel experts at info@bhutanmindbreak.com or call +975-2-323251. We specialize in creating transformative journeys that combine the best of cultural immersion, adventure, and spiritual discovery. We'll get back to you within 24 hours with personalized recommendations!";
+      const botResponse = botResponses[text] || generateIntelligentResponse(text);
       
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -125,20 +177,25 @@ export default function LiveChat(): JSX.Element {
 
       {/* Chat Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-md h-[600px] p-0 flex flex-col z-[10000]">
-          <DialogHeader className="p-6 pb-4 bg-gradient-to-r from-teal-500 to-green-500 text-white">
+        <DialogContent className="max-w-lg h-[700px] p-0 flex flex-col z-[10000] border-0 shadow-2xl">
+          <DialogHeader className="p-6 pb-4 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-t-lg">
             <DialogTitle className="flex items-center justify-between">
               <div className="flex items-center">
-                <Bot className="w-6 h-6 mr-2" />
-                Travel Assistant
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
+                  <Bot className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="font-bold text-lg">Bhutan Travel Assistant</div>
+                  <div className="text-sm text-teal-100">Powered by local expertise</div>
+                </div>
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-white/20"
+                className="text-white hover:bg-white/20 rounded-full"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </Button>
             </DialogTitle>
           </DialogHeader>
@@ -173,18 +230,21 @@ export default function LiveChat(): JSX.Element {
           </div>
 
           {/* Quick Replies */}
-          <div className="px-4 pb-2">
-            <div className="mb-2">
-              <p className="text-xs text-gray-500 font-medium">Quick Options:</p>
+          <div className="px-4 pb-3 border-t border-gray-100">
+            <div className="mb-3 pt-3">
+              <p className="text-sm text-gray-600 font-semibold flex items-center">
+                <span className="w-2 h-2 bg-teal-500 rounded-full mr-2 animate-pulse"></span>
+                Quick Options:
+              </p>
             </div>
-            <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto">
+            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-teal-200">
               {quickReplies.map((reply) => (
                 <Button
                   key={reply}
                   variant="outline"
                   size="sm"
                   onClick={() => sendMessage(reply)}
-                  className="text-xs text-left justify-start h-auto py-2 px-3 hover:bg-teal-50 hover:border-teal-300"
+                  className="text-xs text-left justify-start h-auto py-2.5 px-3 hover:bg-teal-50 hover:border-teal-300 border-gray-200 rounded-lg transition-all duration-200 hover:shadow-sm"
                 >
                   {reply}
                 </Button>
@@ -193,17 +253,27 @@ export default function LiveChat(): JSX.Element {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="p-4 border-t">
-            <div className="flex space-x-2">
+          <form onSubmit={handleSubmit} className="p-4 border-t border-gray-100 bg-gray-50 rounded-b-lg">
+            <div className="flex space-x-3">
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask about tours, pricing, or travel tips..."
-                className="flex-1"
+                placeholder="Ask me anything about Bhutan travel..."
+                className="flex-1 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 rounded-xl bg-white"
               />
-              <Button type="submit" size="sm">
+              <Button 
+                type="submit" 
+                size="sm" 
+                className="bg-teal-600 hover:bg-teal-700 text-white px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                disabled={!inputValue.trim()}
+              >
                 <Send className="w-4 h-4" />
               </Button>
+            </div>
+            <div className="mt-2">
+              <p className="text-xs text-gray-500 text-center">
+                Try asking: "What's the weather like?" or "Tell me about Tiger's Nest"
+              </p>
             </div>
           </form>
         </DialogContent>

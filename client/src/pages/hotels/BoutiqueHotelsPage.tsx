@@ -268,7 +268,7 @@ export default function BoutiqueHotelsPage() {
                 className="rounded-lg shadow-lg"
               />
               <div className="absolute -bottom-6 -left-6 bg-teal-600 text-white p-4 rounded-lg">
-                <div className="text-2xl font-bold">15+</div>
+                <div className="text-2xl font-bold text-gray-700">7+</div>
                 <div className="text-sm">Boutique Properties</div>
               </div>
             </div>

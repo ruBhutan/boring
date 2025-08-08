@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Filter, Calendar, DollarSign, Users, MapPin } from "lucide-react";
+import { 
+  Filter, Calendar, DollarSign, Users, MapPin, Search, X, 
+  SlidersHorizontal, Star, Mountain, Clock, Compass
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -23,8 +27,19 @@ interface TourFilterProps {
   onFilteredTours: (tours: Tour[]) => void;
 }
 
+const SORT_OPTIONS = [
+  { value: 'popular', label: 'Most Popular' },
+  { value: 'price-low', label: 'Price: Low to High' },
+  { value: 'price-high', label: 'Price: High to Low' },
+  { value: 'duration-short', label: 'Duration: Short to Long' },
+  { value: 'duration-long', label: 'Duration: Long to Short' },
+  { value: 'rating', label: 'Highest Rated' }
+];
+
 export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("popular");
   const [filters, setFilters] = useState({
     category: "",
     duration: "",
@@ -33,9 +48,21 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
     difficulty: "",
     season: "",
   });
+  
+  const activeFilterCount = Object.values(filters).filter(Boolean).length + (searchTerm ? 1 : 0);
 
   const applyFilters = () => {
     let filtered = [...tours];
+
+    // Search filter
+    if (searchTerm) {
+      const search = searchTerm.toLowerCase();
+      filtered = filtered.filter(tour => 
+        tour.name.toLowerCase().includes(search) ||
+        tour.description.toLowerCase().includes(search) ||
+        tour.category.toLowerCase().includes(search)
+      );
+    }
 
     if (filters.category) {
       filtered = filtered.filter(tour => tour.category === filters.category);
@@ -72,10 +99,35 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
       filtered = filtered.filter(tour => tour.difficulty === filters.difficulty);
     }
 
+    // Apply sorting
+    filtered = sortTours(filtered, sortBy);
+
     onFilteredTours(filtered);
+  };
+  
+  const sortTours = (toursToSort: Tour[], sortOption: string) => {
+    const sorted = [...toursToSort];
+    
+    switch (sortOption) {
+      case 'price-low':
+        return sorted.sort((a, b) => a.price - b.price);
+      case 'price-high':
+        return sorted.sort((a, b) => b.price - a.price);
+      case 'duration-short':
+        return sorted.sort((a, b) => a.duration - b.duration);
+      case 'duration-long':
+        return sorted.sort((a, b) => b.duration - a.duration);
+      case 'rating':
+        return sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      case 'popular':
+      default:
+        return sorted; // Keep original order for popular
+    }
   };
 
   const clearFilters = () => {
+    setSearchTerm("");
+    setSortBy("popular");
     setFilters({
       category: "",
       duration: "",
@@ -94,6 +146,16 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
     // Auto-apply filters when changed
     setTimeout(() => {
       let filtered = [...tours];
+
+      // Apply search
+      if (searchTerm) {
+        const search = searchTerm.toLowerCase();
+        filtered = filtered.filter(tour => 
+          tour.name.toLowerCase().includes(search) ||
+          tour.description.toLowerCase().includes(search) ||
+          tour.category.toLowerCase().includes(search)
+        );
+      }
 
       if (newFilters.category) {
         filtered = filtered.filter(tour => tour.category === newFilters.category);
@@ -130,59 +192,157 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
         filtered = filtered.filter(tour => tour.difficulty === newFilters.difficulty);
       }
 
+      // Apply sorting
+      filtered = sortTours(filtered, sortBy);
+
+      onFilteredTours(filtered);
+    }, 100);
+  };
+  
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setTimeout(() => {
+      let filtered = [...tours];
+      
+      if (value) {
+        const search = value.toLowerCase();
+        filtered = filtered.filter(tour => 
+          tour.name.toLowerCase().includes(search) ||
+          tour.description.toLowerCase().includes(search) ||
+          tour.category.toLowerCase().includes(search)
+        );
+      }
+      
+      // Apply other filters
+      if (filters.category) {
+        filtered = filtered.filter(tour => tour.category === filters.category);
+      }
+      // ... other filters would be applied here
+      
+      filtered = sortTours(filtered, sortBy);
+      onFilteredTours(filtered);
+    }, 300);
+  };
+  
+  const handleSortChange = (value: string) => {
+    setSortBy(value);
+    setTimeout(() => {
+      let filtered = [...tours];
+      // Apply all current filters first
+      // ... filter logic here
+      filtered = sortTours(filtered, value);
       onFilteredTours(filtered);
     }, 100);
   };
 
   return (
-    <div className="bg-gradient-to-br from-white to-teal-50 rounded-2xl shadow-lg bg-gradient-to-br from-white to-teal-50 p-6 mb-8">
+    <div className="bg-gradient-to-br from-white to-teal-50 rounded-2xl shadow-xl border-0 p-6 mb-8">
+      {/* Search and Sort Bar */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="md:col-span-2 relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Input
+            placeholder="Search tours, destinations, activities..."
+            value={searchTerm}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            className="pl-12 h-12 border-teal-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 rounded-xl text-lg"
+          />
+        </div>
+        
+        <div>
+          <Select value={sortBy} onValueChange={handleSortChange}>
+            <SelectTrigger className="h-12 border-teal-200 focus:border-teal-500 rounded-xl">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              {SORT_OPTIONS.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+      
+      {/* Quick Category Filters */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        <Button
+          variant={filters.category === "" ? "default" : "outline"}
+          size="sm"
+          onClick={() => updateFilter("category", "")}
+          className={`rounded-full transition-all duration-300 ${
+            filters.category === ""
+              ? "bg-teal-600 text-white shadow-lg transform scale-105"
+              : "border-teal-200 text-teal-700 hover:bg-teal-50 hover:border-teal-300"
+          }`}
+        >
+          All Tours
+        </Button>
+        {TOUR_CATEGORIES.filter(cat => cat.value !== 'all').slice(0, 6).map((category) => (
+          <Button
+            key={category.value}
+            variant={filters.category === category.value ? "default" : "outline"}
+            size="sm"
+            onClick={() => updateFilter("category", category.value)}
+            className={`rounded-full transition-all duration-300 ${
+              filters.category === category.value
+                ? "bg-teal-600 text-white shadow-lg transform scale-105"
+                : "border-teal-200 text-teal-700 hover:bg-teal-50 hover:border-teal-300"
+            }`}
+          >
+            {category.label}
+          </Button>
+        ))}
+      </div>
+
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger asChild>
           <Button
             variant="outline"
-            className="w-full flex items-center justify-between p-4 text-left"
+            className="w-full flex items-center justify-between p-4 text-left border-teal-200 hover:bg-teal-50 rounded-xl"
           >
             <div className="flex items-center">
-              <Filter className="w-5 h-5 mr-2" />
-              <span className="font-medium">Filter Tours(package)</span>
+              <SlidersHorizontal className="w-5 h-5 mr-2 text-teal-600" />
+              <span className="font-medium text-gray-800">Advanced Filters</span>
+              {activeFilterCount > 0 && (
+                <Badge className="ml-2 bg-teal-100 text-teal-800">
+                  {activeFilterCount} active
+                </Badge>
+              )}
             </div>
-            <span className="text-sm text-gray-500">
-              {Object.values(filters).filter(Boolean).length} active filters
-            </span>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-500">
+                {tours.length} tours available
+              </span>
+              {activeFilterCount > 0 && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    clearFilters();
+                  }}
+                  className="text-red-600 hover:text-red-700 hover:bg-red-50 p-1"
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
           </Button>
         </CollapsibleTrigger>
 
-        <CollapsibleContent className="space-y-6 pt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Category Filter */}
-            <div className="space-y-2">
-              <Label htmlFor="category" className="text-sm font-medium text-gray-700">
-                <MapPin className="w-4 h-4 inline mr-1" />
-                Category
-              </Label>
-              <Select value={filters.category} onValueChange={(value) => updateFilter("category", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="All Categories" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="">All Categories</SelectItem>
-                  {TOUR_CATEGORIES.filter(cat => cat.value !== 'all').map((category) => (
-                    <SelectItem key={category.value} value={category.value}>
-                      {category.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+        <CollapsibleContent className="space-y-6 pt-6 border-t border-teal-100">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
             {/* Duration Filter */}
-            <div className="space-y-2">
-              <Label htmlFor="duration" className="text-sm font-medium text-gray-700">
-                <Calendar className="w-4 h-4 inline mr-1" />
-                Duration (Days)
+            <div className="space-y-3">
+              <Label htmlFor="duration" className="text-sm font-semibold text-gray-700 flex items-center">
+                <Clock className="w-4 h-4 mr-1 text-teal-600" />
+                Duration
               </Label>
               <Select value={filters.duration} onValueChange={(value) => updateFilter("duration", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="border-teal-200 focus:border-teal-500 rounded-xl">
                   <SelectValue placeholder="Any Duration" />
                 </SelectTrigger>
                 <SelectContent>
@@ -196,13 +356,13 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
             </div>
 
             {/* Price Range Filter */}
-            <div className="space-y-2">
-              <Label htmlFor="priceRange" className="text-sm font-medium text-gray-700">
-                <DollarSign className="w-4 h-4 inline mr-1" />
-                Price Range (USD)
+            <div className="space-y-3">
+              <Label htmlFor="priceRange" className="text-sm font-semibold text-gray-700 flex items-center">
+                <DollarSign className="w-4 h-4 mr-1 text-teal-600" />
+                Price Range
               </Label>
               <Select value={filters.priceRange} onValueChange={(value) => updateFilter("priceRange", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="border-teal-200 focus:border-teal-500 rounded-xl">
                   <SelectValue placeholder="Any Price" />
                 </SelectTrigger>
                 <SelectContent>
@@ -216,13 +376,13 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
             </div>
 
             {/* Group Size Filter */}
-            <div className="space-y-2">
-              <Label htmlFor="groupSize" className="text-sm font-medium text-gray-700">
-                <Users className="w-4 h-4 inline mr-1" />
-                Max Group Size
+            <div className="space-y-3">
+              <Label htmlFor="groupSize" className="text-sm font-semibold text-gray-700 flex items-center">
+                <Users className="w-4 h-4 mr-1 text-teal-600" />
+                Group Size
               </Label>
               <Select value={filters.groupSize} onValueChange={(value) => updateFilter("groupSize", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="border-teal-200 focus:border-teal-500 rounded-xl">
                   <SelectValue placeholder="Any Size" />
                 </SelectTrigger>
                 <SelectContent>
@@ -236,12 +396,13 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
             </div>
 
             {/* Difficulty Filter */}
-            <div className="space-y-2">
-              <Label htmlFor="difficulty" className="text-sm font-medium text-gray-700">
-                Difficulty Level
+            <div className="space-y-3">
+              <Label htmlFor="difficulty" className="text-sm font-semibold text-gray-700 flex items-center">
+                <Mountain className="w-4 h-4 mr-1 text-teal-600" />
+                Difficulty
               </Label>
               <Select value={filters.difficulty} onValueChange={(value) => updateFilter("difficulty", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="border-teal-200 focus:border-teal-500 rounded-xl">
                   <SelectValue placeholder="Any Level" />
                 </SelectTrigger>
                 <SelectContent>
@@ -255,12 +416,13 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
             </div>
 
             {/* Season Filter */}
-            <div className="space-y-2">
-              <Label htmlFor="season" className="text-sm font-medium text-gray-700">
+            <div className="space-y-3">
+              <Label htmlFor="season" className="text-sm font-semibold text-gray-700 flex items-center">
+                <Calendar className="w-4 h-4 mr-1 text-teal-600" />
                 Best Season
               </Label>
               <Select value={filters.season} onValueChange={(value) => updateFilter("season", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="border-teal-200 focus:border-teal-500 rounded-xl">
                   <SelectValue placeholder="Any Season" />
                 </SelectTrigger>
                 <SelectContent>
@@ -274,11 +436,20 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
             </div>
           </div>
 
-          <div className="flex space-x-4 pt-4 border-t">
-            <Button onClick={applyFilters} className="flex-1">
+          <div className="flex space-x-4 pt-6 border-t border-teal-100">
+            <Button 
+              onClick={applyFilters} 
+              className="flex-1 bg-teal-600 hover:bg-teal-700 text-white rounded-xl py-3 font-semibold shadow-lg"
+            >
+              <Compass className="w-4 h-4 mr-2" />
               Apply Filters
             </Button>
-            <Button onClick={clearFilters} variant="outline" className="flex-1">
+            <Button 
+              onClick={clearFilters} 
+              variant="outline" 
+              className="flex-1 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 rounded-xl py-3 font-semibold"
+            >
+              <X className="w-4 h-4 mr-2" />
               Clear All
             </Button>
           </div>

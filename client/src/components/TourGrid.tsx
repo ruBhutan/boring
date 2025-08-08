@@ -107,7 +107,7 @@ export default function TourGrid({ tours, onBookNow, showAll = false }: TourGrid
               </div>
               <div className="flex gap-2">
                 <Link href={`/tours/${tour.id}`}>
-                  <Button variant="outline" size="sm" className="border-teal-200 text-teal-600 hover:bg-teal-50">
+                  <Button variant="outline" size="sm" className="border-teal-200 text-teal-600 hover:bg-teal-50 [&_svg]:!text-teal-600">
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>

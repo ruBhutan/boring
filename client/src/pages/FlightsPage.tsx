@@ -185,7 +185,7 @@ export default function FlightsPage() {
             <CardContent className="p-6">
               <Plane className="w-8 h-8 text-teal-600 mx-auto mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">Daily Flights</h3>
-              <p className="text-teal-600 font-bold">15+</p>
+              <p className="text-teal-600 font-bold">7+</p>
             </CardContent>
           </Card>
           <Card className="text-center border-teal-100">

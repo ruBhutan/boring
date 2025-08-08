@@ -64,7 +64,19 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-background text-gray-800 font-medium;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-gray-700 font-bold;
+  }
+  
+  p {
+    @apply text-gray-600 leading-relaxed;
+  }
+  
+  a {
+    @apply text-teal-600 hover:text-teal-700 transition-colors;
   }
 
   html {
@@ -73,6 +85,35 @@
 }
 
 @layer components {
+  /* Brand Typography Classes */
+  .brand-heading {
+    @apply text-gray-700 font-bold tracking-tight;
+  }
+  
+  .brand-subheading {
+    @apply text-gray-700 font-semibold;
+  }
+  
+  .brand-body {
+    @apply text-gray-600 font-medium leading-relaxed;
+  }
+  
+  .brand-text-primary {
+    @apply text-teal-700 font-semibold;
+  }
+  
+  .brand-text-secondary {
+    @apply text-amber-600 font-medium;
+  }
+  
+  .brand-text-accent {
+    @apply text-emerald-600 font-medium;
+  }
+  
+  .brand-text-muted {
+    @apply text-gray-500 font-normal;
+  }
+  
   .gradient-text {
     @apply text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-800;
   }
@@ -90,11 +131,15 @@
   }
   
   .btn-primary {
-    @apply bg-gradient-to-r from-teal-600 to-teal-800 text-white px-6 py-3 rounded-full font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105;
+    @apply bg-teal-600 hover:bg-teal-700 !text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md;
   }
   
   .btn-secondary {
-    @apply border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-teal-900 transition-all duration-300;
+    @apply border-2 border-teal-600 !text-teal-600 hover:bg-teal-600 hover:!text-white px-6 py-3 rounded-lg font-medium transition-all duration-200;
+  }
+  
+  .btn-accent {
+    @apply bg-amber-500 hover:bg-amber-600 !text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md;
   }
 
   /* Brand Typography */
@@ -273,10 +318,127 @@
 /* Teal-Gold Button Variants */
 .btn-teal {
   @apply bg-gradient-to-r from-teal-600 to-teal-700 text-white px-6 py-3 rounded-lg font-medium hover:from-teal-700 hover:to-teal-800 transition-all duration-300 transform hover:scale-105 shadow-teal;
+  color: white !important;
 }
 
 .btn-teal-outline {
   @apply border-2 border-teal-600 text-teal-600 px-6 py-3 rounded-lg font-medium hover:bg-teal-600 hover:text-white transition-all duration-300;
+}
+
+.btn-teal-outline:hover {
+  color: white !important;
+}
+
+/* Global button text visibility fixes */
+button {
+  color: inherit;
+}
+
+/* Dark background buttons - white text */
+button.bg-teal-600,
+button.bg-teal-700,
+button.bg-teal-800,
+button[class*="bg-teal-6"],
+button[class*="bg-teal-7"],
+button[class*="bg-teal-8"],
+button.bg-amber-600,
+button.bg-amber-700,
+button.bg-emerald-600,
+button.bg-emerald-700,
+button[class*="from-teal"],
+button[class*="from-amber"],
+button[class*="from-emerald"] {
+  color: white !important;
+}
+
+/* Outline buttons - colored text */
+button[class*="border-teal"] {
+  color: #0d9488 !important;
+}
+
+button[class*="border-amber"] {
+  color: #d97706 !important;
+}
+
+/* Outline buttons on hover - white text */
+button[class*="border-teal"]:hover {
+  color: white !important;
+}
+
+button[class*="border-amber"]:hover {
+  color: white !important;
+}
+
+/* Ghost buttons */
+button[class*="text-teal"] {
+  color: #0d9488 !important;
+}
+
+button[class*="text-amber"] {
+  color: #d97706 !important;
+}
+
+/* Explicit text color classes */
+button.text-white {
+  color: white !important;
+}
+
+button.text-teal-600 {
+  color: #0d9488 !important;
+}
+
+button.text-amber-600 {
+  color: #d97706 !important;
+}
+
+/* Custom button classes */
+.btn-teal,
+.btn-teal-outline,
+.btn-amber,
+.btn-amber-outline {
+  color: white !important;
+}
+
+.btn-teal-outline {
+  color: #0d9488 !important;
+}
+
+.btn-teal-outline:hover {
+  color: white !important;
+}
+
+.btn-amber-outline {
+  color: #d97706 !important;
+}
+
+.btn-amber-outline:hover {
+  color: white !important;
+}
+
+/* Force navbar text visibility */
+nav button,
+nav span {
+  color: #374151 !important;
+}
+
+nav button:hover,
+nav span:hover {
+  color: #0d9488 !important;
+}
+
+nav button.text-teal-600,
+nav span.text-teal-600 {
+  color: #0d9488 !important;
+}
+
+/* SVG icons in buttons */
+button svg {
+  color: inherit !important;
+}
+
+/* Link buttons */
+a button {
+  color: inherit !important;
 }
 
 .btn-teal-ghost {
@@ -285,6 +447,7 @@
 
 .btn-amber {
   @apply bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 rounded-lg font-medium hover:from-amber-700 hover:to-amber-800 transition-all duration-300 transform hover:scale-105;
+  color: white !important;
 }
 
 .btn-amber-outline {

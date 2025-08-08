@@ -140,9 +140,9 @@ export default function ToursPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="bg-teal-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-teal-600 font-bold text-xl">15+</span>
+                <span className="text-teal-600 font-bold text-xl">7+</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Years Experience</h3>
+              <h3 className="font-semibold text-gray-700 mb-2">Years Experience</h3>
               <p className="text-gray-600 text-sm">Deep local knowledge and expertise</p>
             </div>
             

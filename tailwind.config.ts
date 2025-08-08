@@ -51,6 +51,14 @@ export default {
           "4": "var(--chart-4)",
           "5": "var(--chart-5)",
         },
+        // Brand Colors - Bhutan Mind Break
+        brand: {
+          primary: "#0d9488", // teal-600
+          secondary: "#14b8a6", // teal-500
+          accent: "#f59e0b", // amber-500
+          dark: "#134e4a", // teal-800
+          light: "#f0fdfa", // teal-50
+        },
         sidebar: {
           DEFAULT: "var(--sidebar-background)",
           foreground: "var(--sidebar-foreground)",
@@ -61,6 +69,9 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

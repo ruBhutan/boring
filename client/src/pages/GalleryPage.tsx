@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Camera, Filter, X, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GALLERY_IMAGES, BHUTAN_VIDEOS } from "@/lib/constants";
@@ -14,6 +14,14 @@ const categories = [
 
 export default function GalleryPage() {
   const [activeFilter, setActiveFilter] = useState("all");
+  
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterParam = urlParams.get('filter');
+    if (filterParam === 'videos') {
+      setActiveFilter('videos');
+    }
+  }, []);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -194,22 +202,22 @@ export default function GalleryPage() {
         <div className="text-center mb-16">
           <div className="brand-section-header mb-4">
             <Camera className="w-5 h-5" />
-            Photo Gallery
+            Gallery
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 brand-heading mb-4 brand-heading">
-            Glimpses of
-            <span className="gradient-text"> Paradise</span>
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 brand-heading mb-4">
+            Visual Journey Through
+            <span className="gradient-text"> Bhutan</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body brand-body">
-            Experience the breathtaking beauty of Bhutan through the lens of our travelers 
-            and expert photographers. Each image tells a story of wonder and discovery.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body">
+            Experience the breathtaking beauty of Bhutan through immersive videos and stunning photography. 
+            Each frame tells a story of wonder and discovery in the Last Shangri-La.
           </p>
         </div>
 
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <div className="inline-flex items-center px-3 py-1 bg-white rounded-full text-sm text-gray-500 mr-4">
-            <Filter className="w-4 h-4 mr-2" />
+          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-200 rounded-full text-sm font-medium text-teal-700 shadow-sm mr-4">
+            <Filter className="w-4 h-4 mr-2 text-teal-600" />
             Filter by:
           </div>
           {categories.map((category) => (
@@ -233,41 +241,62 @@ export default function GalleryPage() {
           </p>
         </div>
 
-        {/* Video Gallery */}
+        {/* Immersive Bhutan - Video Gallery Section */}
         {activeFilter === "videos" && (
           <div className="mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Immersive
+                <span className="gradient-text"> Bhutan</span>
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Experience the magic of Bhutan through cinematic journeys that capture 
+                the soul of the Last Shangri-La.
+              </p>
+            </div>
             <VideoGallery videos={BHUTAN_VIDEOS} />
           </div>
         )}
 
-        {/* Photo Gallery Grid */}
+        {/* Photo Gallery Section */}
         {activeFilter !== "videos" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {displayImages.map((image, index) => (
-              <div 
-                key={index} 
-                className="relative group overflow-hidden rounded-2xl shadow-xl bg-white cursor-pointer"
-                onClick={() => openLightbox(index)}
-              >
-                <div className="aspect-w-4 aspect-h-3">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h3 className="font-bold text-lg mb-1">{image.title}</h3>
-                  <p className="text-sm text-gray-200">{image.description}</p>
-                </div>
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
-                    <Camera className="w-5 h-5 text-white" />
+          <div>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Photo
+                <span className="gradient-text"> Gallery</span>
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Stunning photography capturing the essence of Bhutan's landscapes, culture, and spiritual heritage.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {displayImages.map((image, index) => (
+                <div 
+                  key={index} 
+                  className="relative group overflow-hidden rounded-2xl shadow-xl bg-white cursor-pointer"
+                  onClick={() => openLightbox(index)}
+                >
+                  <div className="aspect-w-4 aspect-h-3">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <h3 className="font-bold text-lg mb-1">{image.title}</h3>
+                    <p className="text-sm text-gray-200">{image.description}</p>
+                  </div>
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
+                      <Camera className="w-5 h-5 text-white" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
 

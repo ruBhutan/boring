@@ -7,20 +7,20 @@ import BookingModal from "@/components/BookingModal";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Map, Star, Camera, Heart, Users, Award, BookOpen, Calendar } from "lucide-react";
-import { TOUR_CATEGORIES, TEAM_MEMBERS, GALLERY_IMAGES, BHUTAN_VIDEOS } from "@/lib/constants";
-import { VideoGallery } from "@/components/VideoModal";
+import { Star, Users, Award, Calendar, Compass } from "lucide-react";
+import { TOUR_CATEGORIES } from "@/lib/constants";
 import { FeaturedToursSection, FestivalCalendarSection, LuxuryAccommodationsSection, ExpertGuidesSection } from "@/components/PremiumFeaturesSection";
 import { TrustIndicatorsSection, ReviewsSection } from "@/components/TrustIndicators";
 import { AuthenticToursSection, BhutanDestinationsSection, BhutanCultureSection } from "@/components/AuthenticToursSection";
 import { BhutanVisaSection, BhutanLifestyleSection, HotStoneBathSection, BhutanRaftingSection } from "@/components/BhutanInfoHub";
 import UpcomingEventsSection from "@/components/UpcomingEventsSection";
-import type { Tour, Testimonial, BlogPost } from "@shared/schema";
+import type { Tour, Testimonial } from "@shared/schema";
 
 export default function HomePage() {
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
+  const [experienceType, setExperienceType] = useState("all");
 
   const { data: tours = [] } = useQuery<Tour[]>({
     queryKey: ["/api/tours"],
@@ -30,13 +30,15 @@ export default function HomePage() {
     queryKey: ["/api/testimonials"],
   });
 
-  const { data: blogPosts = [] } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog"],
-  });
 
-  const filteredTours = tours.filter(tour => 
-    activeFilter === "all" || tour.category.toLowerCase() === activeFilter.toLowerCase()
-  );
+
+  const filteredTours = tours.filter(tour => {
+    const categoryMatch = activeFilter === "all" || tour.category.toLowerCase() === activeFilter.toLowerCase();
+    const experienceMatch = experienceType === "all" || 
+      (experienceType === "curated" && tour.featured) ||
+      (experienceType === "authentic" && !tour.featured);
+    return categoryMatch && experienceMatch;
+  });
 
   const handleBookNow = (tour: Tour) => {
     setSelectedTour(tour);
@@ -47,32 +49,142 @@ export default function HomePage() {
     <div className="pt-16">
       <Hero />
       
-      {/* Tour Packages Section */}
+      {/* Destination Highlights - New section inspired by top tourism sites */}
+      <section className="py-20 bg-gradient-to-br from-teal-50 to-emerald-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <Badge className="mb-4 bg-teal-100 text-teal-800 px-4 py-2">
+              🏞️ Iconic Destinations
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Must-Visit
+              <span className="gradient-text"> Destinations</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Explore Bhutan's most breathtaking locations, each offering unique experiences and unforgettable memories.
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500">
+              <img 
+                src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800&h=600&fit=crop" 
+                alt="Tiger's Nest Monastery" 
+                className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-2xl font-bold mb-2">Tiger's Nest</h3>
+                <p className="text-gray-200 mb-4">Sacred monastery perched on cliff</p>
+                <Link href="/tours">
+                  <Button size="sm" className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/30">
+                    Explore Tours
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            
+            <div className="group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500">
+              <img 
+                src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=800&h=600&fit=crop" 
+                alt="Himalayan Landscapes" 
+                className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-2xl font-bold mb-2">Himalayan Peaks</h3>
+                <p className="text-gray-200 mb-4">Majestic mountain adventures</p>
+                <Link href="/tours">
+                  <Button size="sm" className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/30">
+                    View Treks
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            
+            <div className="group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500">
+              <img 
+                src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop" 
+                alt="Cultural Festivals" 
+                className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-2xl font-bold mb-2">Cultural Festivals</h3>
+                <p className="text-gray-200 mb-4">Vibrant traditional celebrations</p>
+                <Link href="/festivals">
+                  <Button size="sm" className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/30">
+                    See Festivals
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tour Packages Section - Enhanced */}
       <section id="tours" className="py-20 section-teal-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="brand-section-header mb-6">
-              <Map className="w-5 h-5" />
-              Tour Packages
-            </div>
+            <Badge className="mb-4 bg-teal-100 text-teal-800 px-4 py-2">
+              🎨 Curated Experiences
+            </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 brand-heading">
               Transformative
               <span className="gradient-text"> Journeys</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body brand-body">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body">
               Carefully crafted experiences that blend adventure, culture, and spiritual discovery 
               in the heart of the Himalayas.
             </p>
+            
+            {/* Experience Type Filter */}
+            <div className="flex flex-wrap justify-center gap-3 mt-8">
+              <button
+                onClick={() => setExperienceType("all")}
+                className={`px-6 py-3 font-semibold transition-all duration-300 rounded-full ${
+                  experienceType === "all" 
+                    ? "bg-teal-600 text-white shadow-lg transform scale-105" 
+                    : "border-2 border-teal-600 text-teal-600 hover:bg-teal-50"
+                }`}
+              >
+                All Experiences
+              </button>
+              <button
+                onClick={() => setExperienceType("curated")}
+                className={`px-6 py-3 font-semibold transition-all duration-300 rounded-full flex items-center gap-2 ${
+                  experienceType === "curated" 
+                    ? "bg-teal-600 text-white shadow-lg transform scale-105" 
+                    : "border-2 border-teal-600 text-teal-600 hover:bg-teal-50"
+                }`}
+              >
+                🎨 Curated Experiences
+              </button>
+              <button
+                onClick={() => setExperienceType("authentic")}
+                className={`px-6 py-3 font-semibold transition-all duration-300 rounded-full flex items-center gap-2 ${
+                  experienceType === "authentic" 
+                    ? "bg-teal-600 text-white shadow-lg transform scale-105" 
+                    : "border-2 border-teal-600 text-teal-600 hover:bg-teal-50"
+                }`}
+              >
+                🏛️ Authentic Bhutan Experiences
+              </button>
+            </div>
           </div>
           
-          {/* Filter buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {/* Enhanced filter buttons with icons */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
             {TOUR_CATEGORIES.slice(0, 6).map((category) => (
               <Button
                 key={category.value}
                 variant={activeFilter === category.value ? "default" : "outline"}
                 onClick={() => setActiveFilter(category.value)}
-                className={activeFilter === category.value ? "btn-teal text-white" : "btn-teal-outline"}
+                className={`${activeFilter === category.value 
+                  ? "bg-teal-600 text-white shadow-lg transform scale-105" 
+                  : "border-teal-200 text-teal-700 hover:bg-teal-50 hover:border-teal-300"} 
+                  transition-all duration-300 rounded-full px-6 py-2 font-medium`}
               >
                 {category.label}
               </Button>
@@ -81,7 +193,7 @@ export default function HomePage() {
           
           <div className="text-center mb-12">
             <Link href="/tours">
-              <Button className="btn-teal-outline">
+              <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-full font-semibold">
                 View All Categories
               </Button>
             </Link>
@@ -96,132 +208,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About Section Preview */}
-      <section className="py-20 bg-gradient-to-br from-white to-teal-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-green-500/20 rounded-2xl transform rotate-3"></div>
-              <img
-                src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&h=400&fit=crop"
-                alt="Ancient Bhutanese monastery nestled in mountain valley"
-                className="relative rounded-2xl shadow-2xl w-full h-96 object-cover"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-xl">
-                <div className="flex items-center space-x-2">
-                  <Award className="w-6 h-6 text-amber-500" />
-                  <span className="font-semibold text-gray-800">15+ Years Experience</span>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-6">
-              <div className="inline-flex items-center px-4 py-2 brand-section-header">
-                <Heart className="w-5 h-5 text-red-500 mr-2" />
-                <span className="text-sm font-medium text-gray-700">Our Story</span>
-              </div>
-              <h2 className="text-4xl font-bold text-gray-900 leading-tight">
-                Born from a Deep Love for the
-                <span className="gradient-text"> Last Shangri-La</span>
-              </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Bhutan Mind Break was founded by passionate locals who wanted to share the authentic 
-                magic of our kingdom with the world. We believe that travel should transform both 
-                the visitor and the visited.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-teal-50 p-4 rounded-xl">
-                  <div className="text-2xl font-bold text-teal-600">500+</div>
-                  <div className="text-sm text-gray-600">Happy Travelers</div>
-                </div>
-                <div className="bg-teal-50 p-4 rounded-xl">
-                  <div className="text-2xl font-bold text-teal-600">98%</div>
-                  <div className="text-sm text-gray-600">Satisfaction Rate</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Video Gallery Section */}
-      <section className="py-20 section-teal-dark">
+
+
+
+
+
+      {/* Testimonials Section - Enhanced with social proof */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="brand-section-header mb-6">
-              <Camera className="w-5 h-5" />
-              Video Gallery
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 brand-heading">
-              Immersive
-              <span className="gradient-text-light"> Bhutan</span>
-            </h2>
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto brand-body">
-              Experience the magic of Bhutan through cinematic journeys that capture 
-              the soul of the Last Shangri-La.
-            </p>
-          </div>
-          
-          <VideoGallery videos={BHUTAN_VIDEOS.slice(0, 6)} />
-          
-          <div className="text-center mt-12">
-            <Link href="/gallery">
-              <Button className="btn-teal px-8 py-3 rounded-full font-semibold teal-glow">
-                View All Videos & Photos
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery Preview */}
-      <section className="py-20 section-mountain">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="brand-section-header mb-6">
-              <Camera className="w-5 h-5" />
-              Photo Gallery
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 brand-heading">
-              Glimpses of
-              <span className="gradient-text"> Paradise</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body brand-body">
-              Experience the breathtaking beauty of Bhutan through the lens of our travelers 
-              and expert photographers.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {GALLERY_IMAGES.slice(0, 6).map((image, index) => (
-              <div key={index} className="relative group overflow-hidden rounded-2xl shadow-xl">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h4 className="font-bold">{image.title}</h4>
-                  <p className="text-sm text-gray-200">{image.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-br from-white to-teal-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="brand-section-header mb-6">
-              <Star className="w-5 h-5" />
-              What Travelers Say
-            </div>
+            <Badge className="mb-4 bg-amber-100 text-amber-800 px-4 py-2">
+              ⭐ Traveler Reviews
+            </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Stories from the
               <span className="gradient-text"> Heart</span>
             </h2>
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="flex text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-6 h-6 fill-current" />
+                ))}
+              </div>
+              <span className="text-lg font-semibold text-gray-700">4.9/5</span>
+              <span className="text-gray-500">from 500+ reviews</span>
+            </div>
           </div>
           
           {/* Featured Testimonial */}
@@ -287,74 +299,37 @@ export default function HomePage() {
       {/* Upcoming Events Section */}
       <UpcomingEventsSection />
 
-      {/* Blog Preview */}
-      <section className="py-20 section-wellness">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="brand-section-header mb-6">
-              <BookOpen className="w-5 h-5" />
-              Travel Blog
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 brand-heading">
-              Journey
-              <span className="gradient-text"> Insights</span>
+      {/* Featured Premium Sections - Streamlined */}
+      <AuthenticToursSection />
+      <TrustIndicatorsSection />
+
+      {/* Quick Action Section - Inspired by top tourism sites */}
+      <section className="py-20 bg-gradient-to-r from-teal-600 to-emerald-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Ready to Start Your Bhutan Adventure?
             </h2>
-          </div>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
-            {blogPosts.slice(0, 3).map((post) => (
-              <article key={post.id} className="bg-gradient-to-br from-white to-teal-50 rounded-3xl shadow-xl bg-gradient-to-br from-white to-teal-50 hover:shadow-2xl transition-all duration-300 overflow-hidden group">
-                <div className="relative">
-                  <img
-                    src={post.imageUrl}
-                    alt={post.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <Badge className="absolute top-4 left-4" variant="secondary">
-                    {post.category}
-                  </Badge>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-gray-500 mb-3">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-                    <span className="mx-2">•</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h3 
-                    className="text-xl font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors cursor-pointer"
-                    onClick={() => window.location.href = `/blog/${post.id}`}
-                  >
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <img
-                        src={post.authorImage}
-                        alt={post.author}
-                        className="w-8 h-8 rounded-full mr-2"
-                      />
-                      <span className="text-sm text-gray-600">{post.author}</span>
-                    </div>
-                    <span className="text-sm text-gray-500">
-                      {post.readTime}
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ))}
+            <p className="text-xl text-teal-100 mb-8">
+              Join hundreds of travelers who have discovered the magic of the Last Shangri-La with us.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/tours">
+                <Button size="lg" className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-4 rounded-full font-semibold shadow-xl">
+                  <Compass className="w-5 h-5 mr-2" />
+                  Browse All Tours
+                </Button>
+              </Link>
+              <Link href="/custom-tour">
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-4 rounded-full font-semibold">
+                  <Users className="w-5 h-5 mr-2" />
+                  Plan Custom Trip
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Featured Premium Sections - Reduced for better readability */}
-      <AuthenticToursSection />
-      <BhutanDestinationsSection />
-      <TrustIndicatorsSection />
-      <FeaturedToursSection />
 
       <BookingModal
         isOpen={isBookingModalOpen}
