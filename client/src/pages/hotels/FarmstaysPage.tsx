@@ -8,6 +8,7 @@ import {
   Apple, Droplets, Users, Heart, Camera, Award,
   Phone, Mail, Calendar, CheckCircle, Leaf
 } from "lucide-react";
+import { HotelBookingFormLauncher } from "@/components/FormLauncher";
 
 const farmstayBenefits = [
   {
@@ -106,11 +107,20 @@ const farmActivities = [
 
 export default function FarmstaysPage() {
   const { data: hotels = [] } = useQuery({ queryKey: ["/api/hotels"] });
+  const [selectedHotel, setSelectedHotel] = useState<any>(null);
+  const [selectedRoom, setSelectedRoom] = useState<any>(null);
+  const [isHotelBookingFormOpen, setIsHotelBookingFormOpen] = useState(false);
   
   // Use sample data if no hotels from API
   const farmstays = hotels.length > 0 
     ? hotels.filter((hotel: any) => hotel.category === "farmstay")
     : sampleFarmstays;
+    
+  const handleBookNow = (hotel: any) => {
+    setSelectedHotel(hotel);
+    setSelectedRoom(null);
+    setIsHotelBookingFormOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-teal-100 via-blue-100 to-teal-100">
@@ -245,7 +255,10 @@ export default function FarmstaysPage() {
                       <Button variant="outline" size="sm" className="border-green-200 text-green-700 hover:bg-green-50">
                         <Camera className="w-4 h-4" />
                       </Button>
-                      <Button className="bg-gradient-to-r from-teal-600 to-teal-600 hover:from-teal-700 hover:to-emerald-700 text-white">
+                      <Button 
+                        className="bg-gradient-to-r from-teal-600 to-teal-600 hover:from-teal-700 hover:to-emerald-700 text-white"
+                        onClick={() => handleBookNow(farmstay)}
+                      >
                         Book Farm Stay
                       </Button>
                     </div>
@@ -361,6 +374,14 @@ export default function FarmstaysPage() {
           </div>
         </div>
       </section>
+      
+      {/* Hotel Booking Form */}
+      <HotelBookingFormLauncher
+        isOpen={isHotelBookingFormOpen}
+        onClose={() => setIsHotelBookingFormOpen(false)}
+        selectedHotel={selectedHotel}
+        selectedRoom={selectedRoom}
+      />
     </div>
   );
 }

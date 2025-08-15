@@ -8,7 +8,7 @@ import {
   CheckCircle, Info, Star, Globe, Mountain, Users,
   Thermometer, Droplets, Sun, Moon, Compass, Map
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 
 export default function TravelTipsPage() {
   const packingEssentials = [
@@ -625,13 +625,13 @@ export default function TravelTipsPage() {
               Armed with these tips, you're ready to experience the magic of the Last Shangri-La.
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/tours">
+              <Link to="/tours">
                 <Button className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 px-8 py-3">
                   <Compass className="w-5 h-5 mr-2" />
                   Explore Tours
                 </Button>
               </Link>
-              <Link href="/contact">
+              <Link to="/contact">
                 <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3">
                   Get Expert Advice
                 </Button>

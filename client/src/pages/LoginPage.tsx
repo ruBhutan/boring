@@ -7,10 +7,10 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/components/AuthContext";
 import { Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -26,16 +26,10 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      // Redirect based on role if already logged in
-      if (user.role === 'admin') {
-        setLocation('/admin');
-      } else if (user.role === 'guide' || user.role === 'driver') {
-        setLocation('/dashboard');
-      } else {
-        setLocation('/');
-      }
+      // Always redirect to dashboard after login
+      navigate('/dashboard');
     }
-  }, [user, setLocation]);
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,8 +59,8 @@ export default function LoginPage() {
               description: `Welcome back, ${data.user.firstName}!`,
             });
             
-            // Force page reload to trigger auth context update
-            window.location.reload();
+            // Redirect to dashboard
+            navigate('/dashboard');
             return;
           }
         } catch (apiError) {
@@ -123,15 +117,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-teal-50 to-teal-100 flex items-center justify-center py-12 px-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen bg-brand-bg flex items-center justify-center py-12 px-4">
+      <Card className="w-full max-w-md brand-card">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">
+          <CardTitle className="text-2xl text-brand-primary">
             {isLogin ? "Welcome Back" : "Create Account"}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-brand-text/70">
             {isLogin 
-              ? "Sign in to access your account and itinerary details"
+              ? "Sign in to access your dashboard and manage your account"
               : "Join our community of travelers and guides"
             }
           </CardDescription>
@@ -181,6 +175,7 @@ export default function LoginPage() {
                       <SelectItem value="tourist">Tourist</SelectItem>
                       <SelectItem value="guide">Guide</SelectItem>
                       <SelectItem value="driver">Driver</SelectItem>
+                      <SelectItem value="tour_manager">Tour Manager</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -224,7 +219,7 @@ export default function LoginPage() {
               </div>
             </div>
             
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full btn-brand-primary">
               {isLogin ? (
                 <>
                   <LogIn className="w-4 h-4 mr-2" />
@@ -253,6 +248,7 @@ export default function LoginPage() {
                   role: "tourist",
                 });
               }}
+              className="text-brand-primary hover:text-brand-dark"
             >
               {isLogin 
                 ? "Don't have an account? Sign up"
@@ -262,10 +258,10 @@ export default function LoginPage() {
           </div>
           
           {isLogin && (
-            <div className="mt-4 p-3 bg-gradient-to-br from-teal-50 to-emerald-50 rounded-lg text-sm">
-              <p className="font-semibold mb-2">Demo Accounts:</p>
-              <div className="space-y-1 text-xs">
-                <p><strong>Admin:</strong> admin@bhutan.com / admin123</p>
+            <div className="mt-4 p-3 brand-card-purple rounded-lg text-sm">
+              <p className="font-semibold mb-2 text-brand-primary">Demo Accounts:</p>
+              <div className="space-y-1 text-xs text-brand-text/80">
+                <p><strong>Tour Manager:</strong> manager@bhutan.com / manager123</p>
                 <p><strong>Guide:</strong> guide@bhutan.com / guide123</p>
                 <p><strong>Driver:</strong> driver@bhutan.com / driver123</p>
                 <p><strong>Tourist:</strong> tourist@bhutan.com / tourist123</p>

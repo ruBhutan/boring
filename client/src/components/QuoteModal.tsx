@@ -4,9 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useToast } from "@/hooks/use-toast";
-import { Calendar, Users, DollarSign, Send, X } from "lucide-react";
+import { Calendar, Users, DollarSign, Send, X, ChevronDown, ChevronRight, User, MapPin, Heart, Info } from "lucide-react";
 import type { Tour } from "@shared/schema";
 
 interface QuoteModalProps {
@@ -34,6 +35,7 @@ interface QuoteRequest {
 export default function QuoteModal({ isOpen, onClose, tour }: QuoteModalProps) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['personal', 'trip']));
   const [quoteData, setQuoteData] = useState<QuoteRequest>({
     firstName: "",
     lastName: "",
@@ -131,88 +133,179 @@ export default function QuoteModal({ isOpen, onClose, tour }: QuoteModalProps) {
     setQuoteData(prev => ({ ...prev, [field]: value }));
   };
 
+  const toggleSection = (sectionId: string) => {
+    const newExpanded = new Set(expandedSections);
+    if (newExpanded.has(sectionId)) {
+      newExpanded.delete(sectionId);
+    } else {
+      newExpanded.add(sectionId);
+    }
+    setExpandedSections(newExpanded);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <div className="flex items-center justify-between">
-            <DialogTitle className="text-2xl flex items-center gap-2">
-              <DollarSign className="w-6 h-6 text-green-600" />
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white border-0 shadow-2xl">
+        {/* Header with Brand Gradient */}
+        <div className="bg-brand-gradient -m-6 mb-6 text-white rounded-t-lg p-6">
+          <DialogHeader className="text-white">
+            <DialogTitle className="text-3xl font-bold text-white flex items-center gap-3">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                <DollarSign className="w-6 h-6" />
+              </div>
               Get Custom Quote
             </DialogTitle>
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              <X className="w-4 h-4" />
-            </Button>
-          </div>
-          {tour && (
-            <p className="text-gray-600">
-              Request a personalized quote for: <span className="font-semibold">{tour.name}</span>
-            </p>
-          )}
-        </DialogHeader>
+            <DialogDescription className="text-white/90 text-base mt-2">
+              Tell us about your dream trip and we'll create a personalized quote tailored just for you.
+            </DialogDescription>
+          </DialogHeader>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Tour Information Card */}
+        {tour && (
+          <div className="brand-card-emerald p-6 mb-6 border-l-4 border-brand-secondary">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-brand-secondary rounded-xl flex items-center justify-center">
+                <MapPin className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-brand-text text-lg mb-2">Quote for: {tour.name}</h3>
+                <p className="text-brand-text-muted">We'll customize this tour based on your preferences and provide detailed pricing.</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="brand-form space-y-6">
           {/* Personal Information */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Personal Information</h3>
+          <Collapsible
+            open={expandedSections.has('personal')}
+            onOpenChange={() => toggleSection('personal')}
+          >
+            <CollapsibleTrigger asChild>
+              <div className={`brand-form-section cursor-pointer transition-all duration-200 hover:shadow-md border-2 rounded-xl p-4 ${
+                expandedSections.has('personal') ? 'border-brand-primary bg-brand-emerald-50' : 'border-brand-border hover:border-brand-primary/40'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white transition-all duration-200 ${
+                      expandedSections.has('personal') ? 'bg-brand-primary' : 'bg-brand-text-muted'
+                    }`}>
+                      <User className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-semibold text-brand-text flex items-center gap-2">
+                        Personal Information
+                        <span className="text-brand-accent text-xs">*</span>
+                      </h4>
+                      <p className="text-xs text-brand-text-muted">Your contact details</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {expandedSections.has('personal') ? (
+                      <ChevronDown className="w-4 h-4 text-brand-primary transition-transform duration-200" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-brand-text-muted transition-transform duration-200" />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </CollapsibleTrigger>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="firstName">First Name *</Label>
-                <Input
-                  id="firstName"
-                  value={quoteData.firstName}
-                  onChange={(e) => handleInputChange("firstName", e.target.value)}
-                  required
-                />
+            <CollapsibleContent className="space-y-4 animate-in slide-in-from-top-1 duration-200">
+              <div className="grid md:grid-cols-2 gap-4 pt-4 px-2">
+                <div>
+                  <Label className="brand-form-label" htmlFor="firstName">First Name *</Label>
+                  <Input
+                    id="firstName"
+                    className="brand-form-input"
+                    value={quoteData.firstName}
+                    onChange={(e) => handleInputChange("firstName", e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label className="brand-form-label" htmlFor="lastName">Last Name *</Label>
+                  <Input
+                    id="lastName"
+                    className="brand-form-input"
+                    value={quoteData.lastName}
+                    onChange={(e) => handleInputChange("lastName", e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label className="brand-form-label" htmlFor="email">Email Address *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    className="brand-form-input"
+                    value={quoteData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label className="brand-form-label" htmlFor="phone">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    className="brand-form-input"
+                    value={quoteData.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                    placeholder="+1 (555) 123-4567"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <Label className="brand-form-label" htmlFor="country">Country of Residence *</Label>
+                  <Input
+                    id="country"
+                    className="brand-form-input"
+                    value={quoteData.country}
+                    onChange={(e) => handleInputChange("country", e.target.value)}
+                    required
+                  />
+                </div>
               </div>
-              <div>
-                <Label htmlFor="lastName">Last Name *</Label>
-                <Input
-                  id="lastName"
-                  value={quoteData.lastName}
-                  onChange={(e) => handleInputChange("lastName", e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="email">Email Address *</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={quoteData.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  id="phone"
-                  value={quoteData.phone}
-                  onChange={(e) => handleInputChange("phone", e.target.value)}
-                  placeholder="+1 (555) 123-4567"
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="country">Country of Residence *</Label>
-              <Input
-                id="country"
-                value={quoteData.country}
-                onChange={(e) => handleInputChange("country", e.target.value)}
-                required
-              />
-            </div>
-          </div>
+            </CollapsibleContent>
+          </Collapsible>
 
           {/* Trip Details */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Trip Details</h3>
+          <Collapsible
+            open={expandedSections.has('trip')}
+            onOpenChange={() => toggleSection('trip')}
+          >
+            <CollapsibleTrigger asChild>
+              <div className={`brand-form-section cursor-pointer transition-all duration-200 hover:shadow-md border-2 rounded-xl p-4 ${
+                expandedSections.has('trip') ? 'border-brand-secondary bg-brand-gold-50' : 'border-brand-border hover:border-brand-secondary/40'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white transition-all duration-200 ${
+                      expandedSections.has('trip') ? 'bg-brand-secondary' : 'bg-brand-text-muted'
+                    }`}>
+                      <MapPin className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-semibold text-brand-text flex items-center gap-2">
+                        Trip Details
+                        <span className="text-brand-accent text-xs">*</span>
+                      </h4>
+                      <p className="text-xs text-brand-text-muted">Travel preferences and requirements</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {expandedSections.has('trip') ? (
+                      <ChevronDown className="w-4 h-4 text-brand-secondary transition-transform duration-200" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-brand-text-muted transition-transform duration-200" />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </CollapsibleTrigger>
+            
+            <CollapsibleContent className="space-y-4 animate-in slide-in-from-top-1 duration-200">
+              <div className="pt-4 px-2">
             
             {!tour && (
               <div>
@@ -284,12 +377,46 @@ export default function QuoteModal({ isOpen, onClose, tour }: QuoteModalProps) {
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-          </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
 
           {/* Additional Information */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Additional Information</h3>
+          <Collapsible
+            open={expandedSections.has('additional')}
+            onOpenChange={() => toggleSection('additional')}
+          >
+            <CollapsibleTrigger asChild>
+              <div className={`brand-form-section cursor-pointer transition-all duration-200 hover:shadow-md border-2 rounded-xl p-4 ${
+                expandedSections.has('additional') ? 'border-brand-accent bg-brand-burgundy-50' : 'border-brand-border hover:border-brand-accent/40'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white transition-all duration-200 ${
+                      expandedSections.has('additional') ? 'bg-brand-accent' : 'bg-brand-text-muted'
+                    }`}>
+                      <Info className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-semibold text-brand-text">
+                        Additional Information
+                      </h4>
+                      <p className="text-xs text-brand-text-muted">Special requests and preferences</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {expandedSections.has('additional') ? (
+                      <ChevronDown className="w-4 h-4 text-brand-accent transition-transform duration-200" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-brand-text-muted transition-transform duration-200" />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </CollapsibleTrigger>
+            
+            <CollapsibleContent className="space-y-4 animate-in slide-in-from-top-1 duration-200">
+              <div className="pt-4 px-2">
             
             <div>
               <Label htmlFor="specialRequests">Special Requests or Interests</Label>
@@ -316,32 +443,55 @@ export default function QuoteModal({ isOpen, onClose, tour }: QuoteModalProps) {
                   ))}
                 </SelectContent>
               </Select>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Information Box */}
+          <div className="bg-brand-emerald-50 p-6 rounded-xl border border-brand-primary/20">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-brand-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <Info className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-brand-text mb-3">What happens next?</h4>
+                <ul className="text-sm text-brand-text-muted space-y-2">
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-brand-primary rounded-full flex-shrink-0"></div>
+                    Our travel experts will review your requirements
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-brand-primary rounded-full flex-shrink-0"></div>
+                    You'll receive a personalized quote within 24 hours
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-brand-primary rounded-full flex-shrink-0"></div>
+                    We'll include detailed itinerary and pricing breakdown
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-brand-primary rounded-full flex-shrink-0"></div>
+                    No obligation - free consultation and quote
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
-          {/* Information Box */}
-          <div className="bg-teal-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-teal-900 mb-2">What happens next?</h4>
-            <ul className="text-sm text-emerald-800 space-y-1">
-              <li>• Our travel experts will review your requirements</li>
-              <li>• You'll receive a personalized quote within 24 hours</li>
-              <li>• We'll include detailed itinerary and pricing breakdown</li>
-              <li>• No obligation - free consultation and quote</li>
-            </ul>
-          </div>
-
           {/* Submit Button */}
-          <div className="flex gap-3 pt-4 border-t">
-            <Button type="button" variant="outline" onClick={onClose} className="flex-1">
+          <div className="flex gap-3 pt-6 border-t border-brand-border">
+            <Button type="button" onClick={onClose} className="flex-1 btn-brand-outline">
               Cancel
             </Button>
             <Button 
               type="submit" 
               disabled={isSubmitting}
-              className="flex-1 bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-emerald-700"
+              className="flex-1 btn-brand-primary"
             >
               {isSubmitting ? (
-                "Submitting..."
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  Submitting...
+                </>
               ) : (
                 <>
                   <Send className="w-4 h-4 mr-2" />

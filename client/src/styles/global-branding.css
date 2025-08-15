@@ -1,0 +1,240 @@
+/* Global Branding Styles for Bhutan Tourism Website */
+/* This file applies consistent branding colors and styling across all components */
+
+/* Import brand colors */
+@import './brand-colors.css';
+
+/* Global Brand Variables */
+:root {
+  /* Modern Brand Color Palette */
+  --brand-primary: #0f766e; /* Modern teal - primary brand color */
+  --brand-primary-light: #14b8a6; /* Light teal */
+  --brand-primary-dark: #0d9488; /* Dark teal */
+  --brand-primary-lightest: #ccfbf1; /* Lightest teal background */
+  
+  --brand-secondary: #7c3aed; /* Modern purple - secondary accent */
+  --brand-secondary-light: #8b5cf6; /* Light purple */
+  --brand-secondary-dark: #6d28d9; /* Dark purple */
+  --brand-secondary-lightest: #ede9fe; /* Lightest purple background */
+  
+  --brand-accent: #dc2626; /* Modern red - accent color */
+  --brand-accent-light: #ef4444; /* Light red */
+  --brand-accent-dark: #b91c1c; /* Dark red */
+  --brand-accent-lightest: #fee2e2; /* Lightest red background */
+  
+  --brand-success: #059669; /* Modern green - success */
+  --brand-success-light: #10b981; /* Light success */
+  --brand-success-dark: #047857; /* Dark success */
+  
+  --brand-warning: #d97706; /* Modern amber - warning */
+  --brand-warning-light: #f59e0b; /* Light warning */
+  --brand-warning-dark: #b45309; /* Dark warning */
+  
+  --brand-background: #f8fafc; /* Light gray background */
+  --brand-surface: #ffffff; /* White surface */
+  --brand-text: #1e293b; /* Dark text */
+  --brand-text-muted: #64748b; /* Muted text */
+  --brand-border: #e2e8f0; /* Light border */
+  --brand-border-light: #f1f5f9; /* Lighter border */
+  
+  /* Gradients */
+  --brand-gradient-primary: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+  --brand-gradient-secondary: linear-gradient(135deg, var(--brand-secondary), var(--brand-secondary-dark));
+  --brand-gradient-accent: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-dark));
+  --brand-gradient-hero: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  --brand-gradient-success: linear-gradient(135deg, var(--brand-success), var(--brand-success-dark));
+}
+
+/* Global Component Styles */
+@layer base {
+  /* Apply brand colors to all interactive elements */
+  * {
+    --tw-ring-color: var(--brand-primary);
+  }
+  
+  /* Links */
+  a {
+    @apply text-brand-primary hover:text-brand-primary-dark transition-colors duration-200;
+  }
+  
+  /* Buttons */
+  button, .btn {
+    @apply transition-all duration-200;
+  }
+  
+  /* Forms */
+  input, textarea, select {
+    @apply border-brand-border focus:border-brand-primary focus:ring-brand-primary/20;
+  }
+}
+
+@layer components {
+  /* Unified Button Styles */
+  .btn-brand-primary {
+    @apply bg-brand-primary hover:bg-brand-primary-dark text-white font-semibold 
+           px-6 py-3 rounded-lg shadow-lg hover:shadow-xl 
+           transform hover:scale-105 transition-all duration-200;
+  }
+  
+  .btn-brand-secondary {
+    @apply bg-brand-secondary hover:bg-brand-secondary-dark text-white font-semibold 
+           px-6 py-3 rounded-lg shadow-lg hover:shadow-xl 
+           transform hover:scale-105 transition-all duration-200;
+  }
+  
+  .btn-brand-outline {
+    @apply border-2 border-brand-primary text-brand-primary 
+           hover:bg-brand-primary hover:text-white 
+           px-6 py-3 rounded-lg font-semibold transition-all duration-200;
+  }
+  
+  .btn-brand-ghost {
+    @apply text-brand-primary hover:bg-brand-primary/10 
+           px-6 py-3 rounded-lg font-semibold transition-all duration-200;
+  }
+  
+  /* Unified Card Styles */
+  .brand-card {
+    @apply bg-white border border-brand-border rounded-xl shadow-md 
+           hover:shadow-lg transition-all duration-200;
+  }
+  
+  .brand-card-primary {
+    @apply bg-gradient-to-br from-brand-primary/5 to-brand-primary/10 
+           border-brand-primary/20 rounded-xl shadow-md;
+  }
+  
+  /* Unified Form Styles */
+  .brand-form {
+    @apply space-y-6;
+  }
+  
+  .brand-form-group {
+    @apply space-y-2;
+  }
+  
+  .brand-form-label {
+    @apply block text-sm font-medium text-brand-text;
+  }
+  
+  .brand-form-input {
+    @apply w-full px-4 py-3 border border-brand-border rounded-lg 
+           focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary
+           transition-colors duration-200;
+  }
+  
+  .brand-form-select {
+    @apply brand-form-input;
+  }
+  
+  .brand-form-textarea {
+    @apply brand-form-input resize-vertical;
+  }
+  
+  /* Navigation Styles */
+  .brand-nav-link {
+    @apply text-brand-text hover:text-brand-primary transition-colors duration-200;
+  }
+  
+  .brand-nav-link-active {
+    @apply text-brand-primary font-semibold;
+  }
+  
+  /* Section Headers */
+  .brand-section-title {
+    @apply text-3xl md:text-4xl font-bold text-brand-text mb-4;
+  }
+  
+  .brand-section-subtitle {
+    @apply text-lg text-brand-text-muted mb-8;
+  }
+  
+  /* Hero Text Styles */
+  .brand-hero-title {
+    @apply text-5xl md:text-7xl font-bold 
+           bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary 
+           bg-clip-text text-transparent;
+  }
+  
+  .brand-hero-subtitle {
+    @apply text-xl md:text-2xl text-brand-text-muted;
+  }
+  
+  /* Badge Styles */
+  .brand-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+           bg-brand-primary/10 text-brand-primary;
+  }
+  
+  .brand-badge-secondary {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+           bg-brand-secondary/10 text-brand-secondary;
+  }
+  
+  /* Pricing Cards */
+  .brand-pricing-card {
+    @apply brand-card p-6 space-y-4 hover:scale-105 transition-transform duration-200;
+  }
+  
+  .brand-pricing-card-featured {
+    @apply brand-pricing-card border-2 border-brand-primary shadow-xl;
+  }
+  
+  /* Testimonial Cards */
+  .brand-testimonial-card {
+    @apply brand-card p-6 space-y-4;
+  }
+  
+  /* Tour Cards */
+  .brand-tour-card {
+    @apply brand-card overflow-hidden;
+  }
+  
+  /* Footer Styles */
+  .brand-footer {
+    @apply bg-brand-primary-dark text-white;
+  }
+  
+  .brand-footer-link {
+    @apply text-white/80 hover:text-white transition-colors duration-200;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .brand-section-title {
+    @apply text-2xl;
+  }
+  
+  .brand-hero-title {
+    @apply text-4xl;
+  }
+}
+
+/* Animation Classes */
+.brand-fade-in {
+  @apply animate-fade;
+}
+
+.brand-slide-up {
+  @apply animate-fade-in-up;
+}
+
+/* Loading States */
+.brand-loading {
+  @apply animate-pulse bg-brand-border/50;
+}
+
+/* Focus States */
+.brand-focus {
+  @apply focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:ring-offset-2;
+}
+
+/* Hover Effects */
+.brand-hover-lift {
+  @apply hover:transform hover:scale-105 transition-transform duration-200;
+}
+
+.brand-hover-glow {
+  @apply hover:shadow-lg hover:shadow-brand-primary/20 transition-shadow duration-200;
+}

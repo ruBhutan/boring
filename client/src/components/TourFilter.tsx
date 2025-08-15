@@ -68,7 +68,7 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
       filtered = filtered.filter(tour => tour.category === filters.category);
     }
 
-    if (filters.duration) {
+    if (filters.duration && filters.duration !== 'all') {
       const [min, max] = filters.duration.split("-").map(Number);
       filtered = filtered.filter(tour => {
         const duration = tour.duration;
@@ -79,7 +79,7 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
       });
     }
 
-    if (filters.priceRange) {
+    if (filters.priceRange && filters.priceRange !== 'all') {
       const [min, max] = filters.priceRange.split("-").map(Number);
       filtered = filtered.filter(tour => {
         const price = tour.price;
@@ -90,12 +90,12 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
       });
     }
 
-    if (filters.groupSize) {
+    if (filters.groupSize && filters.groupSize !== 'all') {
       const maxSize = parseInt(filters.groupSize);
       filtered = filtered.filter(tour => tour.maxGroupSize <= maxSize);
     }
 
-    if (filters.difficulty) {
+    if (filters.difficulty && filters.difficulty !== 'all') {
       filtered = filtered.filter(tour => tour.difficulty === filters.difficulty);
     }
 
@@ -346,7 +346,7 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
                   <SelectValue placeholder="Any Duration" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Duration</SelectItem>
+                  <SelectItem value="all">Any Duration</SelectItem>
                   <SelectItem value="1-3">1-3 Days</SelectItem>
                   <SelectItem value="4-7">4-7 Days</SelectItem>
                   <SelectItem value="8-14">8-14 Days</SelectItem>
@@ -366,7 +366,7 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
                   <SelectValue placeholder="Any Price" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Price</SelectItem>
+                  <SelectItem value="all">Any Price</SelectItem>
                   <SelectItem value="0-2000">Under $2,000</SelectItem>
                   <SelectItem value="2000-4000">$2,000 - $4,000</SelectItem>
                   <SelectItem value="4000-6000">$4,000 - $6,000</SelectItem>
@@ -386,7 +386,7 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
                   <SelectValue placeholder="Any Size" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Size</SelectItem>
+                  <SelectItem value="all">Any Size</SelectItem>
                   <SelectItem value="4">Small (1-4 people)</SelectItem>
                   <SelectItem value="8">Medium (5-8 people)</SelectItem>
                   <SelectItem value="12">Large (9-12 people)</SelectItem>
@@ -406,7 +406,7 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
                   <SelectValue placeholder="Any Level" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Level</SelectItem>
+                  <SelectItem value="all">Any Level</SelectItem>
                   <SelectItem value="Easy">Easy</SelectItem>
                   <SelectItem value="Moderate">Moderate</SelectItem>
                   <SelectItem value="Challenging">Challenging</SelectItem>
@@ -426,7 +426,7 @@ export default function TourFilter({ tours, onFilteredTours }: TourFilterProps) 
                   <SelectValue placeholder="Any Season" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Season</SelectItem>
+                  <SelectItem value="all">Any Season</SelectItem>
                   <SelectItem value="Spring">Spring (Mar-May)</SelectItem>
                   <SelectItem value="Summer">Summer (Jun-Aug)</SelectItem>
                   <SelectItem value="Autumn">Autumn (Sep-Nov)</SelectItem>

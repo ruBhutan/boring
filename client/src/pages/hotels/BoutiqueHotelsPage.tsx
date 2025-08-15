@@ -9,6 +9,7 @@ import {
   Palette, Heart, Camera, Award, Crown, Sparkles,
   Users, Calendar, Phone, Mail
 } from "lucide-react";
+import { HotelBookingFormLauncher } from "@/components/FormLauncher";
 
 const boutiqueFeatures = [
   {
@@ -78,11 +79,20 @@ const sampleBoutiqueHotels = [
 export default function BoutiqueHotelsPage() {
   const { data: hotels = [] } = useQuery({ queryKey: ["/api/hotels"] });
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedHotel, setSelectedHotel] = useState<any>(null);
+  const [selectedRoom, setSelectedRoom] = useState<any>(null);
+  const [isHotelBookingFormOpen, setIsHotelBookingFormOpen] = useState(false);
   
   // Use sample data if no hotels from API
   const boutiqueHotels = hotels.length > 0 
     ? hotels.filter((hotel: any) => hotel.category === "boutique")
     : sampleBoutiqueHotels;
+    
+  const handleBookNow = (hotel: any) => {
+    setSelectedHotel(hotel);
+    setSelectedRoom(null);
+    setIsHotelBookingFormOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-amber-50 to-amber-50">
@@ -211,7 +221,10 @@ export default function BoutiqueHotelsPage() {
                       <Button variant="outline" size="sm" className="border-teal-200 text-teal-700 hover:bg-teal-50">
                         <Camera className="w-4 h-4" />
                       </Button>
-                      <Button className="btn-teal text-white">
+                      <Button 
+                        className="btn-teal text-white"
+                        onClick={() => handleBookNow(hotel)}
+                      >
                         Book Now
                       </Button>
                     </div>
@@ -295,6 +308,14 @@ export default function BoutiqueHotelsPage() {
           </div>
         </div>
       </section>
+      
+      {/* Hotel Booking Form */}
+      <HotelBookingFormLauncher
+        isOpen={isHotelBookingFormOpen}
+        onClose={() => setIsHotelBookingFormOpen(false)}
+        selectedHotel={selectedHotel}
+        selectedRoom={selectedRoom}
+      />
     </div>
   );
 }

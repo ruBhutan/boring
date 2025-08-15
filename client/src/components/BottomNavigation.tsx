@@ -17,7 +17,7 @@ import {
   Users
 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import AdminPanel from "./AdminPanel";
 
 export default function BottomNavigation() {
@@ -180,37 +180,29 @@ export default function BottomNavigation() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-teal-700 mb-4">
-                Administrative access for tour operators and staff members.
+                Login to access your dashboard and manage tours, bookings, and more.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <Link to="/login">
+                  <Button className="w-full bg-teal-600 hover:bg-teal-700">
+                    <UserCog className="w-4 h-4 mr-2" />
+                    Staff Login
+                  </Button>
+                </Link>
                 <Button 
-                  onClick={() => setShowAdminPanel(true)}
-                  className="w-full bg-teal-600 hover:bg-teal-700"
-                >
-                  <UserCog className="w-4 h-4 mr-2" />
-                  Admin Panel
-                </Button>
-                <Button 
-                  onClick={() => setShowAdminPanel(true)}
                   variant="outline"
                   className="w-full border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
+                  onClick={() => window.open('/guide-registration', '_blank')}
                 >
-                  Tour Management
+                  Join Our Team
                 </Button>
-                <Button 
-                  onClick={() => setShowAdminPanel(true)}
-                  variant="outline"
-                  className="w-full border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
-                >
-                  Guide Management
-                </Button>
-                <Button 
-                  onClick={() => setShowAdminPanel(true)}
-                  variant="outline"
-                  className="w-full border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
-                >
-                  Booking Reports
-                </Button>
+              </div>
+              <div className="mt-4 p-3 bg-white/60 rounded-lg">
+                <p className="text-xs text-teal-700">
+                  <strong>For Staff:</strong> Access admin panel, manage tours, view bookings
+                  <br />
+                  <strong>For Guides/Drivers:</strong> View assignments, reviews, and schedule
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -267,7 +259,7 @@ export default function BottomNavigation() {
                     <ul className="space-y-2">
                       {section.links.map((link, linkIndex) => (
                         <li key={linkIndex}>
-                          <Link href={link.href} className="text-gray-600 hover:text-teal-600 transition-colors text-sm flex items-center gap-1 group">
+                          <Link to={link.href} className="text-gray-600 hover:text-teal-600 transition-colors text-sm flex items-center gap-1 group">
                             {link.name}
                             <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </Link>
@@ -323,7 +315,7 @@ export default function BottomNavigation() {
   return (
     <>
       {/* Bottom Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-teal-50 to-emerald-50 border-t border-teal-200 shadow-lg z-40">
+      <div className="fixed bottom-0 left-0 right-0 bg-transparent backdrop-blur-md border-t border-white/20 shadow-lg z-40">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-around items-center py-2">
             {navigationItems.map((item) => (
@@ -333,7 +325,7 @@ export default function BottomNavigation() {
                 className={`flex flex-col items-center p-2 rounded-lg transition-all duration-200 ${
                   activeTab === item.id 
                     ? `${item.bgColor} ${item.color}` 
-                    : 'text-gray-600 hover:text-teal-600 hover:bg-teal-50'
+                    : 'text-teal-600 hover:text-teal-700 hover:bg-white/20 font-medium'
                 }`}
               >
                 <item.icon className="w-5 h-5 mb-1" />

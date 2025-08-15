@@ -1,6 +1,11 @@
 import { db } from "./db";
+import { enhancedToursData } from "./enhanced-tours";
+import { enhancedHotelsData, enhancedHotelRoomsData } from "./enhanced-hotels";
+import { enhancedFestivalsData } from "./enhanced-festivals";
+import { additionalToursData } from "./additional-tours";
+import { additionalHotelsData, additionalHotelRoomsData } from "./additional-hotels";
 
-async function seed() {
+export async function seed() {
   console.log("🌱 Seeding database...");
 
   try {
@@ -17,7 +22,7 @@ async function seed() {
     await db.tour.deleteMany();
     await db.tourOperator.deleteMany();
 
-    // Seed tour operators based on the 10 websites
+    // Seed tour operators based on top Bhutan tour operators
     const tourOperatorsData = [
       {
         name: "Heavenly Bhutan",
@@ -99,75 +104,15 @@ async function seed() {
         website: "www.bhutanswallowtail.com",
         description: "Luxury bespoke tours and hidden gem experiences with premium accommodations and exclusive access.",
         bestFeature: "Luxury bespoke tours and hidden gem experiences",
-        specialties: ["Luxury travel", "Bespoke tours", "Premium accommodations", "Exclusive access"],
+        specialties: ["Luxury tours", "Bespoke experiences", "Premium accommodations", "Exclusive access"],
         rating: 4.9,
-        reviewCount: 189,
-        logoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        reviewCount: 289,
+        logoUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
         contactEmail: "info@bhutanswallowtail.com",
-        contactPhone: "+975-2-456789",
+        contactPhone: "+975-2-356789",
         establishedYear: 2015,
-        certifications: ["Luxury Tourism Certified", "Premium Service Licensed"],
-        awards: ["Luxury Travel Excellence", "Bespoke Service Award"]
-      },
-      {
-        name: "Bhutan Scenic Tour",
-        website: "www.bhutanscenictour.com",
-        description: "Family-run boutique operator with highly personalized service and intimate group experiences.",
-        bestFeature: "Family-run boutique with highly personalized service",
-        specialties: ["Boutique tours", "Personalized service", "Small groups", "Family experiences"],
-        rating: 4.8,
-        reviewCount: 298,
-        logoUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b830?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        contactEmail: "info@bhutanscenictour.com",
-        contactPhone: "+975-2-567890",
-        establishedYear: 2007,
-        certifications: ["Boutique Tourism Licensed", "Family Service Certified"],
-        awards: ["Best Boutique Operator", "Personalized Service Excellence"]
-      },
-      {
-        name: "Away to Bhutan",
-        website: "www.awaytobhutan.com",
-        description: "Festival-focused operator offering authentic Bhutanese cultural tours with deep cultural immersion.",
-        bestFeature: "Festival-focused, authentic Bhutanese cultural tours",
-        specialties: ["Festival tours", "Cultural immersion", "Traditional ceremonies", "Local festivals"],
-        rating: 4.7,
-        reviewCount: 356,
-        logoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        contactEmail: "info@awaytobhutan.com",
-        contactPhone: "+975-2-678901",
-        establishedYear: 2009,
-        certifications: ["Cultural Tourism Licensed", "Festival Guide Certified"],
-        awards: ["Best Cultural Experience", "Festival Tourism Excellence"]
-      },
-      {
-        name: "Totally Bhutan",
-        website: "www.totallybhutan.com",
-        description: "Budget-friendly adventure and cultural packages without compromising on quality and authentic experiences.",
-        bestFeature: "Budget-friendly adventure and cultural packages",
-        specialties: ["Budget tours", "Adventure packages", "Cultural experiences", "Value travel"],
-        rating: 4.6,
-        reviewCount: 445,
-        logoUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        contactEmail: "info@totallybhutan.com",
-        contactPhone: "+975-2-789012",
-        establishedYear: 2011,
-        certifications: ["Budget Tourism Licensed", "Value Travel Certified"],
-        awards: ["Best Value Operator", "Budget Excellence Award"]
-      },
-      {
-        name: "Bhutan Travel Bureau",
-        website: "www.bhutantravelbureau.com",
-        description: "One of Bhutan's oldest and most trusted tour operators with decades of experience and established reputation.",
-        bestFeature: "One of Bhutan's oldest, trusted tour operators",
-        specialties: ["Established tours", "Traditional packages", "Reliable service", "Classic experiences"],
-        rating: 4.8,
-        reviewCount: 1234,
-        logoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        contactEmail: "info@bhutantravelbureau.com",
-        contactPhone: "+975-2-890123",
-        establishedYear: 1991,
-        certifications: ["Pioneer Tourism Licensed", "Heritage Operator Certified"],
-        awards: ["Lifetime Achievement Award", "Pioneer in Tourism", "Trust Excellence Award"]
+        certifications: ["Luxury Tourism Certified", "Premium Service Provider"],
+        awards: ["Luxury Travel Award", "Excellence in Bespoke Travel"]
       }
     ];
 
@@ -175,857 +120,39 @@ async function seed() {
       tourOperatorsData.map(operator => db.tourOperator.create({ data: operator }))
     );
 
-    // Seed comprehensive tours based on different operators and their specialties
-    const toursData = [
-      // Heavenly Bhutan - Eco-friendly luxury tours
-      {
-        name: "Eco-Luxury Cultural Immersion",
-        description: "Experience Bhutan's rich culture while staying in eco-friendly luxury accommodations. This tour combines authentic cultural experiences with sustainable tourism practices, featuring organic farm visits, traditional craft workshops, and carbon-neutral transportation.",
-        duration: 8,
-        price: 3200,
-        category: "Cultural",
-        imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 127,
-        highlights: [
-          "Eco-luxury accommodations",
-          "Organic farm-to-table dining",
-          "Traditional craft workshops",
-          "Carbon-neutral transportation",
-          "Tiger's Nest Monastery hike"
-        ],
-        maxGroupSize: 8,
-        difficulty: "Easy",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Eco-luxury accommodation",
-          "Organic meals and local cuisine",
-          "Licensed eco-guide",
-          "Carbon-neutral transportation",
-          "All entrance fees"
-        ],
-        excludes: [
-          "International flights",
-          "Travel insurance",
-          "Personal expenses",
-          "Tips and gratuities"
-        ],
-        tourOperatorId: createdOperators[0].id
-      },
-      {
-        name: "Sustainable Himalayan Adventure",
-        description: "Explore Bhutan's pristine wilderness with minimal environmental impact. This eco-adventure includes responsible trekking, wildlife conservation experiences, and community-based tourism initiatives.",
-        duration: 12,
-        price: 4500,
-        category: "Adventure",
-        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 89,
-        highlights: [
-          "Responsible trekking practices",
-          "Wildlife conservation experience",
-          "Community-based tourism",
-          "Eco-camping equipment",
-          "Local guide training support"
-        ],
-        maxGroupSize: 6,
-        difficulty: "Moderate",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Eco-friendly camping gear",
-          "Conservation project visits",
-          "Community homestays",
-          "Sustainable meals",
-          "Environmental guide"
-        ],
-        excludes: [
-          "Personal trekking gear",
-          "International flights",
-          "Travel insurance",
-          "Emergency evacuation"
-        ],
-        tourOperatorId: createdOperators[0].id
-      },
-
-      // Druk Asia - High-end private tours with visa processing
-      {
-        name: "Royal Bhutan Private Experience",
-        description: "Exclusive private tour with seamless visa processing and luxury accommodations. Experience Bhutan like royalty with private guides, premium vehicles, and access to exclusive venues.",
-        duration: 10,
-        price: 5500,
-        category: "Luxury",
-        imageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 156,
-        highlights: [
-          "Seamless visa processing",
-          "Private luxury vehicles",
-          "Exclusive venue access",
-          "Personal butler service",
-          "Royal palace visits"
-        ],
-        maxGroupSize: 4,
-        difficulty: "Easy",
-        bestSeason: "Year-round",
-        includes: [
-          "Visa processing assistance",
-          "Luxury accommodation",
-          "Private guide and driver",
-          "All meals at premium restaurants",
-          "Exclusive experiences"
-        ],
-        excludes: [
-          "International flights",
-          "Personal shopping",
-          "Spa treatments",
-          "Alcoholic beverages"
-        ],
-        tourOperatorId: createdOperators[1].id
-      },
-      {
-        name: "Customized Bhutan Discovery",
-        description: "Fully customizable private tour designed around your interests and preferences. With expert local knowledge and flexible itinerary, discover Bhutan at your own pace.",
-        duration: 7,
-        price: 4200,
-        category: "Custom",
-        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 203,
-        highlights: [
-          "Fully customizable itinerary",
-          "Expert local consultation",
-          "Flexible scheduling",
-          "Personal interests focus",
-          "Premium service standards"
-        ],
-        maxGroupSize: 6,
-        difficulty: "Flexible",
-        bestSeason: "Year-round",
-        includes: [
-          "Custom itinerary planning",
-          "Premium accommodations",
-          "Private transportation",
-          "Specialized guides",
-          "24/7 support"
-        ],
-        excludes: [
-          "International flights",
-          "Travel insurance",
-          "Optional activities",
-          "Personal expenses"
-        ],
-        tourOperatorId: createdOperators[1].id
-      },
-
-      // Bhutan Peaceful Tour - Spiritual journeys
-      {
-        name: "Mindfulness & Meditation Retreat",
-        description: "Deep spiritual journey focusing on Buddhist meditation practices, mindfulness training, and inner peace cultivation. Perfect for those seeking spiritual growth and mental clarity.",
-        duration: 14,
-        price: 3800,
-        category: "Spiritual",
-        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 178,
-        highlights: [
-          "Daily meditation sessions",
-          "Buddhist philosophy classes",
-          "Mindfulness workshops",
-          "Silent retreat periods",
-          "Spiritual counseling"
-        ],
-        maxGroupSize: 10,
-        difficulty: "Easy",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Monastery accommodation",
-          "Vegetarian meals",
-          "Meditation materials",
-          "Spiritual guide",
-          "Certificate of completion"
-        ],
-        excludes: [
-          "International flights",
-          "Personal meditation items",
-          "Donations to monasteries",
-          "Travel insurance"
-        ],
-        tourOperatorId: createdOperators[2].id
-      },
-      {
-        name: "Sacred Sites Pilgrimage",
-        description: "Visit Bhutan's most sacred Buddhist sites and participate in traditional ceremonies. This spiritual journey includes temple visits, prayer flag ceremonies, and meetings with high lamas.",
-        duration: 9,
-        price: 3200,
-        category: "Spiritual",
-        imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 134,
-        highlights: [
-          "Sacred temple visits",
-          "Traditional ceremonies",
-          "High lama meetings",
-          "Prayer flag ceremonies",
-          "Spiritual teachings"
-        ],
-        maxGroupSize: 8,
-        difficulty: "Easy",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Temple entrance fees",
-          "Ceremony participation",
-          "Spiritual guide",
-          "Traditional accommodations",
-          "Blessed artifacts"
-        ],
-        excludes: [
-          "International flights",
-          "Personal offerings",
-          "Travel insurance",
-          "Photography fees"
-        ],
-        tourOperatorId: createdOperators[2].id
-      },
-
-      // Wind Horse Tours - Trekking and adventure
-      {
-        name: "Jomolhari Base Camp Trek",
-        description: "Challenging trek to the base camp of Jomolhari, one of Bhutan's most sacred mountains. Experience high-altitude trekking, pristine wilderness, and spectacular mountain views.",
-        duration: 16,
-        price: 4800,
-        category: "Adventure",
-        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.7,
-        reviewCount: 92,
-        highlights: [
-          "Jomolhari base camp",
-          "High-altitude trekking",
-          "Pristine wilderness",
-          "Mountain photography",
-          "Yak herder encounters"
-        ],
-        maxGroupSize: 8,
-        difficulty: "Challenging",
-        bestSeason: "Autumn",
-        includes: [
-          "Professional trekking guide",
-          "Camping equipment",
-          "Porter services",
-          "All meals during trek",
-          "Emergency medical kit"
-        ],
-        excludes: [
-          "Personal trekking gear",
-          "International flights",
-          "Travel insurance",
-          "Emergency evacuation"
-        ],
-        tourOperatorId: createdOperators[3].id
-      },
-      {
-        name: "Bhutan Festival & Wildlife Tour",
-        description: "Combine cultural festival experiences with wildlife spotting in Bhutan's national parks. Perfect timing to witness traditional festivals and diverse Himalayan wildlife.",
-        duration: 11,
-        price: 3600,
-        category: "Cultural",
-        imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 167,
-        highlights: [
-          "Traditional festival participation",
-          "Wildlife spotting",
-          "National park visits",
-          "Cultural performances",
-          "Photography opportunities"
-        ],
-        maxGroupSize: 12,
-        difficulty: "Moderate",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Festival entrance fees",
-          "National park permits",
-          "Wildlife guide",
-          "Cultural performances",
-          "Photography permits"
-        ],
-        excludes: [
-          "International flights",
-          "Professional camera fees",
-          "Travel insurance",
-          "Personal expenses"
-        ],
-        tourOperatorId: createdOperators[3].id
-      },
-
-      // Keys to Bhutan - Custom tours with local insights
-      {
-        name: "Hidden Gems of Eastern Bhutan",
-        description: "Discover the lesser-known eastern regions of Bhutan with deep local insights. Visit remote villages, ancient temples, and experience authentic rural life away from tourist crowds.",
-        duration: 13,
-        price: 4100,
-        category: "Cultural",
-        imageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 78,
-        highlights: [
-          "Remote village visits",
-          "Ancient temple exploration",
-          "Authentic rural experiences",
-          "Local family interactions",
-          "Traditional craft learning"
-        ],
-        maxGroupSize: 6,
-        difficulty: "Moderate",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Local expert guide",
-          "Village homestays",
-          "Traditional meals",
-          "Craft workshops",
-          "Cultural exchanges"
-        ],
-        excludes: [
-          "International flights",
-          "Western-style accommodations",
-          "Travel insurance",
-          "Personal shopping"
-        ],
-        tourOperatorId: createdOperators[4].id
-      },
-
-      // Bhutan Swallowtail - Luxury bespoke tours
-      {
-        name: "Ultimate Luxury Bhutan Experience",
-        description: "The pinnacle of luxury travel in Bhutan with exclusive access to private venues, premium accommodations, and personalized service. Every detail crafted for the discerning traveler.",
-        duration: 12,
-        price: 8500,
-        category: "Luxury",
-        imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 5.0,
-        reviewCount: 45,
-        highlights: [
-          "Ultra-luxury accommodations",
-          "Private helicopter transfers",
-          "Exclusive venue access",
-          "Personal concierge service",
-          "Michelin-level dining"
-        ],
-        maxGroupSize: 4,
-        difficulty: "Easy",
-        bestSeason: "Year-round",
-        includes: [
-          "Luxury suite accommodations",
-          "Private helicopter flights",
-          "Personal butler service",
-          "Gourmet dining experiences",
-          "Exclusive cultural shows"
-        ],
-        excludes: [
-          "International flights",
-          "Personal shopping",
-          "Spa treatments",
-          "Alcoholic beverages"
-        ],
-        tourOperatorId: createdOperators[5].id
-      },
-
-      // Bhutan Scenic Tour - Family-run boutique
-      {
-        name: "Intimate Bhutan Family Experience",
-        description: "Small group, personalized tour perfect for families or close friends. Experience Bhutan through the eyes of a local family with intimate cultural exchanges and personalized attention.",
-        duration: 8,
-        price: 2800,
-        category: "Family",
-        imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b830?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 112,
-        highlights: [
-          "Small group experience",
-          "Family-style accommodations",
-          "Personal cultural exchanges",
-          "Home-cooked meals",
-          "Children-friendly activities"
-        ],
-        maxGroupSize: 6,
-        difficulty: "Easy",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Family-run guesthouses",
-          "Home-cooked meals",
-          "Personal family guide",
-          "Cultural activities",
-          "Children's programs"
-        ],
-        excludes: [
-          "International flights",
-          "Travel insurance",
-          "Personal expenses",
-          "Optional activities"
-        ],
-        tourOperatorId: createdOperators[6].id
-      },
-
-      // Away to Bhutan - Festival-focused
-      {
-        name: "Bhutan Festival Calendar Tour",
-        description: "Experience multiple traditional festivals across Bhutan throughout the year. Witness masked dances, traditional music, and colorful celebrations in different regions.",
-        duration: 15,
-        price: 4200,
-        category: "Cultural",
-        imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 156,
-        highlights: [
-          "Multiple festival experiences",
-          "Traditional masked dances",
-          "Regional cultural variations",
-          "Festival photography",
-          "Local celebration participation"
-        ],
-        maxGroupSize: 10,
-        difficulty: "Easy",
-        bestSeason: "Festival seasons",
-        includes: [
-          "Festival entrance fees",
-          "Cultural guide",
-          "Traditional costumes",
-          "Festival meals",
-          "Photography permits"
-        ],
-        excludes: [
-          "International flights",
-          "Professional camera fees",
-          "Travel insurance",
-          "Personal expenses"
-        ],
-        tourOperatorId: createdOperators[7].id
-      },
-
-      // Totally Bhutan - Budget-friendly
-      {
-        name: "Budget Bhutan Adventure",
-        description: "Affordable yet authentic Bhutan experience without compromising on quality. Perfect for budget-conscious travelers who want to experience the real Bhutan.",
-        duration: 7,
-        price: 1800,
-        category: "Budget",
-        imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.6,
-        reviewCount: 234,
-        highlights: [
-          "Budget-friendly pricing",
-          "Authentic experiences",
-          "Local guesthouses",
-          "Traditional meals",
-          "Cultural immersion"
-        ],
-        maxGroupSize: 12,
-        difficulty: "Easy",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Budget accommodations",
-          "Local transportation",
-          "Traditional meals",
-          "Cultural guide",
-          "Basic entrance fees"
-        ],
-        excludes: [
-          "International flights",
-          "Luxury amenities",
-          "Travel insurance",
-          "Optional activities"
-        ],
-        tourOperatorId: createdOperators[8].id
-      },
-
-      // Bhutan Travel Bureau - Classic established tours
-      {
-        name: "Classic Bhutan Heritage Tour",
-        description: "Time-tested classic tour covering all major highlights of Bhutan. Decades of experience ensure a well-organized, comprehensive introduction to the Land of the Thunder Dragon.",
-        duration: 10,
-        price: 3500,
-        category: "Classic",
-        imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 567,
-        highlights: [
-          "All major highlights",
-          "Decades of experience",
-          "Well-organized itinerary",
-          "Reliable service",
-          "Comprehensive coverage"
-        ],
-        maxGroupSize: 15,
-        difficulty: "Easy",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Standard accommodations",
-          "All major attractions",
-          "Experienced guide",
-          "Traditional meals",
-          "Transportation"
-        ],
-        excludes: [
-          "International flights",
-          "Travel insurance",
-          "Personal expenses",
-          "Optional activities"
-        ],
-        tourOperatorId: createdOperators[9].id
-      },
-
-      // New Cycling Tours
-      {
-        name: "Thimphu Valley Cycling Adventure",
-        description: "Explore Bhutan's capital valley on two wheels, combining urban cycling with scenic mountain trails. Perfect for eco-conscious travelers seeking active exploration.",
-        duration: 3,
-        price: 450,
-        category: "Cycling",
-        imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.7,
-        reviewCount: 89,
-        highlights: [
-          "Thimphu city exploration",
-          "Traditional villages",
-          "Mountain trails",
-          "Cultural sites",
-          "Eco-friendly travel"
-        ],
-        maxGroupSize: 8,
-        difficulty: "Moderate",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Premium mountain bikes",
-          "Safety equipment",
-          "Expert cycling guide",
-          "Support vehicle",
-          "Traditional meals"
-        ],
-        excludes: [
-          "International flights",
-          "Personal cycling gear",
-          "Travel insurance",
-          "Bike maintenance"
-        ],
-        tourOperatorId: createdOperators[0].id
-      },
-      {
-        name: "Paro to Punakha Cycling Expedition",
-        description: "Epic cycling journey through Bhutan's most scenic landscapes, from Paro valley to the ancient capital of Punakha. Cross mountain passes and river valleys.",
-        duration: 7,
-        price: 1200,
-        category: "Cycling",
-        imageUrl: "https://images.unsplash.com/photo-1544191696-15693072b5d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 67,
-        highlights: [
-          "Cross-country cycling",
-          "Dochula Pass",
-          "Ancient fortresses",
-          "River valleys",
-          "Mountain passes"
-        ],
-        maxGroupSize: 10,
-        difficulty: "Challenging",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "High-end mountain bikes",
-          "Professional guide",
-          "Support vehicle",
-          "Camping equipment",
-          "All meals"
-        ],
-        excludes: [
-          "International flights",
-          "Personal gear",
-          "Travel insurance",
-          "Emergency evacuation"
-        ],
-        tourOperatorId: createdOperators[3].id
-      },
-
-      // New Pilgrimage Tours
-      {
-        name: "Sacred Tiger's Nest Pilgrimage",
-        description: "Journey to Bhutan's most iconic monastery, perched dramatically on a cliff face 3,000 feet above Paro valley. Experience deep spiritual connection and meditation.",
-        duration: 3,
-        price: 650,
-        category: "Pilgrimage",
-        imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 156,
-        highlights: [
-          "Paro Taktsang Monastery",
-          "Meditation sessions",
-          "Prayer flag ceremony",
-          "Sacred caves",
-          "Spiritual guidance"
-        ],
-        maxGroupSize: 12,
-        difficulty: "Moderate",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Monastery entrance fees",
-          "Spiritual guide",
-          "Meditation materials",
-          "Traditional meals",
-          "Blessing ceremonies"
-        ],
-        excludes: [
-          "International flights",
-          "Personal offerings",
-          "Travel insurance",
-          "Photography fees"
-        ],
-        tourOperatorId: createdOperators[2].id
-      },
-      {
-        name: "Bumthang Sacred Valley Pilgrimage",
-        description: "Explore the spiritual heartland of Bhutan, visiting ancient temples and sacred sites in the blessed Bumthang valleys. Connect with centuries of Buddhist tradition.",
-        duration: 7,
-        price: 1400,
-        category: "Pilgrimage",
-        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 134,
-        highlights: [
-          "Jambay Lhakhang",
-          "Kurjey Lhakhang",
-          "Tamshing Monastery",
-          "Guru Rinpoche sites",
-          "Sacred valley walks"
-        ],
-        maxGroupSize: 15,
-        difficulty: "Easy",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Temple entrance fees",
-          "Spiritual guide",
-          "Monastery stays",
-          "Vegetarian meals",
-          "Prayer materials"
-        ],
-        excludes: [
-          "International flights",
-          "Personal donations",
-          "Travel insurance",
-          "Optional ceremonies"
-        ],
-        tourOperatorId: createdOperators[2].id
-      },
-
-      // New Wellness Tours
-      {
-        name: "Himalayan Wellness Retreat",
-        description: "Rejuvenate your mind, body, and soul with traditional Bhutanese wellness practices in serene mountain settings. Experience holistic healing and inner peace.",
-        duration: 7,
-        price: 1800,
-        category: "Wellness",
-        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 98,
-        highlights: [
-          "Hot stone baths",
-          "Meditation sessions",
-          "Yoga classes",
-          "Herbal treatments",
-          "Mountain wellness"
-        ],
-        maxGroupSize: 10,
-        difficulty: "Relaxing",
-        bestSeason: "Year-round",
-        includes: [
-          "Wellness accommodations",
-          "Spa treatments",
-          "Yoga instructor",
-          "Healthy meals",
-          "Meditation guide"
-        ],
-        excludes: [
-          "International flights",
-          "Personal spa items",
-          "Travel insurance",
-          "Additional treatments"
-        ],
-        tourOperatorId: createdOperators[5].id
-      },
-      {
-        name: "Traditional Medicine & Spa Experience",
-        description: "Experience authentic Bhutanese traditional medicine combined with luxury spa treatments for holistic healing. Learn about Sowa Rigpa healing practices.",
-        duration: 5,
-        price: 1200,
-        category: "Wellness",
-        imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 76,
-        highlights: [
-          "Sowa Rigpa medicine",
-          "Herbal consultations",
-          "Therapeutic massages",
-          "Detox programs",
-          "Wellness education"
-        ],
-        maxGroupSize: 8,
-        difficulty: "Gentle",
-        bestSeason: "Year-round",
-        includes: [
-          "Medical consultations",
-          "Herbal treatments",
-          "Spa services",
-          "Wellness meals",
-          "Health assessments"
-        ],
-        excludes: [
-          "International flights",
-          "Personal medications",
-          "Travel insurance",
-          "Extended treatments"
-        ],
-        tourOperatorId: createdOperators[5].id
-      },
-
-      // Additional Photography Tours
-      {
-        name: "Bhutan Photography Masterclass",
-        description: "Professional photography workshop covering landscape, portrait, and cultural photography in Bhutan's most photogenic locations.",
-        duration: 10,
-        price: 2200,
-        category: "Photography",
-        imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 87,
-        highlights: [
-          "Professional instruction",
-          "Tiger's Nest photography",
-          "Festival documentation",
-          "Portrait sessions",
-          "Equipment provided"
-        ],
-        maxGroupSize: 8,
-        difficulty: "Moderate",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Professional photographer guide",
-          "Photography equipment",
-          "Editing workshops",
-          "Print portfolio",
-          "All entrance fees"
-        ],
-        excludes: [
-          "International flights",
-          "Personal camera gear",
-          "Travel insurance",
-          "Photo processing"
-        ],
-        tourOperatorId: createdOperators[4].id
-      },
-      {
-        name: "Himalayan Sunrise Photography Tour",
-        description: "Capture the golden hour magic of the Himalayas with early morning photography sessions at the most scenic viewpoints.",
-        duration: 6,
-        price: 1500,
-        category: "Photography",
-        imageUrl: "https://images.unsplash.com/photo-1544191696-15693072b5d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 65,
-        highlights: [
-          "Sunrise photography",
-          "Mountain panoramas",
-          "Golden hour techniques",
-          "Composition training",
-          "Digital editing"
-        ],
-        maxGroupSize: 6,
-        difficulty: "Easy",
-        bestSeason: "Autumn & Winter",
-        includes: [
-          "Photography guide",
-          "Tripods and filters",
-          "Transportation to viewpoints",
-          "Hot beverages",
-          "Photo critique sessions"
-        ],
-        excludes: [
-          "International flights",
-          "Camera equipment",
-          "Travel insurance",
-          "Accommodation upgrades"
-        ],
-        tourOperatorId: createdOperators[4].id
-      },
-
-      // Additional Bird Watching Tours
-      {
-        name: "Bhutan Birding Expedition",
-        description: "Comprehensive birding tour covering all major habitats from subtropical forests to alpine meadows, targeting 200+ species.",
-        duration: 14,
-        price: 3200,
-        category: "Birdwatching",
-        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.9,
-        reviewCount: 92,
-        highlights: [
-          "200+ bird species",
-          "Endemic species focus",
-          "Professional birding guide",
-          "High-quality optics",
-          "Habitat diversity"
-        ],
-        maxGroupSize: 8,
-        difficulty: "Moderate",
-        bestSeason: "Spring & Autumn",
-        includes: [
-          "Expert birding guide",
-          "Binoculars and scopes",
-          "Bird identification books",
-          "Transportation",
-          "All park fees"
-        ],
-        excludes: [
-          "International flights",
-          "Personal birding gear",
-          "Travel insurance",
-          "Photography equipment"
-        ],
-        tourOperatorId: createdOperators[3].id
-      },
-      {
-        name: "Rare Birds of Eastern Bhutan",
-        description: "Specialized birding tour focusing on rare and endemic species in Bhutan's eastern regions, including the elusive Ward's Trogon.",
-        duration: 12,
-        price: 2800,
-        category: "Birdwatching",
-        imageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        rating: 4.8,
-        reviewCount: 74,
-        highlights: [
-          "Ward's Trogon",
-          "Beautiful Nuthatch",
-          "Rufous-necked Hornbill",
-          "Endemic species",
-          "Remote locations"
-        ],
-        maxGroupSize: 6,
-        difficulty: "Challenging",
-        bestSeason: "Spring",
-        includes: [
-          "Specialist birding guide",
-          "High-end optics",
-          "Remote area permits",
-          "4WD transportation",
-          "Field notebooks"
-        ],
-        excludes: [
-          "International flights",
-          "Personal equipment",
-          "Travel insurance",
-          "Emergency evacuation"
-        ],
-        tourOperatorId: createdOperators[3].id
-      }
-    ];
+    // Use enhanced and additional tour data inspired by top Bhutan tour operators and global tour companies
+    const allToursData = [...enhancedToursData, ...additionalToursData];
+    const toursData = allToursData.map((tour, index) => ({
+      ...tour,
+      tourOperatorId: createdOperators[index % createdOperators.length].id
+    }));
 
     await db.tour.createMany({
       data: toursData
+    });
+
+    // Seed enhanced and additional hotels
+    const allHotelsData = [...enhancedHotelsData, ...additionalHotelsData];
+    const hotelsData = allHotelsData;
+    const createdHotels = await Promise.all(
+      hotelsData.map(hotel => db.hotel.create({ data: hotel }))
+    );
+
+    // Seed enhanced and additional hotel rooms
+    const allHotelRoomsData = [...enhancedHotelRoomsData, ...additionalHotelRoomsData];
+    const hotelRoomsData = allHotelRoomsData.map((room, index) => ({
+      ...room,
+      hotelId: createdHotels[index % createdHotels.length].id
+    }));
+
+    await db.hotelRoom.createMany({
+      data: hotelRoomsData
+    });
+
+    // Seed enhanced festivals
+    const festivalsData = enhancedFestivalsData;
+    await db.festival.createMany({
+      data: festivalsData
     });
 
     // Seed comprehensive testimonials
@@ -1076,8 +203,8 @@ async function seed() {
         imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b830?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
         text: "Keys to Bhutan showed us the hidden gems of Eastern Bhutan that no other tour operator covers. The remote village visits and authentic rural experiences were unforgettable. Truly off the beaten path!",
         rating: 5,
-        tripName: "Hidden Gems of Eastern Bhutan",
-        duration: "13 days",
+        tripName: "Hidden Gems Discovery",
+        duration: "10 days",
         isActive: true
       },
       {
@@ -1086,47 +213,47 @@ async function seed() {
         imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
         text: "Bhutan Swallowtail's luxury experience was beyond our wildest dreams. The helicopter transfers, ultra-luxury accommodations, and personal butler service made this the trip of a lifetime. Absolutely worth the investment!",
         rating: 5,
-        tripName: "Ultimate Luxury Bhutan Experience",
-        duration: "12 days",
+        tripName: "Ultimate Luxury Bhutan",
+        duration: "14 days",
         isActive: true
       },
       {
         name: "Lisa Anderson",
         country: "United States",
         imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        text: "The family experience with Bhutan Scenic Tour was perfect for our group. The personalized attention, home-cooked meals, and intimate cultural exchanges made us feel like part of a Bhutanese family.",
+        text: "The family experience was perfect for our group. The personalized attention, home-cooked meals, and intimate cultural exchanges made us feel like part of a Bhutanese family.",
         rating: 5,
-        tripName: "Intimate Bhutan Family Experience",
-        duration: "8 days",
+        tripName: "Bespoke Family Adventure",
+        duration: "9 days",
         isActive: true
       },
       {
         name: "Michael Brown",
         country: "New Zealand",
         imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        text: "Away to Bhutan's festival tour was incredible! We experienced multiple traditional festivals with masked dances and colorful celebrations. The cultural immersion was authentic and deeply moving.",
+        text: "The festival tour was incredible! We experienced multiple traditional festivals with masked dances and colorful celebrations. The cultural immersion was authentic and deeply moving.",
         rating: 5,
-        tripName: "Bhutan Festival Calendar Tour",
-        duration: "15 days",
+        tripName: "Festival & Culture Adventure",
+        duration: "11 days",
         isActive: true
       },
       {
         name: "Sophie Martin",
         country: "France",
         imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b830?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        text: "Totally Bhutan proved that budget travel doesn't mean compromising on authenticity. The local guesthouses, traditional meals, and cultural experiences were genuine and memorable. Great value for money!",
-        rating: 4,
-        tripName: "Budget Bhutan Adventure",
-        duration: "7 days",
+        text: "The photography expedition was a dream come true. Expert guidance, exclusive locations, and stunning landscapes made for incredible shots. The portfolio review was invaluable!",
+        rating: 5,
+        tripName: "Photography Expedition",
+        duration: "12 days",
         isActive: true
       },
       {
-        name: "Thomas Mueller",
+        name: "Alex Johnson",
         country: "Germany",
         imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        text: "Bhutan Travel Bureau's classic tour was perfectly organized. Their decades of experience showed in every detail. A comprehensive introduction to Bhutan that covered all the major highlights efficiently.",
+        text: "The wellness retreat was exactly what I needed. Traditional healing practices, yoga sessions, and serene mountain settings helped me find balance and rejuvenation.",
         rating: 5,
-        tripName: "Classic Bhutan Heritage Tour",
+        tripName: "Wellness & Healing Retreat",
         duration: "10 days",
         isActive: true
       }
@@ -1136,523 +263,144 @@ async function seed() {
       data: testimonialsData
     });
 
-    // Seed comprehensive blog posts
-    const blogData = [
+    // Seed blog posts
+    const blogPostsData = [
       {
-        title: "Understanding Bhutan's Gross National Happiness Philosophy",
-        content: "Bhutan stands unique among nations for prioritizing Gross National Happiness over Gross Domestic Product. This revolutionary approach, introduced by the Fourth King of Bhutan, Jigme Singye Wangchuck, is built on four fundamental pillars: sustainable and equitable socio-economic development, environmental conservation, preservation and promotion of cultural values, and good governance.\n\nUnlike traditional economic models that focus solely on material wealth, GNH recognizes that true progress encompasses the spiritual, physical, social and environmental health of citizens. The philosophy emphasizes that development should be holistic, serving not just the economy but the collective well-being of all people.\n\nThe four pillars work in harmony: sustainable development ensures economic growth doesn't come at the expense of future generations; environmental conservation maintains Bhutan's pristine natural heritage with over 70% forest coverage mandated by the constitution; cultural preservation keeps alive the rich traditions, language, and values that define Bhutanese identity; and good governance ensures transparent, accountable leadership that serves the people.\n\nThis approach has made Bhutan carbon-negative, one of the happiest countries in Asia, and a model for sustainable development worldwide. The GNH philosophy proves that a nation can prosper while maintaining its soul, environment, and cultural integrity.",
-        excerpt: "Discover how Bhutan revolutionized national development by prioritizing citizen happiness over economic growth through the four pillars of Gross National Happiness.",
+        title: "Ultimate Guide to Bhutan's Sacred Festivals",
+        content: "Discover the spiritual significance and cultural richness of Bhutan's most important festivals, from the grand Paro Tshechu to the sacred Jambay Lhakhang Drup...",
+        excerpt: "Explore the spiritual significance and cultural richness of Bhutan's most important festivals.",
+        author: "Bhutan Travel Expert",
+        authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        category: "Culture",
+        readTime: "8 min",
+        isPublished: true
+      },
+      {
+        title: "Luxury Travel in Bhutan: Beyond the Ordinary",
+        content: "Experience the pinnacle of luxury travel in Bhutan with exclusive accommodations, private helicopter transfers, and personalized service that goes beyond expectations...",
+        excerpt: "Experience the pinnacle of luxury travel in Bhutan with exclusive accommodations and personalized service.",
+        author: "Luxury Travel Specialist",
+        authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        category: "Luxury",
+        readTime: "6 min",
+        isPublished: true
+      },
+      {
+        title: "Sustainable Tourism: Bhutan's Green Revolution",
+        content: "Learn how Bhutan leads the world in sustainable tourism with carbon-neutral operations, community-based tourism, and environmental conservation initiatives...",
+        excerpt: "Learn how Bhutan leads the world in sustainable tourism with carbon-neutral operations.",
+        author: "Sustainability Expert",
+        authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        category: "Sustainability",
+        readTime: "7 min",
+        isPublished: true
+      },
+      {
+        title: "Adventure Photography in the Himalayas",
+        content: "Capture stunning landscapes and cultural moments in Bhutan with expert photography guidance and access to exclusive shooting locations...",
+        excerpt: "Capture stunning landscapes and cultural moments in Bhutan with expert photography guidance.",
+        author: "Professional Photographer",
+        authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        category: "Photography",
+        readTime: "9 min",
+        isPublished: true
+      },
+      {
+        title: "Wellness and Healing: Bhutan's Ancient Traditions",
+        content: "Discover traditional Bhutanese healing practices, meditation techniques, and wellness programs that promote physical and spiritual well-being...",
+        excerpt: "Discover traditional Bhutanese healing practices and wellness programs.",
+        author: "Wellness Expert",
+        authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        category: "Wellness",
+        readTime: "8 min",
+        isPublished: true
+      },
+      {
+        title: "Family Adventures in the Land of the Thunder Dragon",
+        content: "Plan the perfect family vacation in Bhutan with educational experiences, cultural immersion, and adventure activities suitable for all ages...",
+        excerpt: "Plan the perfect family vacation in Bhutan with educational experiences and cultural immersion.",
+        author: "Family Travel Expert",
+        authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
         imageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "Culture",
-        readTime: "8 min read",
-        author: "Tashi Dorji",
-        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        isPublished: true,
-        publishedAt: new Date()
-      },
-      {
-        title: "The Sacred Tiger's Nest: Journey to Paro Taktsang",
-        content: "Perched dramatically on a cliff face 900 meters above the Paro Valley, Paro Taktsang, known as Tiger's Nest Monastery, is Bhutan's most iconic landmark and a testament to human devotion and architectural marvel. This sacred site holds profound spiritual significance as the place where Guru Rinpoche (Padmasambhava) meditated for three years, three months, three weeks, and three days in the 8th century.\n\nLegend tells that Guru Rinpoche flew to this location on the back of a tigress, who was actually his consort Yeshe Tsogyal in her wrathful form. The monastery, built around the cave where he meditated, has been a pilgrimage site for over 1,300 years, drawing devotees from across the Buddhist world.\n\nThe journey to Tiger's Nest is as transformative as the destination itself. The trek begins at the base in Paro Valley and winds through pine forests adorned with colorful prayer flags. The path offers breathtaking views of the valley below and the monastery clinging impossibly to the cliff face above. Pilgrims and visitors alike find the 2-3 hour hike a moving meditation, with each step bringing them closer to one of Buddhism's most sacred sites.\n\nThe monastery complex consists of four main temples and residential quarters for monks, all connected by narrow staircases carved into the rock face. Inside, ancient murals, golden statues, and the sacred cave where Guru Rinpoche meditated create an atmosphere of profound spirituality that has remained unchanged for centuries.",
-        excerpt: "Explore the legendary Tiger's Nest Monastery, where Guru Rinpoche meditated for over three years and established one of Buddhism's most sacred pilgrimage sites.",
-        imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "Culture",
-        readTime: "10 min read",
-        author: "Tashi Dorji",
-        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        isPublished: true,
-        publishedAt: new Date()
-      },
-      {
-        title: "Bhutan's High Value, Low Impact Tourism Model",
-        content: "Bhutan has pioneered a revolutionary approach to tourism that prioritizes quality over quantity, environmental protection over profit, and cultural preservation over commercialization. The 'High Value, Low Impact' tourism policy, implemented since the 1970s, has made Bhutan a global leader in sustainable travel.\n\nAt the heart of this policy is the Sustainable Development Fee (SDF), which ensures that tourism contributes meaningfully to the country's development while limiting visitor numbers to protect the environment and culture. This fee supports free healthcare and education for all Bhutanese citizens, infrastructure development, and environmental conservation programs.\n\nUnlike mass tourism destinations that often suffer from overcrowding, environmental degradation, and cultural erosion, Bhutan maintains strict limits on visitor numbers. This approach ensures that tourists receive personalized, authentic experiences while local communities benefit directly from tourism revenue without being overwhelmed by crowds.\n\nThe policy mandates that all tourists (except those from India, Bangladesh, and the Maldives) travel through licensed tour operators, ensuring quality services and authentic cultural exchanges. Visitors must book comprehensive packages that include accommodation, meals, transportation, and guide services, guaranteeing that tourism revenue reaches local communities.\n\nThis model has preserved Bhutan's pristine environment, with over 70% forest coverage, and maintained its rich cultural heritage while providing sustainable livelihoods for thousands of Bhutanese. It proves that tourism can be a force for good when managed responsibly.",
-        excerpt: "Learn how Bhutan's innovative tourism policy balances visitor experiences with environmental protection and cultural preservation through sustainable practices.",
-        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "Travel Tips",
-        readTime: "7 min read",
-        author: "Tashi Dorji",
-        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        isPublished: true,
-        publishedAt: new Date()
-      },
-      {
-        title: "The Seasons of Bhutan: When to Visit the Last Shangri-La",
-        content: "Bhutan's diverse geography, from subtropical plains in the south to towering Himalayan peaks in the north, creates distinct seasons that each offer unique experiences for travelers. Understanding these seasonal variations is crucial for planning the perfect Bhutanese adventure.\n\nSpring (March to May) is arguably the most spectacular time to visit Bhutan. The valleys come alive with blooming rhododendrons, Bhutan's national flower, painting the mountainsides in brilliant reds, pinks, and whites. The weather is mild and pleasant, with clear skies offering stunning views of the snow-capped Himalayas. This is also the season when many festivals take place, including the famous Paro Tsechu.\n\nAutumn (September to November) is considered the peak tourist season, and for good reason. The monsoon rains have cleared, leaving crystal-clear skies and excellent visibility of the mountain ranges. The weather is crisp and comfortable, perfect for trekking and outdoor activities. Many of Bhutan's most important festivals occur during this period, offering visitors authentic cultural experiences.\n\nSummer (June to August) brings the monsoon season, with frequent afternoon showers that keep the landscape lush and green. While some may avoid this season due to rain, it offers unique advantages: fewer tourists, lower prices, and the most vibrant green landscapes. The rain typically falls in the afternoon and evening, leaving mornings clear for sightseeing.\n\nWinter (December to February) offers clear, crisp days with stunning mountain views, though temperatures can be quite cold, especially at higher elevations. This is an excellent time for photography and experiencing Bhutan's winter festivals, though some high-altitude areas may be inaccessible due to snow.",
-        excerpt: "Discover the best time to visit Bhutan based on weather, festivals, and seasonal highlights from spring rhododendrons to autumn's crystal-clear mountain views.",
-        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "Travel Tips",
-        readTime: "6 min read",
-        author: "Tashi Dorji",
-        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        isPublished: true,
-        publishedAt: new Date()
-      },
-      {
-        title: "Bhutanese Festivals: Windows into an Ancient Culture",
-        content: "Bhutan's festival calendar is a vibrant tapestry of spiritual celebration, cultural preservation, and community bonding that has remained largely unchanged for centuries. These festivals, known as 'tsechus' and 'drupchens,' are not mere tourist attractions but living expressions of Bhutanese Buddhist culture and identity.\n\nThe most famous of these celebrations is the Paro Tsechu, held annually in spring at the Paro Dzong. This four-day festival culminates with the unfurling of a giant thangka (religious painting) at dawn, believed to cleanse sins simply by viewing it. Masked dancers, representing various Buddhist deities and demons, perform sacred cham dances that tell stories of good triumphing over evil.\n\nEach festival has deep spiritual significance rooted in Bhutanese Buddhism. The masked dances are not entertainment but religious ceremonies that purify the environment and bring blessings to spectators. The elaborate costumes, intricate masks, and rhythmic movements have been passed down through generations of monks and lay performers.\n\nThimphu Tshechu, the capital's grandest festival, showcases the full spectrum of Bhutanese culture. Families dress in their finest traditional attire - the gho for men and kira for women - and gather to witness the sacred performances while socializing and sharing meals. The festival serves as a reunion for extended families and a reaffirmation of cultural identity.\n\nSmaller, more intimate festivals in remote valleys like Bumthang offer visitors authentic experiences away from crowds. These celebrations maintain their traditional character, with entire communities participating in age-old rituals that connect them to their ancestors and Buddhist heritage.\n\nAttending a Bhutanese festival is like stepping back in time, witnessing traditions that have survived in their original form while the rest of the world has modernized around them.",
-        excerpt: "Experience Bhutan's sacred festivals where ancient Buddhist traditions come alive through masked dances, spiritual ceremonies, and community celebrations.",
-        imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "Culture",
-        readTime: "9 min read",
-        author: "Tashi Dorji",
-        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        isPublished: true,
-        publishedAt: new Date()
-      },
-      {
-        title: "The Last Carbon-Negative Country: Bhutan's Environmental Legacy",
-        content: "In a world grappling with climate change, Bhutan stands as a beacon of environmental stewardship, holding the unique distinction of being the world's only carbon-negative country. This remarkable achievement is not accidental but the result of deliberate policies, constitutional mandates, and a deep-rooted cultural reverence for nature.\n\nBhutan's constitution mandates that at least 60% of the country must remain under forest cover for all time. Currently, over 70% of the country is forested, making it a massive carbon sink that absorbs more carbon dioxide than the entire nation produces. This constitutional provision ensures that future generations will inherit a pristine environment regardless of development pressures.\n\nThe country's commitment to environmental conservation extends beyond forest coverage. Bhutan has banned the export of raw timber, prohibited hunting of wildlife, and established an extensive network of protected areas covering over 50% of the country. These protected areas are connected by biological corridors, allowing wildlife to migrate freely and maintaining ecosystem integrity.\n\nHydroelectric power, generated from Bhutan's abundant rivers, provides clean energy not only for domestic use but also for export to neighboring countries, further contributing to regional carbon reduction. The government has committed to remaining carbon-neutral for all time, even as the country develops economically.\n\nBhutan's environmental philosophy is deeply rooted in Buddhist principles that emphasize the interconnectedness of all life. This spiritual foundation, combined with practical policies and strong governance, has created a model that other nations are studying and attempting to replicate.\n\nThe country's environmental success proves that economic development and environmental protection are not mutually exclusive but can work in harmony when guided by wisdom, foresight, and genuine commitment to future generations.",
-        excerpt: "Discover how Bhutan became the world's only carbon-negative country through constitutional forest protection, renewable energy, and Buddhist environmental philosophy.",
-        imageUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "Environment",
-        readTime: "8 min read",
-        author: "Tashi Dorji",
-        authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-        isPublished: true,
-        publishedAt: new Date()
+        category: "Family",
+        readTime: "7 min",
+        isPublished: true
       }
     ];
 
     await db.blogPost.createMany({
-      data: blogData
+      data: blogPostsData
     });
 
-    // Seed Festival Calendar 2025
-    const festivalsData = [
+    // Seed user accounts
+    const userAccountsData = [
       {
-        name: "Paro Tsechu 2025",
-        description: "One of Bhutan's most famous festivals featuring sacred mask dances, traditional music, and colorful celebrations at Paro Dzong. Witness the unfurling of the giant thangka and receive blessings from the monks.",
-        location: "Paro Dzong, Paro",
-        startDate: new Date("2025-03-15"),
-        endDate: new Date("2025-03-19"),
-        imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "religious",
-        highlights: [
-          "Sacred Cham dances",
-          "Giant thangka unfurling",
-          "Traditional music performances",
-          "Monk blessings",
-          "Local food stalls"
-        ],
-        isActive: true,
-        ticketPrice: 50,
-        maxCapacity: 500
+        email: "admin@bhutantours.com",
+        password: "admin123",
+        firstName: "Admin",
+        lastName: "User",
+        role: "admin",
+        phone: "+975-2-123456",
+        isActive: true
       },
       {
-        name: "Thimphu Tshechu 2025",
-        description: "The capital's grandest festival held at Tashichho Dzong, featuring elaborate mask dances, traditional costumes, and spiritual ceremonies. A perfect introduction to Bhutanese culture and Buddhism.",
-        location: "Tashichho Dzong, Thimphu",
-        startDate: new Date("2025-02-20"),
-        endDate: new Date("2025-02-22"),
-        imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "religious",
-        highlights: [
-          "Royal family attendance",
-          "Elaborate mask dances",
-          "Traditional costumes",
-          "Cultural exhibitions",
-          "Local handicrafts market"
-        ],
-        isActive: true,
-        ticketPrice: 75,
-        maxCapacity: 800
+        email: "guide@bhutantours.com",
+        password: "guide123",
+        firstName: "Tenzin",
+        lastName: "Dorji",
+        role: "guide",
+        phone: "+975-17-123456",
+        isActive: true
       },
       {
-        name: "Punakha Drubchen 2025",
-        description: "A unique festival recreating the 17th-century battle against Tibetan invaders, featuring dramatic war dances and historical reenactments at the beautiful Punakha Dzong.",
-        location: "Punakha Dzong, Punakha",
-        startDate: new Date("2025-02-08"),
-        endDate: new Date("2025-02-10"),
-        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "cultural",
-        highlights: [
-          "Historical war dances",
-          "Battle reenactments",
-          "Traditional weapons display",
-          "Dzong architecture tours",
-          "River confluence views"
-        ],
-        isActive: true,
-        ticketPrice: 60,
-        maxCapacity: 300
+        email: "driver@bhutantours.com",
+        password: "driver123",
+        firstName: "Karma",
+        lastName: "Wangchuk",
+        role: "driver",
+        phone: "+975-17-234567",
+        isActive: true
       },
       {
-        name: "Bumthang Jambay Lhakhang Drup 2025",
-        description: "Ancient festival at one of Bhutan's oldest temples, featuring the famous fire ceremony and naked dance performed at midnight. A deeply spiritual and mystical experience.",
-        location: "Jambay Lhakhang, Bumthang",
-        startDate: new Date("2025-11-05"),
-        endDate: new Date("2025-11-07"),
-        imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "religious",
-        highlights: [
-          "Sacred fire ceremony",
-          "Midnight naked dance",
-          "Ancient temple rituals",
-          "Spiritual blessings",
-          "Traditional butter lamps"
-        ],
-        isActive: true,
-        ticketPrice: 40,
-        maxCapacity: 200
-      },
-      {
-        name: "Wangdue Tshechu 2025",
-        description: "Intimate festival in the scenic Wangdue valley, offering authentic cultural experiences away from crowds. Features traditional dances and local community participation.",
-        location: "Wangdue Dzong, Wangdue",
-        startDate: new Date("2025-10-12"),
-        endDate: new Date("2025-10-14"),
-        imageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "cultural",
-        highlights: [
-          "Intimate setting",
-          "Local community dances",
-          "Valley scenery",
-          "Traditional crafts",
-          "Authentic experience"
-        ],
-        isActive: true,
-        ticketPrice: 35,
-        maxCapacity: 150
-      },
-      {
-        name: "Rhododendron Festival 2025",
-        description: "Celebrate Bhutan's national flower during peak blooming season. Nature walks, photography workshops, and cultural performances amidst stunning rhododendron forests.",
-        location: "Various locations across Bhutan",
-        startDate: new Date("2025-04-01"),
-        endDate: new Date("2025-05-31"),
-        imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        category: "seasonal",
-        highlights: [
-          "Rhododendron blooms",
-          "Nature photography",
-          "Guided forest walks",
-          "Botanical workshops",
-          "Cultural performances"
-        ],
-        isActive: true,
-        ticketPrice: null, // Free festival
-        maxCapacity: null
+        email: "tourist@example.com",
+        password: "tourist123",
+        firstName: "John",
+        lastName: "Smith",
+        role: "tourist",
+        phone: "+1-555-123-4567",
+        isActive: true
       }
     ];
 
-    const createdFestivals = await Promise.all(
-      festivalsData.map(festival => db.festival.create({ data: festival }))
-    );
-
-    // Seed Luxury Hotels
-    const hotelsData = [
-      {
-        name: "Amankora Thimphu",
-        description: "Ultra-luxury resort offering unparalleled comfort and service in the heart of Bhutan's capital. Features traditional Bhutanese architecture with modern amenities, spa services, and fine dining.",
-        location: "Thimphu",
-        address: "Upper Motithang, Thimphu 11001, Bhutan",
-        imageUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        images: [
-          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-        ],
-        category: "luxury",
-        starRating: 5,
-        amenities: [
-          "Spa & Wellness Center",
-          "Fine Dining Restaurant",
-          "24/7 Room Service",
-          "Concierge Service",
-          "Airport Transfer",
-          "Laundry Service",
-          "WiFi",
-          "Fitness Center"
-        ],
-        features: [
-          "Traditional Bhutanese Architecture",
-          "Mountain Views",
-          "Private Gardens",
-          "Cultural Experiences",
-          "Meditation Sessions"
-        ],
-        pricePerNight: 1200,
-        isActive: true,
-        contactEmail: "thimphu@amankora.com",
-        contactPhone: "+975-2-333333",
-        website: "https://www.aman.com/resorts/amankora",
-        checkInTime: "15:00",
-        checkOutTime: "12:00",
-        cancellationPolicy: "Free cancellation up to 48 hours before check-in"
-      },
-      {
-        name: "Uma Paro by COMO",
-        description: "Sophisticated luxury hotel with stunning valley views and world-class spa. Combines contemporary design with Bhutanese traditions, offering exceptional dining and wellness experiences.",
-        location: "Paro",
-        address: "Paro Valley, Paro 12001, Bhutan",
-        imageUrl: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        images: [
-          "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-        ],
-        category: "luxury",
-        starRating: 5,
-        amenities: [
-          "COMO Shambhala Spa",
-          "Bukhari Restaurant",
-          "Yoga Studio",
-          "Library",
-          "Gift Shop",
-          "Airport Transfer",
-          "WiFi",
-          "Room Service"
-        ],
-        features: [
-          "Valley Views",
-          "Contemporary Design",
-          "Wellness Programs",
-          "Cultural Activities",
-          "Hiking Trails"
-        ],
-        pricePerNight: 950,
-        isActive: true,
-        contactEmail: "paro@comohotels.com",
-        contactPhone: "+975-8-271597",
-        website: "https://www.comohotels.com/uma-paro",
-        checkInTime: "14:00",
-        checkOutTime: "12:00",
-        cancellationPolicy: "Free cancellation up to 24 hours before check-in"
-      },
-      {
-        name: "Six Senses Thimphu",
-        description: "Eco-luxury resort committed to sustainability and wellness. Features organic gardens, traditional healing practices, and breathtaking Himalayan views in a serene forest setting.",
-        location: "Thimphu",
-        address: "Thimphu Forest, Thimphu 11001, Bhutan",
-        imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        images: [
-          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-        ],
-        category: "eco-lodge",
-        starRating: 5,
-        amenities: [
-          "Six Senses Spa",
-          "Organic Restaurant",
-          "Yoga Pavilion",
-          "Meditation Center",
-          "Organic Gardens",
-          "Library",
-          "WiFi",
-          "Sustainability Programs"
-        ],
-        features: [
-          "Forest Setting",
-          "Sustainable Design",
-          "Himalayan Views",
-          "Wellness Focus",
-          "Traditional Healing"
-        ],
-        pricePerNight: 1100,
-        isActive: true,
-        contactEmail: "thimphu@sixsenses.com",
-        contactPhone: "+975-2-336699",
-        website: "https://www.sixsenses.com/thimphu",
-        checkInTime: "15:00",
-        checkOutTime: "11:00",
-        cancellationPolicy: "Free cancellation up to 72 hours before check-in"
-      },
-      {
-        name: "Taj Tashi Thimphu",
-        description: "Grand luxury hotel in the heart of Thimphu, combining traditional Bhutanese architecture with modern luxury. Features multiple dining options, spa services, and panoramic city views.",
-        location: "Thimphu",
-        address: "Upper Chubachu, Thimphu 11001, Bhutan",
-        imageUrl: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        images: [
-          "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-        ],
-        category: "luxury",
-        starRating: 5,
-        amenities: [
-          "Jiva Spa",
-          "Multiple Restaurants",
-          "Business Center",
-          "Fitness Center",
-          "Gift Shop",
-          "Concierge",
-          "WiFi",
-          "Valet Parking"
-        ],
-        features: [
-          "City Center Location",
-          "Traditional Architecture",
-          "Panoramic Views",
-          "Cultural Decor",
-          "Shopping Access"
-        ],
-        pricePerNight: 800,
-        isActive: true,
-        contactEmail: "tashi.thimphu@tajhotels.com",
-        contactPhone: "+975-2-336699",
-        website: "https://www.tajhotels.com/taj-tashi-thimphu",
-        checkInTime: "14:00",
-        checkOutTime: "12:00",
-        cancellationPolicy: "Free cancellation up to 24 hours before check-in"
-      },
-      {
-        name: "Zhiwa Ling Heritage Hotel",
-        description: "Boutique heritage hotel showcasing traditional Bhutanese architecture and craftsmanship. Features authentic cultural experiences, traditional cuisine, and personalized service in Paro valley.",
-        location: "Paro",
-        address: "Satsam Chorten, Paro 12001, Bhutan",
-        imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        images: [
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-        ],
-        category: "heritage",
-        starRating: 4,
-        amenities: [
-          "Traditional Spa",
-          "Authentic Restaurant",
-          "Cultural Library",
-          "Craft Workshops",
-          "Garden Terrace",
-          "WiFi",
-          "Airport Transfer",
-          "Cultural Programs"
-        ],
-        features: [
-          "Heritage Architecture",
-          "Cultural Authenticity",
-          "Handcrafted Interiors",
-          "Traditional Arts",
-          "Valley Views"
-        ],
-        pricePerNight: 650,
-        isActive: true,
-        contactEmail: "info@zhiwaling.com",
-        contactPhone: "+975-8-271111",
-        website: "https://www.zhiwaling.com",
-        checkInTime: "14:00",
-        checkOutTime: "11:00",
-        cancellationPolicy: "Free cancellation up to 48 hours before check-in"
-      },
-      {
-        name: "Le Méridien Paro",
-        description: "Contemporary luxury hotel with stunning mountain views and modern amenities. Features international cuisine, wellness facilities, and easy access to Paro's cultural attractions.",
-        location: "Paro",
-        address: "Olakha, Paro 12001, Bhutan",
-        imageUrl: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        images: [
-          "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-        ],
-        category: "luxury",
-        starRating: 5,
-        amenities: [
-          "Spa & Wellness",
-          "International Restaurant",
-          "Bar & Lounge",
-          "Fitness Center",
-          "Business Center",
-          "WiFi",
-          "Room Service",
-          "Concierge"
-        ],
-        features: [
-          "Mountain Views",
-          "Contemporary Design",
-          "Cultural Access",
-          "Modern Comfort",
-          "International Standards"
-        ],
-        pricePerNight: 750,
-        isActive: true,
-        contactEmail: "paro@lemeridien.com",
-        contactPhone: "+975-8-272888",
-        website: "https://www.marriott.com/le-meridien-paro",
-        checkInTime: "15:00",
-        checkOutTime: "12:00",
-        cancellationPolicy: "Free cancellation up to 24 hours before check-in"
-      }
-    ];
-
-    const createdHotels = await Promise.all(
-      hotelsData.map(hotel => db.hotel.create({ data: hotel }))
-    );
-
-    // Create sample hotel rooms for each hotel
-    const hotelRoomsData = [];
-    for (const hotel of createdHotels) {
-      // Add different room types for each hotel
-      const roomTypes = [
-        {
-          roomType: "deluxe",
-          roomName: "Deluxe Valley View",
-          description: "Spacious room with panoramic valley views and traditional Bhutanese decor",
-          imageUrl: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          maxOccupancy: 2,
-          bedType: "king",
-          roomSize: "45 sqm",
-          amenities: ["Valley View", "King Bed", "Sitting Area", "Mini Bar", "Safe"],
-          pricePerNight: hotel.pricePerNight,
-          totalRooms: 10
-        },
-        {
-          roomType: "suite",
-          roomName: "Executive Suite",
-          description: "Luxurious suite with separate living area and premium amenities",
-          imageUrl: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          maxOccupancy: 4,
-          bedType: "king",
-          roomSize: "75 sqm",
-          amenities: ["Separate Living Room", "King Bed", "Dining Area", "Premium Minibar", "Butler Service"],
-          pricePerNight: Math.round(hotel.pricePerNight * 1.5),
-          totalRooms: 5
-        },
-        {
-          roomType: "standard",
-          roomName: "Standard Room",
-          description: "Comfortable room with modern amenities and mountain views",
-          imageUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          maxOccupancy: 2,
-          bedType: "queen",
-          roomSize: "35 sqm",
-          amenities: ["Mountain View", "Queen Bed", "Work Desk", "Mini Fridge", "WiFi"],
-          pricePerNight: Math.round(hotel.pricePerNight * 0.7),
-          totalRooms: 15
-        }
-      ];
-
-      for (const roomType of roomTypes) {
-        hotelRoomsData.push({
-          ...roomType,
-          hotelId: hotel.id,
-          images: [roomType.imageUrl],
-          isActive: true
-        });
-      }
-    }
-
-    await db.hotelRoom.createMany({
-      data: hotelRoomsData
+    await db.userAccount.createMany({
+      data: userAccountsData
     });
 
     console.log("✅ Database seeded successfully!");
-    console.log(`📊 Created ${tourOperatorsData.length} tour operators`);
-    console.log(`🎯 Created ${toursData.length} tours`);
-    console.log(`💬 Created ${testimonialsData.length} testimonials`);
-    console.log(`📝 Created ${blogData.length} blog posts`);
-    console.log(`🎉 Created ${festivalsData.length} festivals`);
-    console.log(`🏨 Created ${hotelsData.length} hotels`);
-    console.log(`🛏️ Created ${hotelRoomsData.length} hotel rooms`);
-    console.log(`🎉 Created ${festivalsData.length} festivals`);
-    console.log(`🏨 Created ${hotelsData.length} hotels`);
-    console.log(`🛏️ Created ${hotelRoomsData.length} hotel rooms`);
+    console.log("📊 Created", createdOperators.length, "tour operators");
+    console.log("🎯 Created", toursData.length, "tours");
+    console.log("💬 Created", testimonialsData.length, "testimonials");
+    console.log("📝 Created", blogPostsData.length, "blog posts");
+    console.log("🎉 Created", festivalsData.length, "festivals");
+    console.log("🏨 Created", hotelsData.length, "hotels");
+    console.log("🛏️ Created", hotelRoomsData.length, "hotel rooms");
+
   } catch (error) {
     console.error("❌ Error seeding database:", error);
-    process.exit(1);
+    throw error;
   }
 }
 
-// Run seed if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  seed().then(() => {
-    process.exit(0);
+seed()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await db.$disconnect();
   });
-}
-
-export { seed };

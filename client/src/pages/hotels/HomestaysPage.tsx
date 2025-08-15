@@ -8,6 +8,7 @@ import {
   Utensils, TreePine, Sunrise, Camera, Award,
   Phone, Mail, Calendar, CheckCircle
 } from "lucide-react";
+import { HotelBookingFormLauncher } from "@/components/FormLauncher";
 
 const homestayBenefits = [
   {
@@ -105,11 +106,20 @@ const whatToExpect = [
 
 export default function HomestaysPage() {
   const { data: hotels = [] } = useQuery({ queryKey: ["/api/hotels"] });
+  const [selectedHotel, setSelectedHotel] = useState<any>(null);
+  const [selectedRoom, setSelectedRoom] = useState<any>(null);
+  const [isHotelBookingFormOpen, setIsHotelBookingFormOpen] = useState(false);
   
   // Use sample data if no hotels from API
   const homestays = hotels.length > 0 
     ? hotels.filter((hotel: any) => hotel.category === "homestay")
     : sampleHomestays;
+    
+  const handleBookNow = (hotel: any) => {
+    setSelectedHotel(hotel);
+    setSelectedRoom(null);
+    setIsHotelBookingFormOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-green-50 to-emerald-50">
@@ -241,7 +251,10 @@ export default function HomestaysPage() {
                       <Button variant="outline" size="sm" className="border-green-200 text-green-700 hover:bg-green-50">
                         <Camera className="w-4 h-4" />
                       </Button>
-                      <Button className="bg-green-600 hover:bg-green-700 text-white">
+                      <Button 
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                        onClick={() => handleBookNow(homestay)}
+                      >
                         Book Now
                       </Button>
                     </div>
@@ -351,6 +364,14 @@ export default function HomestaysPage() {
           </div>
         </div>
       </section>
+      
+      {/* Hotel Booking Form */}
+      <HotelBookingFormLauncher
+        isOpen={isHotelBookingFormOpen}
+        onClose={() => setIsHotelBookingFormOpen(false)}
+        selectedHotel={selectedHotel}
+        selectedRoom={selectedRoom}
+      />
     </div>
   );
 }

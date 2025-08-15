@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRoute } from "wouter";
+import { useParams } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, Clock, User, ArrowLeft, Share2, BookOpen, Heart } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import type { BlogPost } from "@shared/schema";
 
 export default function BlogDetailPage() {
-  const [match, params] = useRoute("/blog/:id");
+  const params = useParams();
   const blogId = params?.id;
 
   const { data: blogPost, isLoading } = useQuery<BlogPost>({
@@ -36,7 +36,7 @@ export default function BlogDetailPage() {
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-teal-50 to-emerald-50 py-12">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
-          <Link href="/blog">
+          <Link to="/blog">
             <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
@@ -56,7 +56,7 @@ export default function BlogDetailPage() {
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Back Button */}
         <div className="mb-6">
-          <Link href="/blog">
+          <Link to="/blog">
             <Button variant="outline" size="sm">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
@@ -126,13 +126,13 @@ export default function BlogDetailPage() {
                     Let our experts help you plan your perfect journey to the Last Shangri-La.
                   </p>
                   <div className="flex gap-3">
-                    <Link href="/tours">
+                    <Link to="/tours">
                       <Button className="bg-gradient-to-r from-teal-600 to-green-600 text-white">
                         <BookOpen className="w-4 h-4 mr-2" />
                         View Packages
                       </Button>
                     </Link>
-                    <Link href="/contact">
+                    <Link to="/contact">
                       <Button variant="outline">
                         Get Custom Quote
                       </Button>
@@ -188,7 +188,7 @@ export default function BlogDetailPage() {
                 <h3 className="font-bold text-gray-900 mb-4">Related Articles</h3>
                 <div className="space-y-4">
                   {related.map((post) => (
-                    <Link key={post.id} href={`/blog/${post.id}`}>
+                    <Link key={post.id} to={`/blog/${post.id}`}>
                       <div className="group cursor-pointer">
                         <img
                           src={post.imageUrl}

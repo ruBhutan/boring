@@ -51,13 +51,20 @@ export default {
           "4": "var(--chart-4)",
           "5": "var(--chart-5)",
         },
-        // Brand Colors - Bhutan Mind Break
+        // Bhutan Tourism Brand Colors (Modern Bhutan Theme)
         brand: {
-          primary: "#0d9488", // teal-600
-          secondary: "#14b8a6", // teal-500
-          accent: "#f59e0b", // amber-500
-          dark: "#134e4a", // teal-800
-          light: "#f0fdfa", // teal-50
+          primary: "#047857", // Deep Emerald Green
+          'primary-hover': "#065f46", // Darker Emerald
+          secondary: "#d97706", // Warm Gold
+          'secondary-hover': "#b45309", // Darker Gold
+          accent: "#991b1b", // Rich Burgundy
+          'accent-hover': "#7f1d1d", // Darker Burgundy
+          bg: "#fafaf9", // Warm Stone Gray
+          text: "#292524", // Dark Stone
+          dark: "#064e3b", // Deep Emerald
+          light: "#ecfdf5", // Light Emerald
+          gold: "#f59e0b", // Bright Gold
+          burgundy: "#dc2626", // Bright Burgundy
         },
         sidebar: {
           DEFAULT: "var(--sidebar-background)",
@@ -90,10 +97,30 @@ export default {
             height: "0",
           },
         },
+        "fade-in": {
+          from: {
+            opacity: "0",
+          },
+          to: {
+            opacity: "1",
+          },
+        },
+        "slide-up": {
+          from: {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out",
+        "slide-up": "slide-up 0.5s ease-out",
       },
     },
   },

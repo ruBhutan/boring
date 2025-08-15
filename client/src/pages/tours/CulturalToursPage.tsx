@@ -1,30 +1,111 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import TourCard from "@/components/TourCard";
-import BookingModal from "@/components/BookingModal";
+import { BookNowFormLauncher } from "@/components/FormLauncher";
+import EnhancedInteractiveForm from "@/components/EnhancedInteractiveForm";
 import { 
   Award, Calendar, Users, Star, MapPin, Clock,
-  Crown, Heart, Camera, Book, Music, Palette
+  Crown, Heart, Camera, Book, Music, Palette,
+  Filter, ChevronDown, DollarSign, ArrowUpDown
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import type { Tour } from "@shared/schema";
 
 export default function CulturalToursPage() {
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isBookNowFormOpen, setIsBookNowFormOpen] = useState(false);
+  const [isCustomTourFormOpen, setIsCustomTourFormOpen] = useState(false);
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+  
+  // Filter states
+  const [selectedDuration, setSelectedDuration] = useState<string>("all");
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string>("all");
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<string>("featured");
 
   const { data: tours = [] } = useQuery<Tour[]>({
     queryKey: ["/api/tours"],
   });
 
-  const culturalTours = tours.filter(tour => tour.category === "Cultural");
+  // Filter and sort tours
+  const filteredAndSortedTours = useMemo(() => {
+    let filtered = tours.filter(tour => tour.category === "Cultural");
+    
+    // Duration filter
+    if (selectedDuration !== "all") {
+      switch (selectedDuration) {
+        case "short":
+          filtered = filtered.filter(tour => tour.duration && tour.duration <= 3);
+          break;
+        case "medium":
+          filtered = filtered.filter(tour => tour.duration && tour.duration >= 4 && tour.duration <= 7);
+          break;
+        case "long":
+          filtered = filtered.filter(tour => tour.duration && tour.duration >= 8);
+          break;
+      }
+    }
+    
+    // Price range filter
+    if (selectedPriceRange !== "all") {
+      switch (selectedPriceRange) {
+        case "budget":
+          filtered = filtered.filter(tour => tour.price && tour.price < 2000);
+          break;
+        case "mid":
+          filtered = filtered.filter(tour => tour.price && tour.price >= 2000 && tour.price < 4000);
+          break;
+        case "luxury":
+          filtered = filtered.filter(tour => tour.price && tour.price >= 4000);
+          break;
+      }
+    }
+    
+    // Difficulty filter
+    if (selectedDifficulty !== "all") {
+      filtered = filtered.filter(tour => tour.difficulty === selectedDifficulty);
+    }
+    
+    // Sort
+    switch (sortBy) {
+      case "price-low":
+        filtered = filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+        break;
+      case "price-high":
+        filtered = filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+        break;
+      case "duration-short":
+        filtered = filtered.sort((a, b) => (a.duration || 0) - (b.duration || 0));
+        break;
+      case "duration-long":
+        filtered = filtered.sort((a, b) => (b.duration || 0) - (a.duration || 0));
+        break;
+      case "rating":
+        filtered = filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+        break;
+      default: // featured
+        // Keep original order for featured
+        break;
+    }
+    
+    return filtered;
+  }, [tours, selectedDuration, selectedPriceRange, selectedDifficulty, sortBy]);
 
   const handleBookNow = (tour: Tour) => {
     setSelectedTour(tour);
-    setIsBookingModalOpen(true);
+    setIsBookNowFormOpen(true);
+  };
+  
+  const clearAllFilters = () => {
+    setSelectedDuration("all");
+    setSelectedPriceRange("all");
+    setSelectedDifficulty("all");
+    setSortBy("featured");
   };
 
   const culturalHighlights = [
@@ -81,13 +162,106 @@ export default function CulturalToursPage() {
           ))}
         </div>
 
+        {/* Filter Controls */}
+        <div className="mb-12">
+          <Card className="p-6 bg-gradient-to-r from-white to-teal-50 border-teal-200">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+              <div className="flex items-center gap-2">
+                <Filter className="w-5 h-5 text-teal-600" />
+                <span className="font-semibold text-gray-900">Filter Tours:</span>
+              </div>
+              
+              <div className="flex flex-wrap gap-4 flex-1">
+                {/* Duration Filter */}
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium text-gray-700 mb-2">Duration</label>
+                  <Select value={selectedDuration} onValueChange={setSelectedDuration}>
+                    <SelectTrigger className="w-[140px]">
+                      <SelectValue placeholder="Any duration" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any duration</SelectItem>
+                      <SelectItem value="short">1-3 days</SelectItem>
+                      <SelectItem value="medium">4-7 days</SelectItem>
+                      <SelectItem value="long">8+ days</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {/* Price Range Filter */}
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium text-gray-700 mb-2">Price Range</label>
+                  <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
+                    <SelectTrigger className="w-[140px]">
+                      <SelectValue placeholder="Any price" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any price</SelectItem>
+                      <SelectItem value="budget">Under $2,000</SelectItem>
+                      <SelectItem value="mid">$2,000 - $4,000</SelectItem>
+                      <SelectItem value="luxury">$4,000+</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {/* Difficulty Filter */}
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium text-gray-700 mb-2">Difficulty</label>
+                  <Select value={selectedDifficulty} onValueChange={setSelectedDifficulty}>
+                    <SelectTrigger className="w-[140px]">
+                      <SelectValue placeholder="Any level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any level</SelectItem>
+                      <SelectItem value="easy">Easy</SelectItem>
+                      <SelectItem value="moderate">Moderate</SelectItem>
+                      <SelectItem value="challenging">Challenging</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {/* Sort By */}
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium text-gray-700 mb-2">Sort By</label>
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="w-[160px]">
+                      <SelectValue placeholder="Featured" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="featured">Featured</SelectItem>
+                      <SelectItem value="price-low">Price: Low to High</SelectItem>
+                      <SelectItem value="price-high">Price: High to Low</SelectItem>
+                      <SelectItem value="duration-short">Duration: Short to Long</SelectItem>
+                      <SelectItem value="duration-long">Duration: Long to Short</SelectItem>
+                      <SelectItem value="rating">Highest Rated</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <Button 
+                  variant="outline" 
+                  onClick={clearAllFilters}
+                  className="border-teal-200 text-teal-700 hover:bg-teal-50"
+                >
+                  Clear Filters
+                </Button>
+                <Badge variant="secondary" className="bg-teal-100 text-teal-700">
+                  {filteredAndSortedTours.length} tours
+                </Badge>
+              </div>
+            </div>
+          </Card>
+        </div>
+
         {/* Tours Grid */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Cultural Tour Packages ({culturalTours.length})
+            Cultural Tour Packages ({filteredAndSortedTours.length})
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {culturalTours.map((tour) => (
+            {filteredAndSortedTours.map((tour) => (
               <Card key={tour.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
                 <div className="relative">
                   <img
@@ -135,7 +309,7 @@ export default function CulturalToursPage() {
                       <span className="text-gray-500 text-sm ml-1">per person</span>
                     </div>
                     <div className="flex gap-2">
-                      <Link href={`/tours/${tour.id}`}>
+                      <Link to={`/tours/${tour.id}`}>
                         <Button variant="outline" size="sm">
                           View Details
                         </Button>
@@ -143,7 +317,7 @@ export default function CulturalToursPage() {
                       <Button 
                         size="sm" 
                         onClick={() => handleBookNow(tour)}
-                        className="btn-teal text-white"
+                        className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
                       >
                         Book Now
                       </Button>
@@ -249,27 +423,58 @@ export default function CulturalToursPage() {
               Join us for an authentic cultural journey through the Last Shangri-La.
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/custom-tour">
-                <Button className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 px-8 py-3">
-                  <Award className="w-5 h-5 mr-2" />
-                  Customize Tour
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3">
-                  Contact Expert
-                </Button>
-              </Link>
+              <Button 
+                onClick={() => setIsCustomTourFormOpen(true)}
+                className="bg-white text-teal-700 hover:bg-teal-50 hover:text-teal-800 font-semibold px-8 py-3 shadow-lg border-2 border-white transform hover:scale-105 transition-all duration-200"
+              >
+                <Award className="w-5 h-5 mr-2" />
+                Customize Tour
+              </Button>
+              <Button 
+                onClick={() => setIsContactFormOpen(true)}
+                className="border-2 border-white text-white hover:bg-white hover:text-teal-700 font-semibold px-8 py-3 shadow-lg transform hover:scale-105 transition-all duration-200"
+              >
+                <Heart className="w-5 h-5 mr-2" />
+                Contact Expert
+              </Button>
             </div>
           </Card>
         </div>
       </div>
 
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        tour={selectedTour}
+      <BookNowFormLauncher
+        isOpen={isBookNowFormOpen}
+        onClose={() => setIsBookNowFormOpen(false)}
+        selectedTour={selectedTour}
       />
+      
+      {/* Custom Tour Form */}
+      {isCustomTourFormOpen && (
+        <EnhancedInteractiveForm
+          formType="custom-tour"
+          isOpen={isCustomTourFormOpen}
+          onClose={() => setIsCustomTourFormOpen(false)}
+          initialData={{}}
+          onSubmitSuccess={(data) => {
+            console.log("Custom tour request submitted:", data);
+            setIsCustomTourFormOpen(false);
+          }}
+        />
+      )}
+      
+      {/* Contact Form */}
+      {isContactFormOpen && (
+        <EnhancedInteractiveForm
+          formType="contact"
+          isOpen={isContactFormOpen}
+          onClose={() => setIsContactFormOpen(false)}
+          initialData={{}}
+          onSubmitSuccess={(data) => {
+            console.log("Contact request submitted:", data);
+            setIsContactFormOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import BookingModal from "@/components/BookingModal";
+import { BookNowFormLauncher } from "@/components/FormLauncher";
 import { 
   Bird, Binoculars, TreePine, Sunrise, 
   MapPin, Clock, Users, Star, Award, Calendar,
   Eye, Feather, Mountain, Camera
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import type { Tour } from "@shared/schema";
 
 const birdSpecies = [
@@ -76,7 +76,7 @@ const birdingLocations = [
 
 export default function BirdWatchingToursPage() {
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isBookNowFormOpen, setIsBookNowFormOpen] = useState(false);
 
   const { data: tours = [] } = useQuery<Tour[]>({
     queryKey: ["/api/tours"],
@@ -90,7 +90,7 @@ export default function BirdWatchingToursPage() {
 
   const handleBookNow = (tour: Tour) => {
     setSelectedTour(tour);
-    setIsBookingModalOpen(true);
+    setIsBookNowFormOpen(true);
   };
 
   return (
@@ -268,7 +268,7 @@ export default function BirdWatchingToursPage() {
                         <span className="text-gray-500 text-sm ml-1">per person</span>
                       </div>
                       <div className="flex gap-2">
-                        <Link href={`/tours/${tour.id}`}>
+                        <Link to={`/tours/${tour.id}`}>
                           <Button variant="outline" size="sm" className="border-teal-600 text-teal-600 hover:bg-emerald-50">
                             View Details
                           </Button>
@@ -291,7 +291,7 @@ export default function BirdWatchingToursPage() {
               <Bird className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-600 mb-2">Specialized Bird Watching Tours Coming Soon</h3>
               <p className="text-gray-500 mb-6">We're developing dedicated bird watching tours. Contact us for custom birding experiences.</p>
-              <Link href="/custom-tour">
+              <Link to="/custom-tour">
                 <Button className="bg-gradient-to-r from-teal-600 to-teal-600 text-white">
                   Request Custom Birding Tour
                 </Button>
@@ -363,10 +363,10 @@ export default function BirdWatchingToursPage() {
         </div>
       </section>
 
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        tour={selectedTour}
+      <BookNowFormLauncher
+        isOpen={isBookNowFormOpen}
+        onClose={() => setIsBookNowFormOpen(false)}
+        selectedTour={selectedTour}
       />
     </div>
   );

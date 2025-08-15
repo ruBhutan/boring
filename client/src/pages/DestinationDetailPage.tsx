@@ -13,7 +13,7 @@ import {
     Sun,
     Thermometer
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 
 const DESTINATION_DETAILS = {
   "paro": {
@@ -105,7 +105,7 @@ export default function DestinationDetailPage() {
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Back Button */}
         <div className="mb-6">
-          <Link href="/#destinations">
+          <Link to="/#destinations">
             <Button variant="outline" size="sm">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Destinations
@@ -266,12 +266,12 @@ export default function DestinationDetailPage() {
               Let our local experts create the perfect itinerary for your visit to this magical destination.
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/tours">
+              <Link to="/tours">
                 <Button>
                   View Tour Packages
                 </Button>
               </Link>
-              <Link href="/contact">
+              <Link to="/contact">
                 <Button variant="outline">
                   Plan Custom Trip
                 </Button>

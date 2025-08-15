@@ -1,25 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRoute } from "wouter";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import BookingModal from "@/components/BookingModal";
-import QuoteModal from "@/components/QuoteModal";
+import { BookNowFormLauncher, GetQuoteFormLauncher } from "@/components/FormLauncher";
 import { 
   ArrowLeft, Calendar, Clock, Users, Mountain, Star, 
   CheckCircle, X, Camera, Heart, Share2, Home, Utensils, Car
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import type { Tour } from "@shared/schema";
 
 export default function TourDetailPage() {
-  const [match, params] = useRoute("/tours/:id");
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const params = useParams();
+  const [isBookNowFormOpen, setIsBookNowFormOpen] = useState(false);
+  const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const tourId = params?.id;
+  
+  console.log('TourDetailPage - tourId:', tourId, 'params:', params);
 
   const { data: tour, isLoading } = useQuery<Tour>({
     queryKey: [`/api/tours/${tourId}`],
@@ -45,7 +46,7 @@ export default function TourDetailPage() {
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-teal-50 to-emerald-50 py-12">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Tour Not Found</h1>
-          <Link href="/tours">
+          <Link to="/tours">
             <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Packages
@@ -72,7 +73,7 @@ export default function TourDetailPage() {
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Back Button */}
         <div className="mb-6">
-          <Link href="/tours">
+          <Link to="/tours">
             <Button variant="outline" size="sm">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Packages
@@ -183,14 +184,14 @@ export default function TourDetailPage() {
               <div className="flex gap-3">
                 <Button 
                   className="flex-1 bg-gradient-to-r from-teal-600 to-green-600 text-white"
-                  onClick={() => setIsBookingModalOpen(true)}
+                  onClick={() => setIsBookNowFormOpen(true)}
                 >
                   Book This Package
                 </Button>
                 <Button 
                   variant="outline" 
                   className="flex-shrink-0"
-                  onClick={() => setIsQuoteModalOpen(true)}
+                  onClick={() => setIsQuoteFormOpen(true)}
                 >
                   Get Quote
                 </Button>
@@ -404,7 +405,7 @@ export default function TourDetailPage() {
                         <span className="text-2xl font-bold text-gray-900">${similarTour.price?.toLocaleString() || '0'}</span>
                         <span className="text-gray-500 ml-1">per person</span>
                       </div>
-                      <Link href={`/tours/${similarTour.id}`}>
+                      <Link to={`/tours/${similarTour.id}`}>
                         <Button size="sm">View Details</Button>
                       </Link>
                     </div>
@@ -416,16 +417,16 @@ export default function TourDetailPage() {
         )}
       </div>
 
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        tour={tour}
+      <BookNowFormLauncher
+        isOpen={isBookNowFormOpen}
+        onClose={() => setIsBookNowFormOpen(false)}
+        selectedTour={tour}
       />
       
-      <QuoteModal
-        isOpen={isQuoteModalOpen}
-        onClose={() => setIsQuoteModalOpen(false)}
-        tour={tour}
+      <GetQuoteFormLauncher
+        isOpen={isQuoteFormOpen}
+        onClose={() => setIsQuoteFormOpen(false)}
+        selectedTour={tour}
       />
     </div>
   );

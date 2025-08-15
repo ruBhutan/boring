@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Leaf, Heart, Clock, Users, Sparkles, Wind, Sun, Droplets } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 
 export default function WellnessToursPage() {
   const wellnessTours = [
@@ -256,12 +256,12 @@ export default function WellnessToursPage() {
             Restore your vitality and find inner peace in Bhutan's pristine healing environment
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact">
+            <Link to="/contact">
               <Button size="lg" className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100">
                 Plan Your Retreat
               </Button>
             </Link>
-            <Link href="/tours">
+            <Link to="/tours">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                 View All Tours
               </Button>

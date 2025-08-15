@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
@@ -114,7 +114,7 @@ export default function QuickLinks() {
                           <UserCog className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </button>
                       ) : (
-                        <Link href={link.href} className="text-gray-600 hover:text-teal-600 transition-colors text-sm flex items-center gap-1 group">
+                        <Link to={link.href} className="text-gray-600 hover:text-teal-600 transition-colors text-sm flex items-center gap-1 group">
                           {link.name}
                           <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>

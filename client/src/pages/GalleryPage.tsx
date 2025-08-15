@@ -196,7 +196,7 @@ export default function GalleryPage() {
   };
 
   return (
-    <div className="pt-20 pb-20 bg-gradient-to-br from-teal-50 to-emerald-50 min-h-screen">
+    <div className="pt-20 pb-20 bg-brand-light-gradient min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -204,11 +204,11 @@ export default function GalleryPage() {
             <Camera className="w-5 h-5" />
             Gallery
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 brand-heading mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold brand-heading mb-4">
             Visual Journey Through
             <span className="gradient-text"> Bhutan</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body">
+          <p className="text-xl brand-body max-w-3xl mx-auto">
             Experience the breathtaking beauty of Bhutan through immersive videos and stunning photography. 
             Each frame tells a story of wonder and discovery in the Last Shangri-La.
           </p>
@@ -216,15 +216,15 @@ export default function GalleryPage() {
 
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-200 rounded-full text-sm font-medium text-teal-700 shadow-sm mr-4">
-            <Filter className="w-4 h-4 mr-2 text-teal-600" />
+          <div className="inline-flex items-center px-4 py-2 bg-brand-emerald-50 border border-brand-primary/20 rounded-full text-sm font-medium text-brand-primary shadow-sm mr-4">
+            <Filter className="w-4 h-4 mr-2 text-brand-primary" />
             Filter by:
           </div>
           {categories.map((category) => (
             <Button
               key={category.value}
               onClick={() => setActiveFilter(category.value)}
-              className={activeFilter === category.value ? "btn-teal" : "btn-teal-outline"}
+              className={activeFilter === category.value ? "btn-brand-primary" : "btn-brand-outline"}
             >
               {category.label}
             </Button>
@@ -233,7 +233,7 @@ export default function GalleryPage() {
 
         {/* Media Count */}
         <div className="mb-8 text-center">
-          <p className="text-gray-600">
+          <p className="brand-body">
             {activeFilter === "videos" 
               ? `Showing ${BHUTAN_VIDEOS.length} videos`
               : `Showing ${displayImages.length} photos`
@@ -245,11 +245,11 @@ export default function GalleryPage() {
         {activeFilter === "videos" && (
           <div className="mb-16">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Immersive
-                <span className="gradient-text"> Bhutan</span>
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold brand-heading mb-4">
+              Immersive
+              <span className="gradient-text"> Bhutan</span>
+            </h2>
+            <p className="text-lg brand-body max-w-2xl mx-auto">
                 Experience the magic of Bhutan through cinematic journeys that capture 
                 the soul of the Last Shangri-La.
               </p>
@@ -262,11 +262,11 @@ export default function GalleryPage() {
         {activeFilter !== "videos" && (
           <div>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Photo
-                <span className="gradient-text"> Gallery</span>
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold brand-heading mb-4">
+              Photo
+              <span className="gradient-text"> Gallery</span>
+            </h2>
+            <p className="text-lg brand-body max-w-2xl mx-auto">
                 Stunning photography capturing the essence of Bhutan's landscapes, culture, and spiritual heritage.
               </p>
             </div>
@@ -274,7 +274,7 @@ export default function GalleryPage() {
               {displayImages.map((image, index) => (
                 <div 
                   key={index} 
-                  className="relative group overflow-hidden rounded-2xl shadow-xl bg-white cursor-pointer"
+                  className="relative group overflow-hidden rounded-2xl shadow-xl brand-card cursor-pointer"
                   onClick={() => openLightbox(index)}
                 >
                   <div className="aspect-w-4 aspect-h-3">
@@ -350,41 +350,41 @@ export default function GalleryPage() {
         )}
 
         {/* Photography Tips Section */}
-        <section className="mt-20 bg-white rounded-3xl p-8 lg:p-12 shadow-xl">
+        <section className="mt-20 bg-brand-emerald-50 rounded-3xl p-8 lg:p-12 shadow-xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Photography Tips for Bhutan</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold brand-heading mb-4">Photography Tips for Bhutan</h2>
+            <p className="text-lg brand-body max-w-2xl mx-auto">
               Capture the magic of the Last Shangri-La with these expert tips from our photography guides.
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="bg-teal-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <Camera className="w-8 h-8 text-teal-600" />
+              <div className="bg-brand-emerald-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <Camera className="w-8 h-8 text-brand-emerald-600" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Golden Hour Magic</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="font-semibold brand-heading mb-2">Golden Hour Magic</h3>
+              <p className="brand-body text-sm">
                 The soft light during sunrise and sunset creates ethereal shots of monasteries and mountains.
               </p>
             </div>
             
             <div className="text-center">
-              <div className="bg-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-green-600 font-bold text-lg">📷</span>
+              <div className="bg-brand-gold-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <span className="text-brand-gold-600 font-bold text-lg">📷</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Respect & Permission</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="font-semibold brand-heading mb-2">Respect & Permission</h3>
+              <p className="brand-body text-sm">
                 Always ask permission before photographing people and be mindful of sacred spaces.
               </p>
             </div>
             
             <div className="text-center">
-              <div className="bg-amber-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-amber-600 font-bold text-lg">🏔️</span>
+              <div className="bg-brand-primary-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <span className="text-brand-primary font-bold text-lg">🏔️</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Altitude Preparation</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="font-semibold brand-heading mb-2">Altitude Preparation</h3>
+              <p className="brand-body text-sm">
                 Protect your equipment from altitude changes and carry extra batteries in cold conditions.
               </p>
             </div>
@@ -393,12 +393,12 @@ export default function GalleryPage() {
 
         {/* Call to Action */}
         <section className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-teal-600 to-green-600 rounded-3xl p-8 text-white">
+          <div className="bg-brand-primary-gradient rounded-3xl p-8 text-white">
             <h2 className="text-3xl font-bold mb-4">Ready to Create Your Own Memories?</h2>
             <p className="text-xl mb-6 opacity-90">
               Join our photography tours and capture the essence of Bhutan with expert guidance.
             </p>
-            <Button className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 px-8 py-3 rounded-full font-semibold text-lg">
+            <Button className="bg-white text-brand-primary hover:bg-brand-emerald-50 hover:text-brand-primary px-8 py-3 rounded-full font-semibold text-lg transition-colors">
               Book Photography Tour
             </Button>
           </div>

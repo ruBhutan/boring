@@ -167,36 +167,37 @@ export default function LiveChat(): JSX.Element {
     <>
       {/* Chat Button */}
       <div className="fixed bottom-6 right-6 z-[9999]">
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-gradient-to-r from-teal-500 to-green-500 text-white shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110"
-        >
-          <MessageCircle className="w-8 h-8" />
-        </Button>
+        <div className="relative">
+          {/* Animated Ring */}
+          <div className="absolute inset-0 rounded-full bg-brand-gradient animate-ping opacity-75"></div>
+          <div className="absolute inset-0 rounded-full bg-brand-gradient animate-pulse"></div>
+          
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="relative w-16 h-16 rounded-full bg-brand-gradient text-white shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-white/20"
+          >
+            <MessageCircle className="w-8 h-8 animate-bounce" />
+          </Button>
+          
+          {/* Notification Dot */}
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+          </div>
+        </div>
       </div>
 
       {/* Chat Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-lg h-[700px] p-0 flex flex-col z-[10000] border-0 shadow-2xl">
-          <DialogHeader className="p-6 pb-4 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-t-lg">
-            <DialogTitle className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
-                  <Bot className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <div className="font-bold text-lg">Bhutan Travel Assistant</div>
-                  <div className="text-sm text-teal-100">Powered by local expertise</div>
-                </div>
+          <DialogHeader className="p-6 pb-4 bg-brand-gradient text-white rounded-t-lg">
+            <DialogTitle className="flex items-center">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
+                <Bot className="w-6 h-6 text-white" />
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-white/20 rounded-full"
-              >
-                <X className="w-5 h-5" />
-              </Button>
+              <div>
+                <div className="font-bold text-lg">Bhutan Travel Assistant</div>
+                <div className="text-sm text-teal-100">Powered by local expertise</div>
+              </div>
             </DialogTitle>
           </DialogHeader>
 
@@ -210,8 +211,8 @@ export default function LiveChat(): JSX.Element {
                 <div
                   className={`max-w-[80%] p-3 rounded-2xl ${
                     message.sender === "user"
-                      ? "bg-teal-500 text-white"
-                      : "bg-gradient-to-br from-white to-teal-50 text-gray-900 border border-teal-100"
+                      ? "bg-brand-primary text-white"
+                      : "bg-gradient-to-br from-white to-brand-emerald-50 text-gray-900 border border-brand-primary/10"
                   }`}
                 >
                   <div className={`flex items-start ${message.sender === "user" ? "flex-row-reverse" : ""}`}>

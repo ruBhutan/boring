@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import TourCard from "@/components/TourCard";
-import BookingModal from "@/components/BookingModal";
+import { BookNowFormLauncher } from "@/components/FormLauncher";
 import type { Tour } from "@shared/schema";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -117,7 +117,7 @@ const planningSteps = [
 
 export default function BespokeToursPage() {
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isBookNowFormOpen, setIsBookNowFormOpen] = useState(false);
 
   const { data: tours = [] } = useQuery<Tour[]>({
     queryKey: ["/api/tours"],
@@ -127,7 +127,7 @@ export default function BespokeToursPage() {
 
   const handleBookNow = (tour: Tour) => {
     setSelectedTour(tour);
-    setIsBookingModalOpen(true);
+    setIsBookNowFormOpen(true);
   };
 
   const [formData, setFormData] = useState({
@@ -529,10 +529,10 @@ export default function BespokeToursPage() {
         </div>
       </section>
 
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        tour={selectedTour}
+      <BookNowFormLauncher
+        isOpen={isBookNowFormOpen}
+        onClose={() => setIsBookNowFormOpen(false)}
+        selectedTour={selectedTour}
       />
     </div>
   );

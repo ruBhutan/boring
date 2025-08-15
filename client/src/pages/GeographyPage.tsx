@@ -8,7 +8,7 @@ import {
   Calendar, Camera, Compass, Route, Globe,
   Sun, Cloud, Snowflake, Leaf
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 
 export default function GeographyPage() {
   const regions = [
@@ -482,13 +482,13 @@ export default function GeographyPage() {
               From subtropical valleys to alpine peaks, discover the incredible diversity of the Last Shangri-La.
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/tours">
+              <Link to="/tours">
                 <Button className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 px-8 py-3">
                   <Compass className="w-5 h-5 mr-2" />
                   Explore Tours
                 </Button>
               </Link>
-              <Link href="/custom-tour">
+              <Link to="/custom-tour">
                 <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3">
                   Plan Custom Journey
                 </Button>

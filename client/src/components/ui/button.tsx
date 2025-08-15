@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-teal-600 to-teal-700 text-white hover:from-teal-700 hover:to-teal-800 shadow-lg shadow-teal-500/25 transform hover:scale-105 !text-white hover:!text-white",
+        default: "bg-gradient-to-r from-[#065f46] to-[#047857] text-white hover:from-[#047857] hover:to-[#064e3b] shadow-lg shadow-emerald-500/25 transform hover:scale-105 !text-white hover:!text-white",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          "bg-[#991b1b] hover:bg-[#7f1d1d] text-white shadow-lg shadow-red-500/25",
         outline:
-          "border-2 border-teal-600 text-teal-600 bg-transparent hover:bg-teal-600 hover:text-white !text-teal-600 hover:!text-white",
+          "border-2 border-[#065f46] text-[#065f46] bg-transparent hover:bg-[#065f46] hover:text-white !text-[#065f46] hover:!text-white",
         secondary:
-          "bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700 shadow-lg shadow-amber-500/25 transform hover:scale-105 !text-white hover:!text-white",
-        ghost: "text-teal-600 hover:bg-teal-50 hover:text-teal-700 !text-teal-600 hover:!text-teal-700",
-        link: "text-teal-600 underline-offset-4 hover:underline !text-teal-600",
+          "bg-gradient-to-r from-[#d97706] to-[#b45309] text-white hover:from-[#b45309] hover:to-[#92400e] shadow-lg shadow-amber-500/25 transform hover:scale-105 !text-white hover:!text-white",
+        ghost: "text-[#065f46] hover:bg-emerald-50 hover:text-[#047857] !text-[#065f46] hover:!text-[#047857]",
+        link: "text-[#065f46] underline-offset-4 hover:underline !text-[#065f46]",
       },
       size: {
         default: "h-10 px-4 py-2",

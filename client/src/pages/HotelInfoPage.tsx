@@ -6,7 +6,7 @@ import {
   Hotel, Star, MapPin, Wifi, Car, Utensils, Flower, 
   Mountain, Leaf, Crown, Home, Award, CheckCircle, Info
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 
 export default function HotelInfoPage() {
   const accommodationTypes = [
@@ -92,6 +92,38 @@ export default function HotelInfoPage() {
       amenities: ["Cultural Programs", "Traditional Spa", "Heritage Dining", "Art Collection", "Craft Workshops"],
       sustainability: "Preserves traditional building techniques and supports local artisan communities.",
       image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      name: "Le Meridien Thimphu",
+      category: "Boutique",
+      location: "Thimphu",
+      description: "Located in the heart of the capital city, Le Méridien Thimphu is a sophisticated hotel that blends contemporary design with Bhutanese motifs. It offers a vibrant social hub for travelers seeking a modern and culturally engaging experience.",
+      highlights: [
+        "Central location in Thimphu city",
+        "Contemporary design with Bhutanese touches",
+        "Explore Spa, fitness center, and indoor heated pool",
+        "Latitude 27, a vibrant hub for coffee and cocktails",
+        "Close proximity to key cultural sites"
+      ],
+      amenities: ["Spa & Wellness", "Fitness Center", "Indoor Pool", "Modern Design", "City Views"],
+      sustainability: "Marriott's 'Serve 360' program guides the hotel's commitment to making a positive and sustainable impact.",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      name: "Taj Tashi",
+      category: "Luxury",
+      location: "Thimphu",
+      description: "A luxurious hotel that blends traditional Bhutanese Dzong architecture with modern elegance. Taj Tashi offers stunning views of the Thimphu valley and a gateway to the kingdom's rich heritage.",
+      highlights: [
+        "Hand-drawn murals and intricate woodwork",
+        "Jiva Spa offering traditional Indian and Bhutanese therapies",
+        "Multiple dining options with Bhutanese and international cuisine",
+        "Spacious rooms with panoramic valley views",
+        "Located in the heart of Thimphu"
+      ],
+      amenities: ["Luxury Spa", "Fine Dining", "Valley Views", "Cultural Architecture", "Butler Service"],
+      sustainability: "Taj Hotels is committed to responsible tourism through its 'Paathya' framework, focusing on environmental stewardship and community engagement.",
+      image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"
     }
   ];
 
@@ -375,13 +407,13 @@ export default function HotelInfoPage() {
               From luxury resorts to heritage properties, discover accommodations that enhance your Bhutan experience.
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/hotels">
+              <Link to="/hotels">
                 <Button className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 px-8 py-3">
                   <Hotel className="w-5 h-5 mr-2" />
                   Browse Hotels
                 </Button>
               </Link>
-              <Link href="/tours">
+              <Link to="/tours">
                 <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3">
                   View Package Deals
                 </Button>

@@ -1,9 +1,9 @@
-import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/components/AuthContext";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "@/pages/HomePage";
 import ToursPage from "@/pages/ToursPage";
 import AboutPage from "@/pages/AboutPage";
@@ -18,8 +18,12 @@ import FestivalsPage from "@/pages/FestivalsPage";
 import HotelsPage from "@/pages/HotelsPage";
 import LoginPage from "@/pages/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import RoleProtectedRoute from "@/components/RoleProtectedRoute";
+import GuideDriverDashboard from "@/components/GuideDriverDashboard";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Layout from "@/components/Layout";
 import LiveChat from "@/components/LiveChat";
 import BottomNavigation from "@/components/BottomNavigation";
 import NotFound from "@/pages/not-found";
@@ -50,51 +54,80 @@ import BoutiqueHotelsPage from "@/pages/hotels/BoutiqueHotelsPage";
 import HomestaysPage from "@/pages/hotels/HomestaysPage";
 import FarmstaysPage from "@/pages/hotels/FarmstaysPage";
 
+// Dashboard components
+import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import DashboardOverview from "@/components/dashboard/DashboardOverview";
+
+// Layout wrapper for main website
+function WebsiteLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen bg-brand-bg flex flex-col">
+      <Navigation />
+      <main className="flex-1">
+        <Layout>{children}</Layout>
+      </main>
+      <Footer />
+      <LiveChat />
+      <BottomNavigation />
+    </div>
+  );
+}
+
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={HomePage} />
-      <Route path="/tours" component={ToursPage} />
-      <Route path="/tours/:id" component={TourDetailPage} />
-      <Route path="/festivals" component={FestivalsPage} />
-      <Route path="/festivals/info" component={FestivalInfoPage} />
-      <Route path="/hotels" component={HotelsPage} />
-      <Route path="/hotels/info" component={HotelInfoPage} />
-      <Route path="/visa-info" component={VisaInfoPage} />
-      <Route path="/flights" component={FlightsPage} />
-      <Route path="/geography" component={GeographyPage} />
-      <Route path="/unique-experiences" component={UniqueExperiencesPage} />
-      <Route path="/travel-tips" component={TravelTipsPage} />
-      <Route path="/faq" component={FAQPage} />
-      <Route path="/tours/cultural" component={CulturalToursPage} />
-      <Route path="/tours/luxury" component={LuxuryToursPage} />
-      <Route path="/tours/adventure" component={AdventureToursPage} />
-      <Route path="/tours/spiritual" component={SpiritualToursPage} />
-      <Route path="/tours/festival" component={FestivalToursPage} />
-      <Route path="/tours/bespoke" component={BespokeToursPage} />
-      <Route path="/tours/photography" component={PhotographyToursPage} />
-      <Route path="/tours/birdwatching" component={BirdWatchingToursPage} />
-      <Route path="/tours/cycling" component={CyclingToursPage} />
-      <Route path="/tours/pilgrimage" component={PilgrimageToursPage} />
-      <Route path="/tours/wellness" component={WellnessToursPage} />
-      <Route path="/hotels/luxury" component={LuxuryHotelsPage} />
-      <Route path="/hotels/boutique" component={BoutiqueHotelsPage} />
-      <Route path="/hotels/homestays" component={HomestaysPage} />
-      <Route path="/hotels/farmstays" component={FarmstaysPage} />
-      <Route path="/about" component={AboutPage} />
-      <Route path="/destinations/:name" component={DestinationDetailPage} />
-      <Route path="/gallery" component={GalleryPage} />
-      <Route path="/blog" component={BlogPage} />
-      <Route path="/blog/:id" component={BlogDetailPage} />
-      <Route path="/contact" component={ContactPage} />
-      <Route path="/guide-registration" component={GuideRegistrationPage} />
-      <Route path="/custom-tour" component={CustomTourPage} />
-      <Route path="/admin" component={AdminPage} />
-      <Route path="/admin/crud" component={AdminCRUDPage} />
-      <Route path="/login" component={LoginPage} />
-      <Route path="/dashboard" component={DashboardPage} />
-      <Route component={NotFound} />
-    </Switch>
+    <Routes>
+      {/* Admin Routes - Only for admin users */}
+      <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
+        <Route path="/admin" element={<WebsiteLayout><AdminPage /></WebsiteLayout>} />
+        <Route path="/admin/crud" element={<WebsiteLayout><AdminCRUDPage /></WebsiteLayout>} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Route>
+      
+      {/* Guide/Driver Dashboard */}
+      <Route element={<RoleProtectedRoute allowedRoles={['guide', 'driver']} />}>
+        <Route path="/guide-dashboard" element={<GuideDriverDashboard />} />
+      </Route>
+      
+      {/* Website Routes - Wrapped in WebsiteLayout */}
+      <Route path="/" element={<WebsiteLayout><HomePage /></WebsiteLayout>} />
+      <Route path="/tours" element={<WebsiteLayout><ToursPage /></WebsiteLayout>} />
+      <Route path="/tours/cultural" element={<WebsiteLayout><CulturalToursPage /></WebsiteLayout>} />
+      <Route path="/tours/luxury" element={<WebsiteLayout><LuxuryToursPage /></WebsiteLayout>} />
+      <Route path="/tours/adventure" element={<WebsiteLayout><AdventureToursPage /></WebsiteLayout>} />
+      <Route path="/tours/spiritual" element={<WebsiteLayout><SpiritualToursPage /></WebsiteLayout>} />
+      <Route path="/tours/festival" element={<WebsiteLayout><FestivalToursPage /></WebsiteLayout>} />
+      <Route path="/tours/bespoke" element={<WebsiteLayout><BespokeToursPage /></WebsiteLayout>} />
+      <Route path="/tours/photography" element={<WebsiteLayout><PhotographyToursPage /></WebsiteLayout>} />
+      <Route path="/tours/birdwatching" element={<WebsiteLayout><BirdWatchingToursPage /></WebsiteLayout>} />
+      <Route path="/tours/cycling" element={<WebsiteLayout><CyclingToursPage /></WebsiteLayout>} />
+      <Route path="/tours/pilgrimage" element={<WebsiteLayout><PilgrimageToursPage /></WebsiteLayout>} />
+      <Route path="/tours/wellness" element={<WebsiteLayout><WellnessToursPage /></WebsiteLayout>} />
+      <Route path="/tours/:id" element={<WebsiteLayout><TourDetailPage /></WebsiteLayout>} />
+      <Route path="/festivals" element={<WebsiteLayout><FestivalsPage /></WebsiteLayout>} />
+      <Route path="/festivals/info/:id" element={<WebsiteLayout><FestivalInfoPage /></WebsiteLayout>} />
+      <Route path="/hotels" element={<WebsiteLayout><HotelsPage /></WebsiteLayout>} />
+      <Route path="/hotels/info" element={<WebsiteLayout><HotelInfoPage /></WebsiteLayout>} />
+      <Route path="/visa-info" element={<WebsiteLayout><VisaInfoPage /></WebsiteLayout>} />
+      <Route path="/flights" element={<WebsiteLayout><FlightsPage /></WebsiteLayout>} />
+      <Route path="/geography" element={<WebsiteLayout><GeographyPage /></WebsiteLayout>} />
+      <Route path="/unique-experiences" element={<WebsiteLayout><UniqueExperiencesPage /></WebsiteLayout>} />
+      <Route path="/travel-tips" element={<WebsiteLayout><TravelTipsPage /></WebsiteLayout>} />
+      <Route path="/faq" element={<WebsiteLayout><FAQPage /></WebsiteLayout>} />
+      <Route path="/hotels/luxury" element={<WebsiteLayout><LuxuryHotelsPage /></WebsiteLayout>} />
+      <Route path="/hotels/boutique" element={<WebsiteLayout><BoutiqueHotelsPage /></WebsiteLayout>} />
+      <Route path="/hotels/homestays" element={<WebsiteLayout><HomestaysPage /></WebsiteLayout>} />
+      <Route path="/hotels/farmstays" element={<WebsiteLayout><FarmstaysPage /></WebsiteLayout>} />
+      <Route path="/about" element={<WebsiteLayout><AboutPage /></WebsiteLayout>} />
+      <Route path="/destinations/:name" element={<WebsiteLayout><DestinationDetailPage /></WebsiteLayout>} />
+      <Route path="/gallery" element={<WebsiteLayout><GalleryPage /></WebsiteLayout>} />
+      <Route path="/blog" element={<WebsiteLayout><BlogPage /></WebsiteLayout>} />
+      <Route path="/blog/:id" element={<WebsiteLayout><BlogDetailPage /></WebsiteLayout>} />
+      <Route path="/contact" element={<WebsiteLayout><ContactPage /></WebsiteLayout>} />
+      <Route path="/guide-registration" element={<WebsiteLayout><GuideRegistrationPage /></WebsiteLayout>} />
+      <Route path="/custom-tour" element={<WebsiteLayout><CustomTourPage /></WebsiteLayout>} />
+      <Route path="/login" element={<WebsiteLayout><LoginPage /></WebsiteLayout>} />
+      <Route path="*" element={<WebsiteLayout><NotFound /></WebsiteLayout>} />
+    </Routes>
   );
 }
 
@@ -103,16 +136,10 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <Router />
-            </main>
-            <Footer />
-            <LiveChat />
-            <BottomNavigation />
-          </div>
-          <Toaster />
+          <BrowserRouter>
+            <Router />
+            <Toaster />
+          </BrowserRouter>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>

@@ -3,7 +3,7 @@ import { Star, Clock, Users, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import type { Tour } from "@shared/schema";
 
 interface TourGridProps {
@@ -106,15 +106,16 @@ export default function TourGrid({ tours, onBookNow, showAll = false }: TourGrid
                 <span className="text-gray-500 text-sm ml-1">per person</span>
               </div>
               <div className="flex gap-2">
-                <Link href={`/tours/${tour.id}`}>
-                  <Button variant="outline" size="sm" className="border-teal-200 text-teal-600 hover:bg-teal-50 [&_svg]:!text-teal-600">
-                    <ArrowRight className="w-4 h-4" />
+                <Link to={`/tours/${tour.id}`}>
+                  <Button variant="outline" size="sm" className="border-teal-200 text-teal-600 hover:bg-teal-50 hover:text-teal-700 hover:border-teal-300 transition-all duration-200">
+                    <ArrowRight className="w-4 h-4 mr-1" />
+                    <span className="hidden sm:inline">Details</span>
                   </Button>
                 </Link>
                 <Button 
                   size="sm" 
                   onClick={() => onBookNow(tour)}
-                  className="bg-teal-600 hover:bg-teal-700 text-white"
+                  className="bg-teal-600 hover:bg-teal-700 text-white flex-1 sm:flex-initial"
                 >
                   Book Now
                 </Button>

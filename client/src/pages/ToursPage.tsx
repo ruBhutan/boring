@@ -1,125 +1,119 @@
-import BookingModal from "@/components/BookingModal";
+import { BookNowFormLauncher } from "@/components/FormLauncher";
+import EnhancedInteractiveForm from "@/components/EnhancedInteractiveForm";
 import TourGrid from "@/components/TourGrid";
+import TourFilter from "@/components/TourFilter";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TOUR_FILTER_CATEGORIES } from "@/lib/tourCategories";
 import type { Tour } from "@shared/schema";
 import { useQuery } from "@tanstack/react-query";
-import { Map, Search } from "lucide-react";
+import { 
+  Map, Search, Filter, Users, Star, Clock, DollarSign, 
+  MapPin, Award, Shield, Headphones, CheckCircle2,
+  TrendingUp, Calendar, Compass, Globe, Heart
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "wouter";
-
-
+import { Link, useLocation } from "react-router-dom";
 
 export default function ToursPage() {
-  const [location] = useLocation();
+  const location = useLocation();
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [isBookNowFormOpen, setIsBookNowFormOpen] = useState(false);
+  const [isCustomTourFormOpen, setIsCustomTourFormOpen] = useState(false);
+  const [filteredTours, setFilteredTours] = useState<Tour[]>([]);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const { data: tours = [], isLoading } = useQuery<Tour[]>({
     queryKey: ["/api/tours"],
   });
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.split('?')[1] || '');
-    const categoryParam = urlParams.get('category');
-    if (categoryParam) {
-      setActiveFilter(categoryParam);
+    if (tours.length > 0) {
+      setFilteredTours(tours);
     }
-  }, [location]);
-
-  const filteredTours = tours.filter(tour => {
-    const matchesFilter = activeFilter === "all" || tour.category.toLowerCase() === activeFilter.toLowerCase();
-    const matchesSearch = tour.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         tour.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
+  }, [tours]);
 
   const handleBookNow = (tour: Tour) => {
     setSelectedTour(tour);
-    setIsBookingModalOpen(true);
+    setIsBookNowFormOpen(true);
   };
 
-  const getCategoryColor = (category: string) => {
-    const cat = TOUR_FILTER_CATEGORIES.find(c => c.value === category);
-    return cat?.color || 'bg-gray-600';
+  // Calculate statistics from tours
+  const stats = {
+    totalTours: tours.length,
+    avgRating: tours.length ? (tours.reduce((sum, tour) => sum + (tour.rating || 0), 0) / tours.length).toFixed(1) : '0',
+    priceRange: tours.length ? {
+      min: Math.min(...tours.map(t => t.price)),
+      max: Math.max(...tours.map(t => t.price))
+    } : { min: 0, max: 0 },
+    categories: [...new Set(tours.map(t => t.category))].length,
+    destinations: [...new Set(tours.map(t => t.name.split(' ')[0]))].length
   };
 
   return (
-    <div className="pt-20 pb-20 bg-gradient-to-br from-teal-50 to-emerald-50 min-h-screen">
+    <div className="pt-20 pb-20 bg-brand-light min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="brand-section-header mb-4">
-            <Map className="w-5 h-5" />
-            Packages
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 brand-heading mb-4 brand-heading">
-            Discover
-            <span className="gradient-text"> Bhutan</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body brand-body">
-            Choose from our carefully curated selection of transformative journeys through 
-            the Last Shangri-La, each designed to create unforgettable memories.
-          </p>
-        </div>
 
-        {/* Search and Filters */}
-        <div className="mb-12 space-y-6">
-          {/* Search Bar */}
-          <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input
-              type="text"
-              placeholder="Search tours..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
+        {/* Advanced Filter System */}
+        <TourFilter 
+          tours={tours} 
+          onFilteredTours={setFilteredTours} 
+        />
 
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {TOUR_FILTER_CATEGORIES.map((category) => (
-              <Button
-                key={category.value}
-                onClick={() => setActiveFilter(category.value)}
-                className={activeFilter === category.value ? "btn-teal" : "btn-teal-outline"}
-              >
-                {category.label}
-              </Button>
-            ))}
+        {/* Results Header */}
+        <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          <div className="flex items-center space-x-4">
+            <p className="text-brand-text font-medium">
+              Showing <span className="text-brand-primary font-bold">{filteredTours.length}</span> of <span className="font-bold">{tours.length}</span> tours
+            </p>
+            {filteredTours.length !== tours.length && (
+              <Badge variant="secondary" className="bg-brand-light text-brand-primary">
+                Filtered results
+              </Badge>
+            )}
           </div>
-        </div>
-
-        {/* Tour Count and Custom Package */}
-        <div className="mb-8 flex justify-between items-center">
-          <p className="text-gray-600">
-            Showing {filteredTours.length} of {tours.length} tours
-          </p>
-          <Link href="/custom-tour">
-            <Button className="btn-teal-outline">
-              Custom Package
+          
+          <div className="flex items-center space-x-3">
+            <Button 
+              onClick={() => setIsCustomTourFormOpen(true)}
+              className="brand-btn-secondary"
+            >
+              <Heart className="w-4 h-4 mr-2" />
+              <span>Create Custom Tour</span>
             </Button>
-          </Link>
+          </div>
         </div>
 
-        {/* Tours Grid */}
+        {/* Tours Display */}
         {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(6)].map((_, index) => (
-              <div key={index} className="bg-gradient-to-br from-white to-teal-50 rounded-2xl shadow-lg bg-gradient-to-br from-white to-teal-50 animate-pulse">
-                <div className="h-48 bg-gray-300 rounded-t-2xl"></div>
-                <div className="p-6 space-y-3">
+              <Card key={index} className="overflow-hidden animate-pulse">
+                <div className="h-64 bg-gray-300"></div>
+                <CardContent className="p-6 space-y-3">
                   <div className="h-4 bg-gray-300 rounded w-3/4"></div>
                   <div className="h-4 bg-gray-300 rounded w-1/2"></div>
                   <div className="h-4 bg-gray-300 rounded w-full"></div>
-                </div>
-              </div>
+                  <div className="h-8 bg-gray-300 rounded w-1/3"></div>
+                </CardContent>
+              </Card>
             ))}
           </div>
+        ) : filteredTours.length === 0 ? (
+          <Card className="text-center py-16 brand-card">
+            <CardContent>
+              <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold brand-heading mb-2">No tours found</h3>
+              <p className="brand-body mb-6">Try adjusting your filters or search terms</p>
+              <Button 
+                onClick={() => setIsCustomTourFormOpen(true)}
+                className="brand-btn-primary"
+              >
+                Create Custom Tour Instead
+              </Button>
+            </CardContent>
+          </Card>
         ) : (
           <TourGrid 
             tours={filteredTours} 
@@ -128,56 +122,94 @@ export default function ToursPage() {
           />
         )}
 
-        {/* Why Choose Us Section */}
-        <section className="mt-20 brand-card-teal p-8 lg:p-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4 brand-heading">Why Choose Our Package?</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto brand-body">
-              Every journey with us is more than just a tour—it's a transformation.
+        {/* Trust & Assurance Section */}
+        <section className="mt-24 brand-card p-8 lg:p-16">
+          <div className="text-center mb-16">
+            <div className="brand-section-header mb-4">
+              <Shield className="w-5 h-5" />
+              Your Trust, Our Priority
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold brand-heading mb-6">Why 500+ Travelers Trust Us</h2>
+            <p className="text-lg brand-body max-w-3xl mx-auto">
+              Every journey with us is more than just a tour—it's a life-changing transformation 
+              guided by local expertise, sustainable practices, and unwavering commitment to your experience.
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="bg-teal-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-teal-600 font-bold text-xl">7+</span>
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="bg-brand-gradient-primary rounded-2xl p-6 w-20 h-20 mx-auto mb-6 flex items-center justify-center shadow-xl">
+                <Award className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-semibold text-gray-700 mb-2">Years Experience</h3>
-              <p className="text-gray-600 text-sm">Deep local knowledge and expertise</p>
+              <h3 className="font-bold brand-heading mb-3 text-lg">10+ Years Experience</h3>
+              <p className="brand-body text-sm leading-relaxed">Deep local knowledge and decade of expertise in crafting unforgettable Bhutanese experiences</p>
             </div>
             
-            <div className="text-center">
-              <div className="bg-teal-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-teal-600 font-bold text-xl">100%</span>
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="bg-brand-gradient-secondary rounded-2xl p-6 w-20 h-20 mx-auto mb-6 flex items-center justify-center shadow-xl">
+                <CheckCircle2 className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Local Guides</h3>
-              <p className="text-gray-600 text-sm">Authentic insights from Bhutanese experts</p>
+              <h3 className="font-bold brand-heading mb-3 text-lg">100% Local Guides</h3>
+              <p className="brand-body text-sm leading-relaxed">Authentic insights from certified Bhutanese guides who know every hidden gem and sacred story</p>
             </div>
             
-            <div className="text-center">
-              <div className="bg-amber-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-amber-600 font-bold text-xl">500+</span>
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="bg-brand-gradient-primary rounded-2xl p-6 w-20 h-20 mx-auto mb-6 flex items-center justify-center shadow-xl">
+                <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Happy Travelers</h3>
-              <p className="text-gray-600 text-sm">Transformed lives and lasting memories</p>
+              <h3 className="font-bold brand-heading mb-3 text-lg">500+ Happy Travelers</h3>
+              <p className="brand-body text-sm leading-relaxed">Transformed lives, lasting friendships, and memories that spark joy for years to come</p>
             </div>
             
-            <div className="text-center">
-              <div className="bg-teal-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-teal-600 font-bold text-xl">24/7</span>
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="bg-brand-gradient-primary rounded-2xl p-6 w-20 h-20 mx-auto mb-6 flex items-center justify-center shadow-xl">
+                <Headphones className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Support</h3>
-              <p className="text-gray-600 text-sm">We're with you every step of the way</p>
+              <h3 className="font-bold brand-heading mb-3 text-lg">24/7 Support</h3>
+              <p className="brand-body text-sm leading-relaxed">We're with you every step of the journey, from first inquiry to fond farewell</p>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <div className="inline-flex items-center space-x-4 bg-white rounded-2xl p-2 shadow-lg">
+              <Button 
+                size="lg" 
+                onClick={() => setIsCustomTourFormOpen(true)}
+                className="brand-btn-primary rounded-xl px-8 py-4"
+              >
+                <Compass className="w-5 h-5 mr-2" />
+                Plan Your Dream Journey
+              </Button>
+              <Link to="/contact">
+                <Button size="lg" variant="outline" className="brand-btn-outline rounded-xl px-8 py-4">
+                  <Headphones className="w-5 h-5 mr-2" />
+                  Talk to an Expert
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
       </div>
 
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        tour={selectedTour}
+      <BookNowFormLauncher
+        isOpen={isBookNowFormOpen}
+        onClose={() => setIsBookNowFormOpen(false)}
+        selectedTour={selectedTour}
       />
+      
+      {isCustomTourFormOpen && (
+        <EnhancedInteractiveForm
+          formType="custom-tour"
+          isOpen={isCustomTourFormOpen}
+          onClose={() => setIsCustomTourFormOpen(false)}
+          initialData={{}}
+          onSubmitSuccess={(data) => {
+            console.log("Custom tour request submitted:", data);
+            setIsCustomTourFormOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }

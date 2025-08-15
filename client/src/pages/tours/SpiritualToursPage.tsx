@@ -1,4 +1,4 @@
-import BookingModal from "@/components/BookingModal";
+import { BookNowFormLauncher } from "@/components/FormLauncher";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -111,7 +111,7 @@ const meditationPrograms = [
 
 export default function SpiritualToursPage() {
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isBookNowFormOpen, setIsBookNowFormOpen] = useState(false);
 
   const { data: tours = [] } = useQuery<Tour[]>({
     queryKey: ["/api/tours"],
@@ -121,47 +121,11 @@ export default function SpiritualToursPage() {
 
   const handleBookNow = (tour: Tour) => {
     setSelectedTour(tour);
-    setIsBookingModalOpen(true);
+    setIsBookNowFormOpen(true);
   };
 
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1920&h=1080&fit=crop"
-            alt="Buddhist monastery in misty mountains"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/80 to-teal-900/70"></div>
-        </div>
-        
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <div className="brand-section-header mb-6">
-            <Flower2 className="w-5 h-5" />
-            Spiritual Tours
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Journey
-            <span className="gradient-text-light"> Within</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-teal-100">
-            Discover inner peace and spiritual awakening in the sacred monasteries 
-            and meditation centers of the Last Shangri-La.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="btn-teal text-lg px-8 py-4">
-              <Heart className="w-5 h-5 mr-2" />
-              Begin Your Journey
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-teal-900 text-lg px-8 py-4">
-              <Flower2 className="w-5 h-5 mr-2" />
-              Meditation Guide
-            </Button>
-          </div>
-        </div>
-      </section>
+    <div className="pt-20">
 
       {/* Spiritual Experiences */}
       <section className="py-20 section-purple-light">
@@ -472,10 +436,10 @@ export default function SpiritualToursPage() {
         </div>
       </section>
 
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        tour={selectedTour}
+      <BookNowFormLauncher
+        isOpen={isBookNowFormOpen}
+        onClose={() => setIsBookNowFormOpen(false)}
+        selectedTour={selectedTour}
       />
     </div>
   );

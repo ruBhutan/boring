@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   Star, Crown, Sparkles, MapPin, 
   Utensils, Waves, Mountain, 
-  ChevronRight, Heart
+  ChevronRight, Heart, ArrowRight,
+  Wifi, Car, Coffee, Shield
 } from "lucide-react";
+import { FloatingContactButton, SmartFormLauncher, HotelBookingFormLauncher } from "@/components/FormLauncher";
 
 const luxuryHotels = [
   {
@@ -78,38 +80,25 @@ const luxuryFeatures = [
 ];
 
 export default function LuxuryHotelsPage() {
+  const [selectedHotel, setSelectedHotel] = useState<any>(null);
+  const [selectedRoom, setSelectedRoom] = useState<any>(null);
+  const [isHotelBookingFormOpen, setIsHotelBookingFormOpen] = useState(false);
+  
+  const handleViewDetails = (hotel: any) => {
+    // Navigate to hotel detail page or open modal
+    console.log('View details for:', hotel.name);
+    setSelectedHotel(hotel);
+    // You can implement navigation logic here
+  };
+  
+  const handleBookNow = (hotel: any) => {
+    setSelectedHotel(hotel);
+    setSelectedRoom(null); // For hotels without specific room selection
+    setIsHotelBookingFormOpen(true);
+  };
+
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1920&h=1080&fit=crop"
-            alt="Luxury hotel in Bhutan mountains"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/80 to-teal-900/60"></div>
-        </div>
-        
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <div className="brand-section-header mb-6">
-            <Crown className="w-5 h-5" />
-            Luxury Hotels
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Himalayan
-            <span className="gradient-text-light"> Luxury</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-teal-100">
-            Experience unparalleled luxury in the world's most exclusive mountain kingdom. 
-            From ultra-luxury resorts to heritage properties.
-          </p>
-          <Button size="lg" className="btn-teal text-lg px-8 py-4">
-            <Sparkles className="w-5 h-5 mr-2" />
-            Explore Luxury Hotels
-          </Button>
-        </div>
-      </section>
+    <div className="pt-20 min-h-screen bg-brand-light-gradient">
 
       {/* Luxury Features */}
       <section className="py-20 section-purple-light">
@@ -159,9 +148,9 @@ export default function LuxuryHotelsPage() {
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="space-y-8">
             {luxuryHotels.map((hotel) => (
-              <Card key={hotel.id} className="brand-card overflow-hidden">
+              <Card key={hotel.id} className="brand-card overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
                 <div className="lg:flex">
                   <div className="lg:w-1/2 relative">
                     <img
@@ -169,24 +158,26 @@ export default function LuxuryHotelsPage() {
                       alt={hotel.name}
                       className="w-full h-64 lg:h-full object-cover"
                     />
-                    <Badge className="absolute top-4 left-4 bg-teal-gradient text-white">
+                    <Badge className="absolute top-4 left-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-0">
                       <Crown className="w-3 h-3 mr-1" />
                       {hotel.category}
                     </Badge>
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
                       <div className="flex items-center">
                         <Star className="w-4 h-4 text-amber-400 fill-current mr-1" />
-                        <span className="text-sm font-medium">{hotel.rating}</span>
+                        <span className="text-sm font-medium text-gray-900">{hotel.rating}</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="lg:w-1/2 p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl font-bold">{hotel.name}</h3>
-                      <div className="flex items-center text-gray-500">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        <span className="text-sm">{hotel.location}</span>
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-1">{hotel.name}</h3>
+                        <div className="flex items-center text-gray-500">
+                          <MapPin className="w-4 h-4 mr-1" />
+                          <span className="text-sm">{hotel.location}</span>
+                        </div>
                       </div>
                     </div>
                     
@@ -201,28 +192,37 @@ export default function LuxuryHotelsPage() {
                     
                     <p className="text-gray-600 mb-4 text-sm leading-relaxed">{hotel.description}</p>
                     
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-gray-900 mb-2">Key Highlights:</h4>
-                      <div className="grid grid-cols-2 gap-1">
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-gray-900 mb-3">Key Highlights:</h4>
+                      <div className="grid grid-cols-2 gap-2">
                         {hotel.highlights.map((highlight, idx) => (
-                          <div key={idx} className="flex items-center text-xs text-gray-600">
-                            <ChevronRight className="w-3 h-3 text-teal-600 mr-1" />
+                          <div key={idx} className="flex items-center text-xs text-gray-700">
+                            <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
                             {highlight}
                           </div>
                         ))}
                       </div>
                     </div>
                     
-                    <div className="flex items-center justify-between pt-4 border-t">
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                       <div>
-                        <span className="text-2xl font-bold text-teal-600">${hotel.price}</span>
-                        <span className="text-gray-500 ml-1">per night</span>
+                        <span className="text-3xl font-bold text-emerald-600">${hotel.price}</span>
+                        <span className="text-gray-500 ml-2 text-sm">per night</span>
                       </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm" className="btn-teal-outline">
+                      <div className="flex gap-3">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 font-medium"
+                          onClick={() => handleViewDetails(hotel)}
+                        >
                           View Details
                         </Button>
-                        <Button size="sm" className="btn-teal">
+                        <Button 
+                          size="sm" 
+                          className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium"
+                          onClick={() => handleBookNow(hotel)}
+                        >
                           Book Now
                         </Button>
                       </div>
@@ -244,18 +244,22 @@ export default function LuxuryHotelsPage() {
           <p className="text-xl mb-8 text-teal-100">
             Let us help you find the perfect luxury accommodation for your Bhutan journey
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-to-br from-white to-teal-50 text-teal-900 hover:bg-teal-50 text-lg px-8 py-4">
-              <Crown className="w-5 h-5 mr-2" />
-              Book Luxury Stay
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-teal-900 text-lg px-8 py-4">
-              <Heart className="w-5 h-5 mr-2" />
-              Get Recommendations
-            </Button>
+          <div className="mb-8">
+            <SmartFormLauncher page="hotels" />
           </div>
         </div>
       </section>
+
+      {/* Floating Contact Button */}
+      <FloatingContactButton />
+      
+      {/* Hotel Booking Form */}
+      <HotelBookingFormLauncher
+        isOpen={isHotelBookingFormOpen}
+        onClose={() => setIsHotelBookingFormOpen(false)}
+        selectedHotel={selectedHotel}
+        selectedRoom={selectedRoom}
+      />
     </div>
   );
 }

@@ -19,13 +19,13 @@ interface VideoModalProps {
 export default function VideoModal({ isOpen, onClose, videoUrl, title, description }: VideoModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl p-0 bg-black border-0">
+      <DialogContent className="max-w-4xl p-0 bg-black border-0 shadow-2xl">
         <DialogHeader className="absolute top-4 right-4 z-10">
           <Button
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="text-white hover:bg-white/20 rounded-full w-10 h-10 p-0"
+            className="text-white hover:bg-brand-accent/80 rounded-full w-10 h-10 p-0 transition-all duration-200 hover:scale-105"
           >
             <X className="w-5 h-5" />
           </Button>
@@ -42,11 +42,11 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title, descripti
         </div>
         
         {description && (
-          <div className="p-6 bg-white">
-            <DialogTitle className="text-xl font-bold text-gray-900 mb-2">
+          <div className="p-6 bg-brand-light-gradient border-t border-brand-border">
+            <DialogTitle className="text-xl font-bold text-brand-text mb-2">
               {title}
             </DialogTitle>
-            <p className="text-gray-600">{description}</p>
+            <p className="text-brand-text-muted">{description}</p>
           </div>
         )}
       </DialogContent>
@@ -91,7 +91,7 @@ export function VideoGallery({ videos }: VideoGalleryProps) {
         {videos.map((video) => (
           <div
             key={video.id}
-            className="relative group cursor-pointer overflow-hidden rounded-2xl shadow-xl bg-black"
+            className="relative group cursor-pointer overflow-hidden rounded-2xl shadow-xl bg-black hover:shadow-2xl transition-all duration-300 border border-brand-primary/10 hover:border-brand-primary/30"
             onClick={() => openVideo(video)}
           >
             <div className="aspect-video relative">
@@ -104,8 +104,8 @@ export function VideoGallery({ videos }: VideoGalleryProps) {
               
               {/* Play Button */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-white/90 backdrop-blur-sm rounded-full p-4 group-hover:bg-white group-hover:scale-110 transition-all duration-300">
-                  <Play className="w-8 h-8 text-gray-900 ml-1" />
+                <div className="bg-brand-primary/90 backdrop-blur-sm rounded-full p-4 group-hover:bg-brand-primary group-hover:scale-110 transition-all duration-300 border-2 border-white">
+                  <Play className="w-8 h-8 text-white ml-1" />
                 </div>
               </div>
               
@@ -117,7 +117,7 @@ export function VideoGallery({ videos }: VideoGalleryProps) {
               )}
             </div>
             
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-emerald-950/90 to-transparent p-4 text-white">
               <h3 className="font-bold text-lg mb-1">{video.title}</h3>
               <p className="text-sm text-gray-200 line-clamp-2">{video.description}</p>
             </div>

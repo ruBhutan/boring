@@ -2,10 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import EnhancedInteractiveForm from "@/components/EnhancedInteractiveForm";
+
 import { useQuery } from "@tanstack/react-query";
 import {
   Bed,
@@ -22,49 +20,13 @@ import {
   Star,
   Users,
   Utensils,
-  Wifi
+  Wifi,
+  X,
+  User,
+  MessageSquare
 } from "lucide-react";
 import { useState } from "react";
-
-interface Hotel {
-  id: number;
-  name: string;
-  description: string;
-  location: string;
-  address: string;
-  imageUrl: string;
-  images: string[];
-  category: string;
-  starRating: number;
-  amenities: string[];
-  features: string[];
-  pricePerNight: number;
-  isActive: boolean;
-  contactEmail?: string;
-  contactPhone?: string;
-  website?: string;
-  checkInTime: string;
-  checkOutTime: string;
-  cancellationPolicy?: string;
-  rooms?: HotelRoom[];
-}
-
-interface HotelRoom {
-  id: number;
-  hotelId: number;
-  roomType: string;
-  roomName: string;
-  description: string;
-  imageUrl: string;
-  images: string[];
-  maxOccupancy: number;
-  bedType: string;
-  roomSize?: string;
-  amenities: string[];
-  pricePerNight: number;
-  totalRooms: number;
-  isActive: boolean;
-}
+import { hotels as allHotels, Hotel, HotelRoom } from "@/data/hotels";
 
 interface HotelBooking {
   hotelId: number;
@@ -84,17 +46,11 @@ interface HotelBooking {
 export default function HotelsPage() {
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
   const [selectedRoom, setSelectedRoom] = useState<HotelRoom | null>(null);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [bookingData, setBookingData] = useState<Partial<HotelBooking>>({
-    numberOfRooms: 1,
-    numberOfGuests: 2,
-  });
+  const [isHotelBookingFormOpen, setIsHotelBookingFormOpen] = useState(false);
+  const [isViewingDetails, setIsViewingDetails] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
-  const { toast } = useToast();
 
-  const { data: hotels = [], isLoading } = useQuery<Hotel[]>({
-    queryKey: ["/api/hotels"],
-  });
+  const hotels = allHotels;
 
   const { data: hotelRooms = [] } = useQuery<HotelRoom[]>({
     queryKey: [`/api/hotels/${selectedHotel?.id}/rooms`],
@@ -111,6 +67,8 @@ export default function HotelsPage() {
     { value: "boutique", label: "Boutique" },
     { value: "heritage", label: "Heritage" },
     { value: "eco-lodge", label: "Eco-Lodge" },
+    { value: "mid-range", label: "Mid-Range" },
+    { value: "budget-friendly", label: "Budget" },
   ];
 
   const amenityIcons: { [key: string]: any } = {
@@ -131,94 +89,50 @@ export default function HotelsPage() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  const handleBookingSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!selectedHotel || !selectedRoom || !bookingData.firstName || !bookingData.lastName || 
-        !bookingData.email || !bookingData.checkInDate || !bookingData.checkOutDate) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
 
-    const nights = calculateNights(bookingData.checkInDate, bookingData.checkOutDate);
-    const totalAmount = selectedRoom.pricePerNight * nights * (bookingData.numberOfRooms || 1);
-
-    try {
-      const response = await fetch("/api/hotel-bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...bookingData,
-          hotelId: selectedHotel.id,
-          roomId: selectedRoom.id,
-          totalAmount,
-        }),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Booking Successful!",
-          description: "Your hotel booking has been submitted. We'll contact you with confirmation details.",
-        });
-        setIsBookingModalOpen(false);
-        setBookingData({ numberOfRooms: 1, numberOfGuests: 2 });
-        setSelectedHotel(null);
-        setSelectedRoom(null);
-      } else {
-        throw new Error("Booking failed");
-      }
-    } catch (error) {
-      toast({
-        title: "Booking Failed",
-        description: "There was an error processing your booking. Please try again.",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const openBookingModal = (hotel: Hotel, room: HotelRoom) => {
+  const openBookingModal = (hotel: Hotel, room?: HotelRoom) => {
     setSelectedHotel(hotel);
-    setSelectedRoom(room);
-    setIsBookingModalOpen(true);
+    setSelectedRoom(room || null);
+    setIsHotelBookingFormOpen(true);
+    setIsViewingDetails(false);
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-amber-50 to-amber-100 py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center">Loading luxury accommodations...</div>
-        </div>
-      </div>
-    );
-  }
+  const openHotelDetails = (hotel: Hotel) => {
+    setSelectedHotel(hotel);
+    setIsViewingDetails(true);
+    setIsHotelBookingFormOpen(false);
+  };
+
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 bg-gradient-to-br from-amber-50 to-amber-100 py-12">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-brand-light pt-20">
+      <div className="container mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Home className="w-8 h-8 text-brand-primary" />
+            <span className="text-sm font-semibold text-brand-primary uppercase tracking-wide">Luxury Accommodations</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold brand-heading mb-6">
             Exceptional Bhutanese Hospitality
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto brand-body">
+          <p className="text-xl brand-body max-w-3xl mx-auto leading-relaxed">
             Discover Bhutan's most distinguished accommodations where traditional architecture meets world-class luxury. From heritage palaces converted into boutique hotels to eco-luxury lodges nestled in pristine valleys, each property offers an authentic gateway to Bhutanese culture while providing unparalleled comfort and service.
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           {categories.map((category) => (
             <Button
               key={category.value}
               variant={categoryFilter === category.value ? "default" : "outline"}
               onClick={() => setCategoryFilter(category.value)}
-              className="mb-2"
+              className={`mb-2 transition-all duration-200 ${
+                categoryFilter === category.value 
+                  ? 'brand-btn-primary' 
+                  : 'brand-btn-outline hover:scale-105'
+              }`}
             >
               {category.label}
             </Button>
@@ -228,7 +142,7 @@ export default function HotelsPage() {
         {/* Hotels Grid */}
         <div className="grid gap-8 lg:grid-cols-2">
           {filteredHotels.map((hotel) => (
-            <Card key={hotel.id} className="overflow-hidden hover:shadow-xl transition-shadow">
+            <Card key={hotel.id} className="brand-card overflow-hidden">
               <div className="relative">
                 <img
                   src={hotel.imageUrl}
@@ -246,26 +160,26 @@ export default function HotelsPage() {
                   </div>
                 </div>
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
-                  <span className="text-sm font-semibold text-green-600">
+                  <span className="text-sm font-semibold text-brand-primary">
                     From ${hotel.pricePerNight}/night
                   </span>
                 </div>
               </div>
               
               <CardHeader>
-                <CardTitle className="text-2xl">{hotel.name}</CardTitle>
-                <CardDescription className="flex items-center gap-1 text-base">
+                <CardTitle className="text-2xl brand-heading">{hotel.name}</CardTitle>
+                <CardDescription className="flex items-center gap-1 text-base brand-body">
                   <MapPin className="w-4 h-4" />
                   {hotel.location}
                 </CardDescription>
               </CardHeader>
               
               <CardContent className="space-y-4">
-                <p className="text-gray-600 line-clamp-3">{hotel.description}</p>
+                <p className="brand-body line-clamp-3">{hotel.description}</p>
                 
                 {/* Amenities */}
                 <div>
-                  <h4 className="font-semibold text-sm mb-2">Amenities:</h4>
+                  <h4 className="font-semibold text-sm mb-2 brand-heading">Amenities:</h4>
                   <div className="flex flex-wrap gap-2">
                     {hotel.amenities.slice(0, 6).map((amenity, index) => {
                       const IconComponent = amenityIcons[amenity] || CheckCircle;
@@ -285,7 +199,7 @@ export default function HotelsPage() {
                 </div>
 
                 {/* Contact Info */}
-                <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                <div className="flex flex-wrap gap-4 text-sm brand-body">
                   {hotel.contactPhone && (
                     <div className="flex items-center gap-1">
                       <Phone className="w-3 h-3" />
@@ -307,7 +221,7 @@ export default function HotelsPage() {
                 </div>
 
                 {/* Check-in/out times */}
-                <div className="flex gap-4 text-sm text-gray-500">
+                <div className="flex gap-4 text-sm brand-body">
                   <div className="flex items-center gap-1">
                     <Clock className="w-3 h-3" />
                     <span>Check-in: {hotel.checkInTime}</span>
@@ -321,14 +235,14 @@ export default function HotelsPage() {
                 <div className="flex gap-2 pt-2">
                   <Button
                     variant="outline"
-                    onClick={() => setSelectedHotel(hotel)}
-                    className="flex-1"
+                    onClick={() => openHotelDetails(hotel)}
+                    className="flex-1 brand-btn-outline"
                   >
                     View Details
                   </Button>
                   <Button
-                    onClick={() => setSelectedHotel(hotel)}
-                    className="flex-1"
+                    onClick={() => openBookingModal(hotel)}
+                    className="flex-1 brand-btn-primary"
                   >
                     <Bed className="w-4 h-4 mr-1" />
                     Book Now
@@ -341,19 +255,19 @@ export default function HotelsPage() {
 
         {filteredHotels.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">No hotels found for the selected category.</p>
+            <p className="brand-body">No hotels found for the selected category.</p>
           </div>
         )}
       </div>
 
       {/* Hotel Details Modal */}
-      <Dialog open={!!selectedHotel && !isBookingModalOpen} onOpenChange={() => setSelectedHotel(null)}>
-        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+      <Dialog open={!!selectedHotel && isViewingDetails && !isHotelBookingFormOpen} onOpenChange={() => { setSelectedHotel(null); setIsViewingDetails(false); }}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto brand-card">
           {selectedHotel && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-3xl">{selectedHotel.name}</DialogTitle>
-                <DialogDescription className="flex items-center gap-2 text-lg">
+                <DialogTitle className="text-3xl brand-heading">{selectedHotel.name}</DialogTitle>
+                <DialogDescription className="flex items-center gap-2 text-lg brand-body">
                   <MapPin className="w-4 h-4" />
                   {selectedHotel.address}
                 </DialogDescription>
@@ -383,8 +297,8 @@ export default function HotelsPage() {
                 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="font-semibold mb-2 text-xl">About This Hotel</h3>
-                    <p className="text-gray-600 mb-4">{selectedHotel.description}</p>
+                    <h3 className="font-semibold mb-2 text-xl brand-heading">About This Hotel</h3>
+                    <p className="brand-body mb-4">{selectedHotel.description}</p>
                     
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
@@ -397,12 +311,12 @@ export default function HotelsPage() {
                       </div>
                       
                       <div className="space-y-2">
-                        <h4 className="font-semibold">Features:</h4>
+                        <h4 className="font-semibold brand-heading">Features:</h4>
                         <div className="grid grid-cols-1 gap-1">
                           {selectedHotel.features.map((feature, index) => (
                             <div key={index} className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-green-500" />
-                              <span className="text-sm">{feature}</span>
+                              <CheckCircle className="w-4 h-4 text-brand-primary" />
+                              <span className="text-sm brand-body">{feature}</span>
                             </div>
                           ))}
                         </div>
@@ -411,14 +325,14 @@ export default function HotelsPage() {
                   </div>
                   
                   <div>
-                    <h3 className="font-semibold mb-2 text-xl">Amenities & Services</h3>
+                    <h3 className="font-semibold mb-2 text-xl brand-heading">Amenities & Services</h3>
                     <div className="grid grid-cols-2 gap-2">
                       {selectedHotel.amenities.map((amenity, index) => {
                         const IconComponent = amenityIcons[amenity] || CheckCircle;
                         return (
                           <div key={index} className="flex items-center gap-2">
-                            <IconComponent className="w-4 h-4 text-teal-500" />
-                            <span className="text-sm">{amenity}</span>
+                            <IconComponent className="w-4 h-4 text-brand-primary" />
+                            <span className="text-sm brand-body">{amenity}</span>
                           </div>
                         );
                       })}
@@ -426,8 +340,8 @@ export default function HotelsPage() {
                     
                     {selectedHotel.cancellationPolicy && (
                       <div className="mt-4">
-                        <h4 className="font-semibold mb-1">Cancellation Policy:</h4>
-                        <p className="text-sm text-gray-600">{selectedHotel.cancellationPolicy}</p>
+                        <h4 className="font-semibold mb-1 brand-heading">Cancellation Policy:</h4>
+                        <p className="text-sm brand-body">{selectedHotel.cancellationPolicy}</p>
                       </div>
                     )}
                   </div>
@@ -435,10 +349,10 @@ export default function HotelsPage() {
 
                 {/* Available Rooms */}
                 <div>
-                  <h3 className="font-semibold mb-4 text-xl">Available Rooms</h3>
+                  <h3 className="font-semibold mb-4 text-xl brand-heading">Available Rooms</h3>
                   <div className="grid gap-4">
                     {hotelRooms.map((room) => (
-                      <Card key={room.id} className="p-4">
+                      <Card key={room.id} className="p-4 brand-card">
                         <div className="flex gap-4">
                           <img
                             src={room.imageUrl}
@@ -448,27 +362,27 @@ export default function HotelsPage() {
                           <div className="flex-1">
                             <div className="flex justify-between items-start mb-2">
                               <div>
-                                <h4 className="font-semibold">{room.roomName}</h4>
-                                <p className="text-sm text-gray-600">{room.description}</p>
+                                <h4 className="font-semibold brand-heading">{room.roomName}</h4>
+                                <p className="text-sm brand-body">{room.description}</p>
                               </div>
                               <div className="text-right">
-                                <div className="text-lg font-semibold text-green-600">
+                                <div className="text-lg font-semibold text-brand-primary">
                                   ${room.pricePerNight}/night
                                 </div>
-                                <div className="text-xs text-gray-500">
+                                <div className="text-xs brand-body">
                                   {room.totalRooms} rooms available
                                 </div>
                               </div>
                             </div>
                             
-                            <div className="flex gap-4 text-sm text-gray-500 mb-2">
+                            <div className="flex gap-4 text-sm brand-body mb-2">
                               <span className="flex items-center gap-1">
                                 <Users className="w-3 h-3" />
                                 Up to {room.maxOccupancy} guests
                               </span>
                               <span className="flex items-center gap-1">
                                 <Bed className="w-3 h-3" />
-                                {room.bedType} bed
+                                {room.bedType}
                               </span>
                               {room.roomSize && (
                                 <span className="flex items-center gap-1">
@@ -494,6 +408,7 @@ export default function HotelsPage() {
                               <Button
                                 size="sm"
                                 onClick={() => openBookingModal(selectedHotel, room)}
+                                className="brand-btn-primary"
                               >
                                 Book This Room
                               </Button>
@@ -510,157 +425,27 @@ export default function HotelsPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Booking Modal */}
-      <Dialog open={isBookingModalOpen} onOpenChange={setIsBookingModalOpen}>
-        <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Book Your Stay</DialogTitle>
-            <DialogDescription>
-              {selectedHotel?.name} • {selectedRoom?.roomName}
-            </DialogDescription>
-          </DialogHeader>
-          
-          <form onSubmit={handleBookingSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="firstName">First Name *</Label>
-                <Input
-                  id="firstName"
-                  value={bookingData.firstName || ""}
-                  onChange={(e) => setBookingData({ ...bookingData, firstName: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="lastName">Last Name *</Label>
-                <Input
-                  id="lastName"
-                  value={bookingData.lastName || ""}
-                  onChange={(e) => setBookingData({ ...bookingData, lastName: e.target.value })}
-                  required
-                />
-              </div>
-            </div>
-            
-            <div>
-              <Label htmlFor="email">Email *</Label>
-              <Input
-                id="email"
-                type="email"
-                value={bookingData.email || ""}
-                onChange={(e) => setBookingData({ ...bookingData, email: e.target.value })}
-                required
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                value={bookingData.phone || ""}
-                onChange={(e) => setBookingData({ ...bookingData, phone: e.target.value })}
-              />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="checkInDate">Check-in Date *</Label>
-                <Input
-                  id="checkInDate"
-                  type="date"
-                  value={bookingData.checkInDate || ""}
-                  onChange={(e) => setBookingData({ ...bookingData, checkInDate: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="checkOutDate">Check-out Date *</Label>
-                <Input
-                  id="checkOutDate"
-                  type="date"
-                  value={bookingData.checkOutDate || ""}
-                  onChange={(e) => setBookingData({ ...bookingData, checkOutDate: e.target.value })}
-                  required
-                />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="numberOfRooms">Number of Rooms</Label>
-                <Input
-                  id="numberOfRooms"
-                  type="number"
-                  min="1"
-                  max={selectedRoom?.totalRooms || 5}
-                  value={bookingData.numberOfRooms || 1}
-                  onChange={(e) => setBookingData({ ...bookingData, numberOfRooms: parseInt(e.target.value) })}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="numberOfGuests">Number of Guests</Label>
-                <Input
-                  id="numberOfGuests"
-                  type="number"
-                  min="1"
-                  max={(selectedRoom?.maxOccupancy || 2) * (bookingData.numberOfRooms || 1)}
-                  value={bookingData.numberOfGuests || 2}
-                  onChange={(e) => setBookingData({ ...bookingData, numberOfGuests: parseInt(e.target.value) })}
-                  required
-                />
-              </div>
-            </div>
-            
-            {selectedRoom && bookingData.checkInDate && bookingData.checkOutDate && (
-              <div className="bg-gradient-to-br from-teal-50 to-emerald-50 p-3 rounded-lg">
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span>Room rate per night:</span>
-                    <span>${selectedRoom.pricePerNight}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Number of nights:</span>
-                    <span>{calculateNights(bookingData.checkInDate, bookingData.checkOutDate)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Number of rooms:</span>
-                    <span>{bookingData.numberOfRooms || 1}</span>
-                  </div>
-                  <div className="flex justify-between font-semibold text-green-600 border-t pt-1">
-                    <span>Total Amount:</span>
-                    <span>
-                      ${selectedRoom.pricePerNight * 
-                        calculateNights(bookingData.checkInDate, bookingData.checkOutDate) * 
-                        (bookingData.numberOfRooms || 1)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            <div>
-              <Label htmlFor="specialRequests">Special Requests</Label>
-              <Textarea
-                id="specialRequests"
-                value={bookingData.specialRequests || ""}
-                onChange={(e) => setBookingData({ ...bookingData, specialRequests: e.target.value })}
-                placeholder="Any special requirements or requests..."
-              />
-            </div>
-            
-            <div className="flex gap-2 pt-4">
-              <Button type="button" variant="outline" onClick={() => setIsBookingModalOpen(false)} className="flex-1">
-                Cancel
-              </Button>
-              <Button type="submit" className="flex-1">
-                <CreditCard className="w-4 h-4 mr-2" />
-                Book Now
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
+      {/* Hotel Booking Form Modal */}
+      <EnhancedInteractiveForm
+        formType="hotel-booking"
+        isOpen={isHotelBookingFormOpen}
+        onClose={() => {
+          setIsHotelBookingFormOpen(false);
+          setSelectedHotel(null);
+          setSelectedRoom(null);
+        }}
+        initialData={{
+          selectedHotel: selectedHotel?.name,
+          selectedRoom: selectedRoom?.roomName,
+          pricePerNight: selectedRoom?.pricePerNight
+        }}
+        onSubmitSuccess={(data) => {
+          console.log("Hotel booking submitted:", data);
+          setIsHotelBookingFormOpen(false);
+          setSelectedHotel(null);
+          setSelectedRoom(null);
+        }}
+      />
     </div>
   );
 }

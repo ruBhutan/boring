@@ -61,7 +61,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
     <div className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm">
       <div className="h-full overflow-y-auto pt-20">
         <div className="min-h-full flex items-start justify-center p-4">
-          <div className="bg-gradient-to-br from-white to-teal-50 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[85vh] overflow-hidden">
+          <div className="bg-brand-light-gradient rounded-2xl shadow-2xl max-w-6xl w-full max-h-[85vh] overflow-hidden border border-brand-primary/20">
             {/* Header */}
             <div className="relative">
               <div className="relative h-80 overflow-hidden">
@@ -89,18 +89,18 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                 
                 {/* Action Buttons */}
                 <div className="absolute top-4 right-4 flex gap-2">
-                  <button className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-white/30 transition-colors">
-                    <Heart className="w-5 h-5" />
-                  </button>
-                  <button className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-white/30 transition-colors">
-                    <Share2 className="w-5 h-5" />
-                  </button>
-                  <button 
-                    onClick={onClose}
-                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-white/30 transition-colors"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
+                <button className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-brand-secondary/80 transition-all duration-200 hover:scale-105">
+                  <Heart className="w-5 h-5" />
+                </button>
+                <button className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-brand-secondary/80 transition-all duration-200 hover:scale-105">
+                  <Share2 className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={onClose}
+                  className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-brand-accent/80 transition-all duration-200 hover:scale-105"
+                >
+                  <X className="w-5 h-5" />
+                </button>
                 </div>
                 
                 {/* Tour Info Overlay */}
@@ -129,57 +129,58 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
             {/* Content */}
             <div className="p-8">
               <Tabs defaultValue="overview" className="w-full">
-                <TabsList className="grid w-full grid-cols-6">
-                  <TabsTrigger value="overview">Overview</TabsTrigger>
-                  <TabsTrigger value="itinerary">Itinerary</TabsTrigger>
-                  <TabsTrigger value="inclusions">Inclusions</TabsTrigger>
-                  <TabsTrigger value="accommodations">Hotels</TabsTrigger>
-                  <TabsTrigger value="culture">Culture</TabsTrigger>
-                  <TabsTrigger value="practical">Practical</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-6 bg-brand-emerald-50 border border-brand-primary/10">
+                  <TabsTrigger value="overview" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Overview</TabsTrigger>
+                  <TabsTrigger value="itinerary" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Itinerary</TabsTrigger>
+                  <TabsTrigger value="inclusions" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Inclusions</TabsTrigger>
+                  <TabsTrigger value="accommodations" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Hotels</TabsTrigger>
+                  <TabsTrigger value="culture" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Culture</TabsTrigger>
+                  <TabsTrigger value="practical" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Practical</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="overview" className="space-y-6">
-                  <Card>
+                  <Card className="brand-card">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <MapPin className="w-5 h-5 text-teal-600" />
+                        <MapPin className="w-5 h-5 text-brand-primary" />
                         Tour Overview
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-700 leading-relaxed mb-6">{getComprehensiveOverview(tour)}</p>
+                      <p className="text-brand-text leading-relaxed mb-6">{getComprehensiveOverview(tour)}</p>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <h4 className="font-semibold text-gray-900 mb-3">Tour Highlights</h4>
+                          <h4 className="font-semibold text-brand-text mb-3">Tour Highlights</h4>
                           <ul className="space-y-2">
                             {tour.highlights?.map((highlight, index) => (
                               <li key={index} className="flex items-start gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-600 mt-1 flex-shrink-0" />
-                                <span className="text-gray-700">{highlight}</span>
+                                <CheckCircle className="w-4 h-4 text-brand-primary mt-1 flex-shrink-0" />
+                                <span className="text-brand-text">{highlight}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
                         
                         <div>
-                          <h4 className="font-semibold text-gray-900 mb-3">Best Time to Visit</h4>
+                          <h4 className="font-semibold text-brand-text mb-3">Best Time to Visit</h4>
                           <div className="space-y-2">
                             {tourDetails.bestTime.map((time, index) => (
                               <div key={index} className="flex items-center gap-2">
-                                <Badge variant="outline">{time.season}</Badge>
-                                <span className="text-sm text-gray-600">{time.description}</span>
+                                <Badge variant="outline" className="border-brand-secondary text-brand-secondary">{time.season}</Badge>
+                                <span className="text-sm text-brand-text-muted">{time.description}</span>
                               </div>
                             ))}
                           </div>
                           
-                          <h4 className="font-semibold text-gray-900 mb-3 mt-6">Physical Requirements</h4>
+                          <h4 className="font-semibold text-brand-text mb-3 mt-6">Physical Requirements</h4>
                           <div className="flex items-center gap-2">
                             <Badge variant={tourDetails.physicalRequirements.level === 'Easy' ? 'secondary' : 
-                                          tourDetails.physicalRequirements.level === 'Moderate' ? 'default' : 'destructive'}>
+                                          tourDetails.physicalRequirements.level === 'Moderate' ? 'default' : 'destructive'}
+                                   className="border-brand-primary text-brand-primary">
                               {tourDetails.physicalRequirements.level}
                             </Badge>
-                            <span className="text-sm text-gray-600">{tourDetails.physicalRequirements.description}</span>
+                            <span className="text-sm text-brand-text-muted">{tourDetails.physicalRequirements.description}</span>
                           </div>
                         </div>
                       </div>
@@ -189,10 +190,10 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
 
                 <TabsContent value="itinerary" className="space-y-4">
                   {tourDetails.itinerary.map((day: any, index: number) => (
-                    <Card key={index}>
+                    <Card key={index} className="brand-card">
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                          <Calendar className="w-5 h-5 text-teal-600" />
+                          <Calendar className="w-5 h-5 text-brand-primary" />
                           Day {day.day}: {day.title}
                         </CardTitle>
                         <CardDescription className="flex items-center gap-4">
@@ -207,14 +208,14 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-gray-700 mb-4">{day.description}</p>
+                        <p className="text-brand-text mb-4">{day.description}</p>
                         {day.activities && (
                           <div>
-                            <h5 className="font-medium text-gray-900 mb-2">Activities:</h5>
+                            <h5 className="font-medium text-brand-text mb-2">Activities:</h5>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-1">
                               {day.activities.map((activity: string, actIndex: number) => (
-                                <li key={actIndex} className="flex items-center gap-2 text-sm text-gray-600">
-                                  <CheckCircle className="w-3 h-3 text-green-500" />
+                                <li key={actIndex} className="flex items-center gap-2 text-sm text-brand-text-muted">
+                                  <CheckCircle className="w-3 h-3 text-brand-primary" />
                                   {activity}
                                 </li>
                               ))}
@@ -228,9 +229,9 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
 
                 <TabsContent value="inclusions" className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card>
+                    <Card className="brand-card">
                       <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-green-700">
+                        <CardTitle className="flex items-center gap-2 text-brand-primary">
                           <CheckCircle className="w-5 h-5" />
                           Included
                         </CardTitle>
@@ -239,17 +240,17 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                         <ul className="space-y-2">
                           {tourDetails.inclusions.map((item, index) => (
                             <li key={index} className="flex items-start gap-2">
-                              <CheckCircle className="w-4 h-4 text-green-600 mt-1 flex-shrink-0" />
-                              <span className="text-gray-700">{item}</span>
+                              <CheckCircle className="w-4 h-4 text-brand-primary mt-1 flex-shrink-0" />
+                              <span className="text-brand-text">{item}</span>
                             </li>
                           ))}
                         </ul>
                       </CardContent>
                     </Card>
 
-                    <Card>
+                    <Card className="brand-card">
                       <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-red-700">
+                        <CardTitle className="flex items-center gap-2 text-brand-accent">
                           <X className="w-5 h-5" />
                           Not Included
                         </CardTitle>
@@ -258,8 +259,8 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                         <ul className="space-y-2">
                           {tourDetails.exclusions.map((item, index) => (
                             <li key={index} className="flex items-start gap-2">
-                              <X className="w-4 h-4 text-red-500 mt-1 flex-shrink-0" />
-                              <span className="text-gray-700">{item}</span>
+                              <X className="w-4 h-4 text-brand-accent mt-1 flex-shrink-0" />
+                              <span className="text-brand-text">{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -271,10 +272,10 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                 <TabsContent value="accommodations">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {tourDetails.accommodations.map((accommodation, index) => (
-                      <Card key={index}>
+                      <Card key={index} className="brand-card">
                         <CardHeader>
                           <CardTitle className="flex items-center gap-2">
-                            <Bed className="w-5 h-5 text-teal-600" />
+                            <Bed className="w-5 h-5 text-brand-primary" />
                             {accommodation.name}
                           </CardTitle>
                           <CardDescription className="flex items-center gap-2">
@@ -284,9 +285,9 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-gray-700 mb-3">{accommodation.description}</p>
+                          <p className="text-brand-text mb-3">{accommodation.description}</p>
                           <div className="space-y-2">
-                            <h5 className="font-medium text-gray-900">Amenities:</h5>
+                            <h5 className="font-medium text-brand-text">Amenities:</h5>
                             <div className="flex flex-wrap gap-2">
                               {accommodation.amenities.map((amenity, amenityIndex) => (
                                 <Badge key={amenityIndex} variant="secondary" className="text-xs">
@@ -406,18 +407,18 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
               </Tabs>
 
               {/* Booking Section */}
-              <div className="mt-8 border-t pt-6">
+              <div className="mt-8 border-t border-brand-border pt-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <DollarSign className="w-5 h-5 text-green-600" />
-                      <span className="text-3xl font-bold text-gray-900">${tour.price}</span>
-                      <span className="text-gray-600">per person</span>
+                      <DollarSign className="w-5 h-5 text-brand-primary" />
+                      <span className="text-3xl font-bold text-brand-text">${tour.price}</span>
+                      <span className="text-brand-text-muted">per person</span>
                     </div>
-                    <p className="text-sm text-gray-600">Final price includes all taxes and fees</p>
+                    <p className="text-sm text-brand-text-muted">Final price includes all taxes and fees</p>
                   </div>
                   <div className="flex gap-3">
-                    <Button variant="outline" onClick={onClose}>
+                    <Button variant="outline" onClick={onClose} className="btn-brand-outline">
                       Close
                     </Button>
                     <Button 
@@ -425,7 +426,7 @@ export default function TourDetailsModal({ tour, isOpen, onClose, onBookNow }: T
                         onBookNow(tour);
                         onClose();
                       }}
-                      className="bg-gradient-to-r from-amber-500 to-amber-500 hover:from-amber-600 hover:to-amber-600 text-white px-8 py-3 rounded-full font-semibold"
+                      className="btn-brand-secondary px-8 py-3 rounded-full font-semibold"
                     >
                       Book This Tour
                     </Button>

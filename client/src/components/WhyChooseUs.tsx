@@ -1,44 +1,48 @@
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, Shield, Users, Clock, Award, CheckCircle, Phone, Globe, MapPin, Heart } from "lucide-react";
+import { Star, Shield, Users, Clock, Award, CheckCircle, Phone, Globe, MapPin, Heart, Quote } from "lucide-react";
+import EnhancedInteractiveForm from "@/components/EnhancedInteractiveForm";
 
 export function WhyChooseUsSection() {
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+  const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
   const advantages = [
     {
       icon: Heart,
-      title: "Family-Run Independent Agency",
-      description: "Experience the personalized touch of a family-operated travel agency. Our passion for travel and attention to detail ensure your journey is crafted with care and expertise.",
+      title: "High-Value, Low-Impact Tourism",
+      description: "Experience authentic Bhutan through sustainable tourism practices rooted in Gross National Happiness philosophy. We curate immersive journeys that connect you with local communities.",
       color: "bg-red-100 text-red-600"
     },
     {
       icon: Users,
-      title: "Expert Local Guides",
-      description: "Born and raised Bhutanese guides with government certification, deep cultural knowledge, and genuine passion for sharing the beauty of our Himalayan kingdom.",
+      title: "Experienced Team of Professionals",
+      description: "Over 70% of Bhutan is covered in pristine forests. Our committed team includes certified guides, safe transportation, and cultural experts ensuring authentic experiences.",
       color: "bg-teal-100 text-teal-600"
     },
     {
       icon: Shield,
-      title: "Safety & 24/7 Support", 
-      description: "Round-the-clock active helpline ensures you're never alone during your journey. Our team is always available to assist with emergencies and provide peace of mind.",
+      title: "Guarantee of Service Quality", 
+      description: "We guarantee top-notch service without compromising quality. Certified by Tourism Council of Bhutan with transparent pricing and no hidden charges.",
       color: "bg-green-100 text-green-600"
     },
     {
       icon: Star,
-      title: "Luxury Accommodations",
-      description: "Handpicked selection of premium resorts, boutique hotels, and luxury lodges. Each accommodation ensures exceptional quality and comfort throughout your stay.",
+      title: "Hand-picked Premium Properties",
+      description: "Carefully selected certified accommodations for convenience, comfort, and exceptional service. From luxury resorts to authentic homestays.",
       color: "bg-teal-100 text-teal-600"
     },
     {
       icon: MapPin,
-      title: "Best Transport Service",
-      description: "Reliable, comfortable vehicles with experienced drivers. Explore bustling streets or tranquil landscapes in air-conditioned comfort with our professional drivers.",
+      title: "Professional Guide & Transportation",
+      description: "Best guides and safe, comfortable transportation throughout your journey. Our team ensures you experience the real Bhutan with complete safety.",
       color: "bg-orange-100 text-amber-600"
     },
     {
       icon: Globe,
-      title: "Competitive Pricing",
-      description: "Top-notch services at incredibly competitive prices, ensuring you get the best value for your money. Transparent pricing with no hidden costs or surprises.",
+      title: "Tailored Itinerary Development",
+      description: "Organized and customized itineraries until satisfaction. We cover numerous desirable destinations with authentic cultural immersion programs.",
       color: "bg-teal-100 text-teal-600"
     }
   ];
@@ -82,22 +86,52 @@ export function WhyChooseUsSection() {
             <div className="flex flex-wrap justify-center gap-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 font-semibold px-8"
+                onClick={() => setIsContactFormOpen(true)}
+                className="bg-white text-teal-700 hover:bg-teal-50 hover:text-teal-800 font-semibold px-8 py-3 shadow-lg border-2 border-white transform hover:scale-105 transition-all duration-200"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call Us Now
               </Button>
               <Button 
                 size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-teal-600 font-semibold px-8"
+                onClick={() => setIsQuoteFormOpen(true)}
+                className="border-2 border-white text-white hover:bg-white hover:text-teal-700 font-semibold px-8 py-3 shadow-lg transform hover:scale-105 transition-all duration-200"
               >
+                <Quote className="w-5 h-5 mr-2" />
                 Get Free Quote
               </Button>
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Contact Form */}
+      {isContactFormOpen && (
+        <EnhancedInteractiveForm
+          formType="contact"
+          isOpen={isContactFormOpen}
+          onClose={() => setIsContactFormOpen(false)}
+          initialData={{}}
+          onSubmitSuccess={(data) => {
+            console.log("Contact request submitted:", data);
+            setIsContactFormOpen(false);
+          }}
+        />
+      )}
+      
+      {/* Quote Form */}
+      {isQuoteFormOpen && (
+        <EnhancedInteractiveForm
+          formType="get-quote"
+          isOpen={isQuoteFormOpen}
+          onClose={() => setIsQuoteFormOpen(false)}
+          initialData={{}}
+          onSubmitSuccess={(data) => {
+            console.log("Quote request submitted:", data);
+            setIsQuoteFormOpen(false);
+          }}
+        />
+      )}
     </section>
   );
 }

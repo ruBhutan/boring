@@ -1,61 +1,53 @@
+@import './styles/brand-colors.css';
+@import './styles/global-branding.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 100%);
-  --foreground: hsl(221, 39%, 11%);
-  --muted: hsl(210, 40%, 98%);
-  --muted-foreground: hsl(215, 16%, 47%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(221, 39%, 11%);
+  --background: hsl(60, 9%, 98%);
+  --foreground: hsl(20, 6%, 10%);
+  --muted: hsl(60, 9%, 97%);
+  --muted-foreground: hsl(20, 6%, 40%);
+  --popover: hsl(60, 9%, 98%);
+  --popover-foreground: hsl(20, 6%, 10%);
   --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(221, 39%, 11%);
-  --border: hsl(214, 32%, 91%);
-  --input: hsl(214, 32%, 91%);
-  --primary: hsl(47, 96%, 53%);
-  --primary-foreground: hsl(221, 39%, 11%);
-  --secondary: hsl(210, 40%, 98%);
-  --secondary-foreground: hsl(222, 84%, 5%);
-  --accent: hsl(210, 40%, 98%);
-  --accent-foreground: hsl(222, 84%, 5%);
+  --card-foreground: hsl(20, 6%, 10%);
+  --border: hsl(20, 6%, 90%);
+  --input: hsl(20, 6%, 90%);
+  --primary: hsl(160, 84%, 39%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(38, 92%, 50%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(0, 84%, 60%);
+  --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(210, 40%, 98%);
-  --ring: hsl(221, 39%, 11%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(160, 84%, 39%);
   --radius: 0.75rem;
-  
-  /* Mind Break Bhutan Brand Colors - Modern Teal-Gold Theme */
-  --teal-primary: hsl(173, 58%, 39%);      /* Primary Teal */
-  --teal-secondary: hsl(173, 80%, 36%);    /* Deep Teal */
-  --teal-light: hsl(173, 100%, 95%);       /* Very Light Teal */
-  --gold-primary: hsl(43, 96%, 56%);       /* Primary Gold */
-  --gold-accent: hsl(38, 92%, 50%);        /* Accent Gold */
-  --mountain-deep: hsl(221, 39%, 11%);     /* Deep Mountain */
-  --emerald-valley: hsl(160, 84%, 39%);    /* Emerald Green */
-  --sky-bright: hsl(199, 89%, 48%);        /* Bright Sky */
 }
 
 .dark {
-  --background: hsl(240, 10%, 3.9%);
-  --foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 3.7%, 15.9%);
-  --muted-foreground: hsl(240, 5%, 64.9%);
-  --popover: hsl(240, 10%, 3.9%);
-  --popover-foreground: hsl(0, 0%, 98%);
-  --card: hsl(240, 10%, 3.9%);
-  --card-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 3.7%, 15.9%);
-  --input: hsl(240, 3.7%, 15.9%);
-  --primary: hsl(207, 90%, 54%);
-  --primary-foreground: hsl(211, 100%, 99%);
-  --secondary: hsl(240, 3.7%, 15.9%);
-  --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(240, 3.7%, 15.9%);
-  --accent-foreground: hsl(0, 0%, 98%);
+  --background: hsl(20, 6%, 4%);
+  --foreground: hsl(60, 9%, 98%);
+  --muted: hsl(20, 6%, 17%);
+  --muted-foreground: hsl(20, 6%, 60%);
+  --popover: hsl(20, 6%, 4%);
+  --popover-foreground: hsl(60, 9%, 98%);
+  --card: hsl(20, 6%, 4%);
+  --card-foreground: hsl(60, 9%, 98%);
+  --border: hsl(20, 6%, 17%);
+  --input: hsl(20, 6%, 17%);
+  --primary: hsl(160, 84%, 39%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(38, 92%, 50%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(0, 84%, 60%);
+  --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 62.8%, 30.6%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 4.9%, 83.9%);
-  --radius: 0.5rem;
+  --ring: hsl(160, 84%, 39%);
 }
 
 @layer base {
@@ -64,19 +56,19 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-gray-800 font-medium;
+    @apply font-sans antialiased bg-background text-foreground font-medium;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply text-gray-700 font-bold;
+    @apply font-bold;
   }
   
   p {
-    @apply text-gray-600 leading-relaxed;
+    @apply leading-relaxed;
   }
   
   a {
-    @apply text-teal-600 hover:text-teal-700 transition-colors;
+    @apply text-primary hover:text-primary transition-colors;
   }
 
   html {
@@ -85,608 +77,69 @@
 }
 
 @layer components {
-  /* Brand Typography Classes */
-  .brand-heading {
-    @apply text-gray-700 font-bold tracking-tight;
+  /* Brand Button Styles */
+  .btn-brand-primary {
+    @apply bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl;
   }
   
-  .brand-subheading {
-    @apply text-gray-700 font-semibold;
+  .btn-brand-secondary {
+    @apply bg-brand-secondary hover:bg-brand-secondary-hover text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl;
   }
   
-  .brand-body {
-    @apply text-gray-600 font-medium leading-relaxed;
+  .btn-brand-outline {
+    @apply border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200;
   }
   
-  .brand-text-primary {
-    @apply text-teal-700 font-semibold;
+  .btn-brand-accent {
+    @apply bg-brand-accent hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl;
   }
   
-  .brand-text-secondary {
-    @apply text-amber-600 font-medium;
+  /* Brand Card Styles */
+  .brand-card {
+    @apply bg-white border border-brand-primary/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:border-brand-primary;
   }
   
-  .brand-text-accent {
-    @apply text-emerald-600 font-medium;
+  .brand-card-teal {
+    @apply bg-gradient-to-br from-brand-light to-white border border-brand-primary/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300;
   }
   
-  .brand-text-muted {
-    @apply text-gray-500 font-normal;
-  }
-  
+  /* Brand Gradient Text */
   .gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-800;
+    @apply bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent;
   }
   
-  .gradient-bg {
-    @apply bg-gradient-to-r from-teal-600 to-teal-800;
+  /* Brand Background Gradients */
+  .bg-brand-gradient {
+    @apply bg-gradient-to-br from-brand-primary to-brand-dark;
   }
   
-  .hero-gradient {
-    @apply bg-gradient-to-r from-teal-900/70 to-emerald-900/70;
+  .bg-brand-light-gradient {
+    @apply bg-gradient-to-br from-brand-light to-white;
   }
   
-  .card-hover {
-    @apply transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl;
+  .bg-brand-accent-gradient {
+    @apply bg-gradient-to-br from-brand-accent to-red-700;
   }
   
-  .btn-primary {
-    @apply bg-teal-600 hover:bg-teal-700 !text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md;
+  /* Brand Glow Effects */
+  .brand-glow {
+    @apply shadow-lg shadow-brand-primary/25;
   }
   
-  .btn-secondary {
-    @apply border-2 border-teal-600 !text-teal-600 hover:bg-teal-600 hover:!text-white px-6 py-3 rounded-lg font-medium transition-all duration-200;
+  .brand-glow-secondary {
+    @apply shadow-lg shadow-brand-secondary/25;
   }
   
-  .btn-accent {
-    @apply bg-amber-500 hover:bg-amber-600 !text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md;
+  /* Brand Section Headers */
+  .brand-section-header {
+    @apply flex items-center justify-center gap-2 text-brand-primary font-semibold text-sm uppercase tracking-wide mb-4;
   }
-
-  /* Brand Typography */
+  
   .brand-heading {
-    @apply font-bold tracking-tight;
+    @apply font-bold text-brand-text;
   }
   
   .brand-body {
-    @apply leading-relaxed;
-  }
-
-  /* Navigation Brand Styles */
-  .nav-teal {
-    @apply bg-white/95 backdrop-blur-sm border-b border-teal-100;
-  }
-
-  .mega-menu-teal {
-    @apply bg-gradient-to-br from-white to-teal-50 rounded-lg shadow-xl border border-teal-100;
-  }
-
-  /* Brand Glow Effects */
-  .teal-glow {
-    @apply hover:shadow-lg hover:shadow-teal-500/25 transition-all duration-300;
-  }
-
-  .amber-glow {
-    @apply hover:shadow-lg hover:shadow-amber-500/25 transition-all duration-300;
-  }
-
-  /* Status Colors - Brand Aligned */
-  .status-success {
-    @apply bg-teal-100 text-teal-800 border-teal-200;
-  }
-
-  .status-warning {
-    @apply bg-amber-100 text-amber-800 border-amber-200;
-  }
-
-  .status-info {
-    @apply bg-teal-50 text-teal-700 border-teal-100;
-  }
-}
-
-@layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-in-out;
-  }
-  
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out;
-  }
-  
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-  
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Unique Brand Identity - "Mind Break" Theme */
-:root {
-  /* Primary Brand Colors - Deep Mountain & Golden Sunrise */
-  --primary-mountain: #1e293b; /* Deep slate */
-  --primary-gold: #f59e0b; /* Warm gold */
-  --primary-crimson: #dc2626; /* Deep red */
-  --secondary-sage: #059669; /* Forest green */
-  --secondary-sky: #0ea5e9; /* Clear blue */
-  --accent-bronze: #c2410c; /* Rich bronze */
-  --accent-purple: #7c3aed; /* Royal purple */
-  
-  /* Neutral Tones */
-  --neutral-light: #f8fafc;
-  --neutral-medium: #64748b;
-  --neutral-dark: #0f172a;
-  
-  /* Brand Gradients */
-  --gradient-primary: linear-gradient(135deg, #1e293b 0%, #f59e0b 50%, #dc2626 100%);
-  --gradient-secondary: linear-gradient(135deg, #059669 0%, #0ea5e9 100%);
-  --gradient-accent: linear-gradient(135deg, #c2410c 0%, #7c3aed 100%);
-}
-
-/* Enhanced Teal-Gold Branding System */
-.gradient-text {
-  background: linear-gradient(135deg, #0d9488, #14b8a6, #5eead4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-secondary {
-  background: linear-gradient(135deg, #f59e0b, #d97706, #92400e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-light {
-  background: linear-gradient(135deg, #5eead4, #99f6e4, #ccfbf1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Teal-Gold Background Gradients */
-.bg-teal-gradient {
-  background: linear-gradient(135deg, #0d9488, #14b8a6);
-}
-
-.bg-teal-gradient-light {
-  background: linear-gradient(135deg, #f0fdfa, #ccfbf1, #99f6e4);
-}
-
-.bg-teal-gradient-dark {
-  background: linear-gradient(135deg, #134e4a, #115e59, #0f766e);
-}
-
-.text-teal-gradient {
-  background: linear-gradient(135deg, #0d9488, #14b8a6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.border-teal-gradient {
-  border: 2px solid;
-  border-image: linear-gradient(135deg, #0d9488, #14b8a6) 1;
-}
-
-.shadow-teal {
-  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.2);
-}
-
-.shadow-teal-lg {
-  box-shadow: 0 10px 40px rgba(13, 148, 136, 0.3);
-}
-
-.hover-teal:hover {
-  background-color: rgba(13, 148, 136, 0.05);
-  transition: all 0.3s ease;
-}
-
-/* Teal-Gold Button Variants */
-.btn-teal {
-  @apply bg-gradient-to-r from-teal-600 to-teal-700 text-white px-6 py-3 rounded-lg font-medium hover:from-teal-700 hover:to-teal-800 transition-all duration-300 transform hover:scale-105 shadow-teal;
-  color: white !important;
-}
-
-.btn-teal-outline {
-  @apply border-2 border-teal-600 text-teal-600 px-6 py-3 rounded-lg font-medium hover:bg-teal-600 hover:text-white transition-all duration-300;
-}
-
-.btn-teal-outline:hover {
-  color: white !important;
-}
-
-/* Global button text visibility fixes */
-button {
-  color: inherit;
-}
-
-/* Dark background buttons - white text */
-button.bg-teal-600,
-button.bg-teal-700,
-button.bg-teal-800,
-button[class*="bg-teal-6"],
-button[class*="bg-teal-7"],
-button[class*="bg-teal-8"],
-button.bg-amber-600,
-button.bg-amber-700,
-button.bg-emerald-600,
-button.bg-emerald-700,
-button[class*="from-teal"],
-button[class*="from-amber"],
-button[class*="from-emerald"] {
-  color: white !important;
-}
-
-/* Outline buttons - colored text */
-button[class*="border-teal"] {
-  color: #0d9488 !important;
-}
-
-button[class*="border-amber"] {
-  color: #d97706 !important;
-}
-
-/* Outline buttons on hover - white text */
-button[class*="border-teal"]:hover {
-  color: white !important;
-}
-
-button[class*="border-amber"]:hover {
-  color: white !important;
-}
-
-/* Ghost buttons */
-button[class*="text-teal"] {
-  color: #0d9488 !important;
-}
-
-button[class*="text-amber"] {
-  color: #d97706 !important;
-}
-
-/* Explicit text color classes */
-button.text-white {
-  color: white !important;
-}
-
-button.text-teal-600 {
-  color: #0d9488 !important;
-}
-
-button.text-amber-600 {
-  color: #d97706 !important;
-}
-
-/* Custom button classes */
-.btn-teal,
-.btn-teal-outline,
-.btn-amber,
-.btn-amber-outline {
-  color: white !important;
-}
-
-.btn-teal-outline {
-  color: #0d9488 !important;
-}
-
-.btn-teal-outline:hover {
-  color: white !important;
-}
-
-.btn-amber-outline {
-  color: #d97706 !important;
-}
-
-.btn-amber-outline:hover {
-  color: white !important;
-}
-
-/* Force navbar text visibility */
-nav button,
-nav span {
-  color: #374151 !important;
-}
-
-nav button:hover,
-nav span:hover {
-  color: #0d9488 !important;
-}
-
-nav button.text-teal-600,
-nav span.text-teal-600 {
-  color: #0d9488 !important;
-}
-
-/* SVG icons in buttons */
-button svg {
-  color: inherit !important;
-}
-
-/* Link buttons */
-a button {
-  color: inherit !important;
-}
-
-.btn-teal-ghost {
-  @apply text-teal-600 px-6 py-3 rounded-lg font-medium hover:bg-teal-50 transition-all duration-300;
-}
-
-.btn-amber {
-  @apply bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 rounded-lg font-medium hover:from-amber-700 hover:to-amber-800 transition-all duration-300 transform hover:scale-105;
-  color: white !important;
-}
-
-.btn-amber-outline {
-  @apply border-2 border-amber-600 text-amber-600 px-6 py-3 rounded-lg font-medium hover:bg-amber-600 hover:text-white transition-all duration-300;
-}
-
-/* Brand-specific component styles */
-.brand-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  border: 2px solid transparent;
-  border-radius: 16px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: 0 4px 20px rgba(30, 41, 59, 0.1);
-}
-
-.brand-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(13, 148, 136, 0.25);
-  border-color: #0d9488;
-  background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
-}
-
-.brand-card-teal {
-  background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
-  border: 2px solid #5eead4;
-  border-radius: 16px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.brand-card-teal:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 35px rgba(13, 148, 136, 0.2);
-  border-color: #0d9488;
-}
-
-.brand-section-header {
-  background: linear-gradient(135deg, #0d9488, #14b8a6);
-  color: white;
-  padding: 8px 24px;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 8px 30px rgba(13, 148, 136, 0.25);
-}
-
-.brand-section-header-light {
-  background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
-  color: #0d9488;
-  padding: 8px 24px;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 2px solid #5eead4;
-}
-
-.brand-section-header-amber {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: white;
-  padding: 8px 24px;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 8px 30px rgba(245, 158, 11, 0.25);
-}
-
-/* Unique section backgrounds */
-.section-teal-light {
-  background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 50%, #99f6e4 100%);
-  position: relative;
-}
-
-.section-teal-medium {
-  background: linear-gradient(135deg, #99f6e4 0%, #5eead4 50%, #2dd4bf 100%);
-  position: relative;
-}
-
-.section-teal-dark {
-  background: linear-gradient(135deg, #134e4a 0%, #115e59 50%, #0f766e 100%);
-  color: white;
-  position: relative;
-}
-
-.section-mountain {
-  background: linear-gradient(135deg, #f8fafc 0%, #f0fdfa 50%, #ccfbf1 100%);
-  position: relative;
-}
-
-.section-mountain::before,
-.section-teal-light::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(135deg, #0d9488, #14b8a6);
-}
-
-.section-wellness {
-  background: linear-gradient(135deg, #fef3c7 0%, #f0fdfa 50%, #ccfbf1 100%);
-  position: relative;
-}
-
-.section-adventure {
-  background: linear-gradient(135deg, #99f6e4 0%, #5eead4 50%, #2dd4bf 100%);
-  position: relative;
-}
-
-.section-culture {
-  background: linear-gradient(135deg, #dcfce7 0%, #f0fdfa 50%, #ccfbf1 100%);
-  position: relative;
-}
-
-/* Status indicators */
-.status-visa-required {
-  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-  color: var(--primary-crimson);
-  border: 1px solid #fecaca;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.status-sdf-applicable {
-  background: linear-gradient(135deg, #fefbeb 0%, #fef3c7 100%);
-  color: #92400e;
-  border: 1px solid #fde68a;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.status-adventure-ready {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  color: var(--secondary-sky);
-  border: 1px solid #bae6fd;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* Interactive elements */
-.interactive-card {
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.interactive-card:hover {
-  transform: perspective(1000px) rotateX(5deg) translateY(-10px);
-  box-shadow: 0 20px 40px rgba(13, 148, 136, 0.25);
-  border-color: #5eead4;
-}
-
-.teal-glow {
-  box-shadow: 0 0 20px rgba(13, 148, 136, 0.3);
-}
-
-.teal-glow:hover {
-  box-shadow: 0 0 30px rgba(13, 148, 136, 0.5);
-  transition: box-shadow 0.3s ease;
-}
-
-.amber-glow {
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-}
-
-.amber-glow:hover {
-  box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
-  transition: box-shadow 0.3s ease;
-}
-
-/* Teal Navigation Enhancements */
-.nav-teal {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(13, 148, 136, 0.1);
-}
-
-.nav-item-teal {
-  @apply text-gray-700 hover:text-teal-600 hover:bg-teal-50 px-3 py-2 rounded-md transition-all duration-200;
-}
-
-.nav-item-teal.active {
-  @apply text-teal-600 bg-teal-50;
-}
-
-/* Teal Mega Menu */
-.mega-menu-teal {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(13, 148, 136, 0.1);
-  box-shadow: 0 10px 40px rgba(13, 148, 136, 0.15);
-}
-
-/* Typography enhancements */
-.brand-heading {
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-}
-
-.brand-body {
-  line-height: 1.7;
-  color: var(--neutral-medium);
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
+    @apply text-brand-text/80 leading-relaxed;
   }
 }

@@ -159,6 +159,7 @@ export class MemStorage implements IStorage {
   private itineraries: Map<number, Itinerary>;
   private itineraryDays: Map<number, ItineraryDay>;
   private customTourRequests: Map<number, CustomTourRequest>;
+  private festivals: Map<number, Festival>;
   private currentUserId: number;
   private currentTourId: number;
   private currentBookingId: number;
@@ -169,6 +170,7 @@ export class MemStorage implements IStorage {
   private currentItineraryId: number;
   private currentItineraryDayId: number;
   private currentCustomTourRequestId: number;
+  private currentFestivalId: number;
 
   constructor() {
     this.users = new Map();
@@ -181,6 +183,7 @@ export class MemStorage implements IStorage {
     this.itineraries = new Map();
     this.itineraryDays = new Map();
     this.customTourRequests = new Map();
+    this.festivals = new Map();
     this.currentUserId = 1;
     this.currentTourId = 1;
     this.currentBookingId = 1;
@@ -191,6 +194,7 @@ export class MemStorage implements IStorage {
     this.currentItineraryId = 1;
     this.currentItineraryDayId = 1;
     this.currentCustomTourRequestId = 1;
+    this.currentFestivalId = 1;
 
     this.initializeData();
   }
@@ -270,6 +274,39 @@ export class MemStorage implements IStorage {
         highlights: ["Royal Palaces", "Private Audiences", "Luxury Accommodations"],
         isActive: true,
       },
+      {
+        name: 'Laya Gasa Trek',
+        duration: 14,
+        price: 3800,
+        category: 'trekking',
+        imageUrl: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=800&h=600&fit=crop',
+        rating: 4.9,
+        reviewCount: 12,
+        highlights: ['Laya Village', 'Gasa Hot Springs', 'Stunning Himalayan Views', 'Diverse Flora and Fauna'],
+        isActive: true,
+      },
+      {
+        name: 'Bhutan Birding Tour',
+        duration: 10,
+        price: 2800,
+        category: 'birdwatching',
+        imageUrl: 'https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?w=800&h=600&fit=crop',
+        rating: 4.8,
+        reviewCount: 8,
+        highlights: ['Spotting rare birds', 'Phobjikha Valley', 'Jigme Dorji National Park', 'Expert Ornithologist Guide'],
+        isActive: true,
+      },
+      {
+        name: 'Western Bhutan Cycling Tour',
+        duration: 8,
+        price: 2200,
+        category: 'cycling',
+        imageUrl: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=600&fit=crop',
+        rating: 4.7,
+        reviewCount: 10,
+        highlights: ['Cycling over Dochula Pass', 'Punakha Dzong', 'Thimphu city ride', 'Support vehicle included'],
+        isActive: true,
+      }
     ];
 
     sampleTours.forEach(tour => this.createTour(tour));
@@ -348,6 +385,51 @@ export class MemStorage implements IStorage {
     ];
 
     sampleBlogPosts.forEach(post => this.createBlogPost(post));
+
+    // Initialize festivals
+    const sampleFestivals: InsertFestival[] = [
+      {
+        name: "Laya Yak Festival",
+        description: "A unique festival celebrating the culture of the nomadic people of Laya, featuring yak parades, traditional sports, and cultural performances.",
+        location: "Laya, Gasa",
+        startDate: "2025-10-23",
+        endDate: "2025-10-24",
+        imageUrl: "https://images.unsplash.com/photo-1604792136432-91b57c2055b4?w=800&h=600&fit=crop",
+        category: "cultural",
+        highlights: ["Yak Beauty Pageant", "Traditional Songs and Dances", "Local Handicrafts"],
+        isActive: true,
+        ticketPrice: 50,
+        maxCapacity: 200,
+      },
+      {
+        name: "Thimphu Tshechu",
+        description: "One of the biggest festivals in Bhutan, held in the capital city of Thimphu. It features colorful mask dances and religious ceremonies.",
+        location: "Thimphu",
+        startDate: "2025-09-08",
+        endDate: "2025-09-10",
+        imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+        category: "religious",
+        highlights: ["Mask Dances (Chhams)", "Atsara (clown) performances", "Religious Blessings"],
+        isActive: true,
+        ticketPrice: null,
+        maxCapacity: null,
+      },
+      {
+        name: "Paro Tshechu",
+        description: "A popular festival in the beautiful Paro valley, known for the unfurling of the giant Thongdrel (religious scroll) on the last day.",
+        location: "Paro",
+        startDate: "2026-03-27",
+        endDate: "2026-03-31",
+        imageUrl: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800&h=600&fit=crop",
+        category: "religious",
+        highlights: ["Unfurling of the Thongdrel", "Sacred Mask Dances", "Large Crowds"],
+        isActive: true,
+        ticketPrice: null,
+        maxCapacity: null,
+      },
+    ];
+
+    sampleFestivals.forEach(festival => this.createFestival(festival));
   }
 
   // User methods
@@ -655,29 +737,43 @@ export class MemStorage implements IStorage {
     return undefined;
   }
 
-  // Festival methods (stub implementations for MemStorage)
+  // Festival methods
   async getAllFestivals(): Promise<Festival[]> {
-    return [];
+    return Array.from(this.festivals.values());
   }
 
   async getActiveFestivals(): Promise<Festival[]> {
-    return [];
+    return Array.from(this.festivals.values()).filter(festival => festival.isActive);
   }
 
   async getFestival(id: number): Promise<Festival | undefined> {
-    return undefined;
+    return this.festivals.get(id);
   }
 
-  async createFestival(festival: InsertFestival): Promise<Festival> {
-    throw new Error("Festival management not implemented in MemStorage");
+  async createFestival(insertFestival: InsertFestival): Promise<Festival> {
+    const id = this.currentFestivalId++;
+    const festival: Festival = {
+      ...insertFestival,
+      id,
+      isActive: insertFestival.isActive ?? true,
+      ticketPrice: insertFestival.ticketPrice ?? null,
+      maxCapacity: insertFestival.maxCapacity ?? null,
+    };
+    this.festivals.set(id, festival);
+    return festival;
   }
 
   async updateFestival(id: number, updates: Partial<Festival>): Promise<Festival | undefined> {
+    const festival = this.festivals.get(id);
+    if (festival) {
+      Object.assign(festival, updates);
+      return festival;
+    }
     return undefined;
   }
 
   async deleteFestival(id: number): Promise<boolean> {
-    return false;
+    return this.festivals.delete(id);
   }
 
   // Festival Booking methods (stub implementations)

@@ -1,0 +1,115 @@
+/* Modern Bhutan Tourism Brand Color System */
+
+:root {
+  /* Primary Brand Colors - Deep Emerald Green (Bhutan's forests) */
+  --brand-emerald: #065f46;
+  --brand-emerald-50: #ecfdf5;
+  --brand-emerald-100: #d1fae5;
+  --brand-emerald-200: #a7f3d0;
+  --brand-emerald-300: #6ee7b7;
+  --brand-emerald-400: #34d399;
+  --brand-emerald-500: #10b981;
+  --brand-emerald-600: #059669;
+  --brand-emerald-700: #047857;
+  --brand-emerald-800: #065f46;
+  --brand-emerald-900: #064e3b;
+  --brand-emerald-950: #022c22;
+
+  /* Secondary Colors - Warm Gold (Bhutan's temples) */
+  --brand-gold: #d97706;
+  --brand-gold-50: #fffbeb;
+  --brand-gold-100: #fef3c7;
+  --brand-gold-200: #fde68a;
+  --brand-gold-300: #fcd34d;
+  --brand-gold-400: #fbbf24;
+  --brand-gold-500: #f59e0b;
+  --brand-gold-600: #d97706;
+  --brand-gold-700: #b45309;
+  --brand-gold-800: #92400e;
+  --brand-gold-900: #78350f;
+  --brand-gold-950: #451a03;
+
+  /* Accent Colors - Rich Burgundy (Bhutan's traditional robes) */
+  --brand-burgundy: #991b1b;
+  --brand-burgundy-50: #fef2f2;
+  --brand-burgundy-100: #fee2e2;
+  --brand-burgundy-200: #fecaca;
+  --brand-burgundy-300: #fca5a5;
+  --brand-burgundy-400: #f87171;
+  --brand-burgundy-500: #ef4444;
+  --brand-burgundy-600: #dc2626;
+  --brand-burgundy-700: #b91c1c;
+  --brand-burgundy-800: #991b1b;
+  --brand-burgundy-900: #7f1d1d;
+  --brand-burgundy-950: #450a0a;
+
+  /* Neutral Colors - Warm Stone Gray */
+  --brand-stone: #78716c;
+  --brand-stone-50: #fafaf9;
+  --brand-stone-100: #f5f5f4;
+  --brand-stone-200: #e7e5e4;
+  --brand-stone-300: #d6d3d1;
+  --brand-stone-400: #a8a29e;
+  --brand-stone-500: #78716c;
+  --brand-stone-600: #57534e;
+  --brand-stone-700: #44403c;
+  --brand-stone-800: #292524;
+  --brand-stone-900: #1c1917;
+  --brand-stone-950: #0c0a09;
+
+  /* Gradients */
+  --brand-gradient-primary: linear-gradient(to right, var(--brand-emerald-600), var(--brand-emerald-700));
+  --brand-gradient-secondary: linear-gradient(to right, var(--brand-gold-500), var(--brand-gold-700));
+  --brand-gradient-hero-text: linear-gradient(to right, var(--brand-emerald-400), var(--brand-gold-400), var(--brand-emerald-400));
+
+  /* Shadow System */
+  --brand-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --brand-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --brand-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --brand-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --brand-shadow-emerald: 0 10px 15px -3px rgb(5 150 105 / 0.2), 0 4px 6px -4px rgb(5 150 105 / 0.1);
+  --brand-shadow-gold: 0 10px 15px -3px rgb(217 119 6 / 0.2), 0 4px 6px -4px rgb(217 119 6 / 0.1);
+  
+  /* Brand specific values */
+  --brand-primary: var(--brand-emerald-700);
+  --brand-secondary: var(--brand-gold-600);
+  --brand-accent: var(--brand-burgundy-700);
+  --brand-text: var(--brand-stone-800);
+  --brand-text-muted: var(--brand-stone-600);
+  --brand-bg: var(--brand-stone-50);
+  --brand-surface: white;
+  --brand-border: var(--brand-stone-200);
+}
+
+/* Component Classes */
+.brand-btn {
+  @apply px-10 py-6 rounded-full font-bold text-lg text-white shadow-2xl transform hover:scale-105 transition-all duration-300;
+}
+
+.brand-btn-primary {
+  @apply brand-btn bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 border-2 border-emerald-500;
+}
+
+.brand-btn-secondary {
+  @apply brand-btn bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 border-2 border-amber-500;
+}
+
+.brand-btn-outline {
+  @apply brand-btn border-2 border-white text-white hover:bg-white hover:text-emerald-900 backdrop-blur-sm bg-white/10;
+}
+
+.brand-card {
+  @apply bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-200 border border-stone-100;
+}
+
+.brand-gradient-text {
+  @apply bg-gradient-to-r from-emerald-400 via-amber-400 to-emerald-400 bg-clip-text text-transparent;
+}
+
+.text-brand-highlight {
+  @apply text-emerald-400 font-semibold;
+}
+
+.brand-input {
+  @apply border-2 border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl px-4 py-3 transition-all duration-200;
+}

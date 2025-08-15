@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import BookingModal from "@/components/BookingModal";
+import { BookNowFormLauncher } from "@/components/FormLauncher";
 import { 
   Camera, Sunrise, Mountain, Flower2, Bird, 
   MapPin, Clock, Users, Star, Award, Calendar,
   Aperture, Focus, Palette, Eye
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import type { Tour } from "@shared/schema";
 
 const photographyHighlights = [
@@ -64,7 +64,7 @@ const photographyTechniques = [
 
 export default function PhotographyToursPage() {
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isBookNowFormOpen, setIsBookNowFormOpen] = useState(false);
 
   const { data: tours = [] } = useQuery<Tour[]>({
     queryKey: ["/api/tours"],
@@ -78,7 +78,7 @@ export default function PhotographyToursPage() {
 
   const handleBookNow = (tour: Tour) => {
     setSelectedTour(tour);
-    setIsBookingModalOpen(true);
+    setIsBookNowFormOpen(true);
   };
 
   return (
@@ -232,7 +232,7 @@ export default function PhotographyToursPage() {
                         <span className="text-gray-500 text-sm ml-1">per person</span>
                       </div>
                       <div className="flex gap-2">
-                        <Link href={`/tours/${tour.id}`}>
+                        <Link to={`/tours/${tour.id}`}>
                           <Button variant="outline" size="sm" className="border-teal-600 text-teal-600 hover:bg-teal-50">
                             View Details
                           </Button>
@@ -255,7 +255,7 @@ export default function PhotographyToursPage() {
               <Camera className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-600 mb-2">Photography Tours Coming Soon</h3>
               <p className="text-gray-500 mb-6">We're developing specialized photography tours. Contact us for custom photography experiences.</p>
-              <Link href="/custom-tour">
+              <Link to="/custom-tour">
                 <Button className="bg-gradient-to-r from-teal-600 to-teal-600 text-white">
                   Request Custom Photography Tour
                 </Button>
@@ -327,10 +327,10 @@ export default function PhotographyToursPage() {
         </div>
       </section>
 
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        tour={selectedTour}
+      <BookNowFormLauncher
+        isOpen={isBookNowFormOpen}
+        onClose={() => setIsBookNowFormOpen(false)}
+        selectedTour={selectedTour}
       />
     </div>
   );

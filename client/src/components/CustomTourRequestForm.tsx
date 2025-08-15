@@ -14,8 +14,6 @@ import { apiRequest } from "@/lib/queryClient";
 import { z } from "zod";
 import { MapPin, Calendar, Users, DollarSign, Heart, Car } from "lucide-react";
 import { useState } from "react";
-import { ACCOMMODATION_SELECT_OPTIONS } from "@/lib/accommodationTypes";
-import { TOUR_CATEGORIES } from "@/lib/tourCategories";
 
 const customTourFormSchema = insertCustomTourRequestSchema.extend({
   interests: z.array(z.string()).min(1, "Please select at least one interest"),
@@ -25,7 +23,7 @@ const customTourFormSchema = insertCustomTourRequestSchema.extend({
 type CustomTourFormData = z.infer<typeof customTourFormSchema>;
 
 const INTERESTS_OPTIONS = [
-  ...TOUR_CATEGORIES.map(cat => cat.label.replace(' Tours', '')),
+  "Cultural Tours", "Adventure Tours", "Trekking", "Photography", "Wellness",
   "Local Cuisine", "Traditional Crafts", "Festivals", "Hot Stone Baths",
   "Archery", "Meditation", "Textile Weaving", "Yak Herding", "Farmhouse Experience"
 ];
@@ -33,6 +31,12 @@ const INTERESTS_OPTIONS = [
 const DESTINATIONS_OPTIONS = [
   "Thimphu", "Paro", "Punakha", "Wangdue", "Bumthang", 
   "Trongsa", "Mongar", "Trashigang", "Haa Valley", "Samtse"
+];
+
+const ACCOMMODATION_OPTIONS = [
+  { value: "budget", label: "Budget Hotels" },
+  { value: "standard", label: "Standard Hotels" },
+  { value: "luxury", label: "Luxury Hotels" }
 ];
 
 export default function CustomTourRequestForm() {
@@ -53,7 +57,7 @@ export default function CustomTourRequestForm() {
       preferredDates: "",
       specialRequirements: "",
       destinations: [],
-      accommodationType: "none",
+      accommodationType: "standard",
       transportPreference: "private"
     }
   });
@@ -86,18 +90,18 @@ export default function CustomTourRequestForm() {
   if (isSubmitted) {
     return (
       <div className="brand-card max-w-2xl mx-auto p-8">
-        <div className="text-center space-y-4">
-          <div className="w-16 h-16 bg-teal-gradient-light rounded-full flex items-center justify-center mx-auto teal-glow">
-            <Heart className="w-8 h-8 text-teal-600" />
+        <div className="text-center space-y-6">
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto shadow-lg">
+            <Heart className="w-10 h-10 text-emerald-600" />
           </div>
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2 brand-heading">Request Submitted!</h3>
-            <p className="text-gray-600 brand-body">
+          <div className="space-y-3">
+            <h3 className="text-3xl font-bold text-slate-900">Request Submitted!</h3>
+            <p className="text-slate-600 text-lg leading-relaxed">
               Thank you for your custom tour request. Our team will review your requirements 
               and contact you within 24 hours with a personalized itinerary and pricing.
             </p>
           </div>
-          <Button onClick={() => setIsSubmitted(false)} className="btn-teal-outline">
+          <Button onClick={() => setIsSubmitted(false)} className="brand-btn-outline">
             Submit Another Request
           </Button>
         </div>
@@ -106,81 +110,90 @@ export default function CustomTourRequestForm() {
   }
 
   return (
-    <div className="brand-card max-w-4xl mx-auto">
-      <div className="p-8 border-b border-teal-100">
-        <h2 className="text-2xl font-bold text-center brand-heading">
-          Design Your Perfect Bhutan Journey
-        </h2>
-        <p className="text-center text-gray-600 brand-body mt-2">
-          Tell us your preferences and we'll create a personalized itinerary just for you
-        </p>
+    <div className="brand-card-gradient max-w-5xl mx-auto overflow-hidden">
+      <div className="bg-gradient-to-r from-emerald-600 to-indigo-600 p-8 text-white">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold mb-3">
+            Design Your Perfect Bhutan Journey
+          </h2>
+          <p className="text-emerald-100 text-lg">
+            Tell us your preferences and we'll create a personalized itinerary just for you
+          </p>
+        </div>
       </div>
+      
       <div className="p-8">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {/* Personal Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>First Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your first name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+            {/* Personal Information Section */}
+            <div className="brand-form-section">
+              <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <Users className="w-6 h-6 text-emerald-600" />
+                Personal Information
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="firstName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>First Name *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your first name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your last name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Last Name *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your last name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address *</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="your.email@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email Address *</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="your.email@example.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
-                    <FormControl>
-                      <Input placeholder="+1 (555) 000-0000" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone Number</FormLabel>
+                      <FormControl>
+                        <Input placeholder="+1 (555) 000-0000" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
 
-            {/* Trip Details */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <Calendar className="w-5 h-5" />
+            {/* Trip Details Section */}
+            <div className="brand-form-section">
+              <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <Calendar className="w-6 h-6 text-emerald-600" />
                 Trip Details
               </h3>
               
@@ -270,10 +283,10 @@ export default function CustomTourRequestForm() {
               />
             </div>
 
-            {/* Preferences */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <Heart className="w-5 h-5" />
+            {/* Preferences Section */}
+            <div className="brand-form-section">
+              <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <Heart className="w-6 h-6 text-emerald-600" />
                 Your Preferences
               </h3>
 
@@ -367,58 +380,64 @@ export default function CustomTourRequestForm() {
               />
             </div>
 
-            {/* Accommodation & Transport */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="accommodationType"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Accommodation Type</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {ACCOMMODATION_SELECT_OPTIONS.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            {/* Accommodation & Transport Section */}
+            <div className="brand-form-section">
+              <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <Car className="w-6 h-6 text-emerald-600" />
+                Accommodation & Transport
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="accommodationType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Accommodation Type</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {ACCOMMODATION_OPTIONS.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="transportPreference"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <Car className="w-4 h-4" />
-                      Transportation Preference
-                    </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="private">Private Vehicle</SelectItem>
-                        <SelectItem value="shared">Shared Transport</SelectItem>
-                        <SelectItem value="mixed">Mixed Options</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="transportPreference"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Car className="w-4 h-4" />
+                        Transportation Preference
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="private">Private Vehicle</SelectItem>
+                          <SelectItem value="shared">Shared Transport</SelectItem>
+                          <SelectItem value="mixed">Mixed Options</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
 
             <FormField
@@ -442,7 +461,7 @@ export default function CustomTourRequestForm() {
             <div className="flex justify-center pt-6">
               <Button 
                 type="submit" 
-                className="btn-teal w-full md:w-auto px-12 py-3"
+                className="btn-brand-primary w-full md:w-auto px-12 py-3"
                 disabled={requestMutation.isPending}
               >
                 {requestMutation.isPending ? "Submitting Request..." : "Submit Custom Tour Request"}

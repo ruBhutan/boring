@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -139,7 +139,7 @@ export default function UpcomingEventsSection() {
                   </p>
                   
                   <div className="flex items-center justify-between">
-                    <Link href={`/festivals/info?id=${festival.id}`}>
+                    <Link to={`/festivals/info/${festival.id}`}>
                       <Button 
                         size="sm" 
                         className="bg-teal-600 hover:bg-teal-700 text-white"
@@ -197,7 +197,7 @@ export default function UpcomingEventsSection() {
 
         {/* CTA */}
         <div className="text-center mt-12">
-          <Link href="/festivals">
+          <Link to="/festivals">
             <Button size="lg" className="bg-teal-600 hover:bg-teal-700 text-white">
               View All Festivals
               <ArrowRight className="w-5 h-5 ml-2" />

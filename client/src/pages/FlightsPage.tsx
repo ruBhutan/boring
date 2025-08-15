@@ -2,15 +2,24 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FlightBookingFormLauncher } from "@/components/FormLauncher";
 import { 
   Plane, Clock, MapPin, Calendar, Users, Star, 
   Mountain, Compass, Camera, Shield, Phone, Mail,
   CheckCircle, AlertTriangle, Info, ExternalLink,
   Route, Globe, Luggage
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function FlightsPage() {
+  const [isFlightFormOpen, setIsFlightFormOpen] = useState(false);
+  const [selectedRoute, setSelectedRoute] = useState<any>(null);
+
+  const handleBookFlight = (route?: any) => {
+    setSelectedRoute(route || null);
+    setIsFlightFormOpen(true);
+  };
   const drukAirRoutes = [
     {
       from: "Delhi (DEL)",
@@ -51,6 +60,46 @@ export default function FlightsPage() {
       frequency: "2x weekly",
       aircraft: "Airbus A319",
       scenic: "Bay of Bengal"
+    },
+    {
+      from: "Dhaka (DAC)",
+      to: "Paro (PBH)",
+      duration: "1h 30m",
+      frequency: "2x weekly",
+      aircraft: "ATR 42-500",
+      scenic: "Bengal plains"
+    },
+    {
+      from: "Bagdogra (IXB)",
+      to: "Paro (PBH)",
+      duration: "45m",
+      frequency: "2x weekly",
+      aircraft: "ATR 42-500",
+      scenic: "Tea gardens"
+    },
+    {
+      from: "Guwahati (GAU)",
+      to: "Paro (PBH)",
+      duration: "1h 0m",
+      frequency: "2x weekly",
+      aircraft: "ATR 42-500",
+      scenic: "Brahmaputra river"
+    },
+    {
+      from: "Gaya (GAY)",
+      to: "Paro (PBH)",
+      duration: "1h 20m",
+      frequency: "Seasonal",
+      aircraft: "ATR 42-500",
+      scenic: "Buddhist circuit"
+    },
+    {
+      from: "Dubai (DXB)",
+      to: "Paro (PBH)",
+      duration: "5h 30m",
+      frequency: "1x weekly",
+      aircraft: "Airbus A319",
+      scenic: "Desert to mountains"
     }
   ];
 
@@ -80,12 +129,12 @@ export default function FlightsPage() {
       scenic: "Southeast Asian landscapes"
     },
     {
-      from: "Mumbai (BOM)",
+      from: "Kolkata (CCU)",
       to: "Paro (PBH)",
-      duration: "3h 45m",
+      duration: "1h 45m",
       frequency: "3x weekly",
       aircraft: "Airbus A320neo",
-      scenic: "Western Ghats to Himalayas"
+      scenic: "Ganges delta"
     }
   ];
 
@@ -213,12 +262,13 @@ export default function FlightsPage() {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="druk-air" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="druk-air">Druk Air</TabsTrigger>
             <TabsTrigger value="bhutan-airlines">Bhutan Airlines</TabsTrigger>
             <TabsTrigger value="helicopter">Helicopter Services</TabsTrigger>
             <TabsTrigger value="schedule">Flight Schedule</TabsTrigger>
             <TabsTrigger value="airport">Paro Airport</TabsTrigger>
+            <TabsTrigger value="domestic-land">Domestic & Land</TabsTrigger>
           </TabsList>
 
           {/* Bhutan Airlines Tab */}
@@ -260,8 +310,12 @@ export default function FlightsPage() {
                             <span>{route.scenic}</span>
                           </div>
                           <div className="pt-2">
-                            <Button className="w-full btn-teal" size="sm">
-                              Check Availability
+                            <Button 
+                              className="w-full btn-teal" 
+                              size="sm"
+                              onClick={() => handleBookFlight(route)}
+                            >
+                              Book This Flight
                             </Button>
                           </div>
                         </div>
@@ -345,8 +399,12 @@ export default function FlightsPage() {
                             <span>{route.scenic}</span>
                           </div>
                           <div className="pt-2">
-                            <Button className="w-full btn-teal" size="sm">
-                              Check Availability
+                            <Button 
+                              className="w-full btn-teal" 
+                              size="sm"
+                              onClick={() => handleBookFlight(route)}
+                            >
+                              Book This Flight
                             </Button>
                           </div>
                         </div>
@@ -359,12 +417,14 @@ export default function FlightsPage() {
                   <div className="flex items-start gap-3">
                     <Info className="w-5 h-5 text-teal-600 mt-0.5" />
                     <div>
-                      <h4 className="font-semibold text-emerald-800 mb-2">Booking Information</h4>
+                      <h4 className="font-semibold text-emerald-800 mb-2">Booking Information & Tourism Policy</h4>
                       <ul className="text-sm text-teal-700 space-y-1">
-                        <li>• All flights must be booked through licensed tour operators</li>
-                        <li>• Advance booking recommended (2-3 months for peak season)</li>
-                        <li>• Flights are weather dependent and may be delayed</li>
-                        <li>• Baggage allowance: 20kg checked, 7kg carry-on</li>
+                        <li>• All flights must be booked through licensed tour operators like us.</li>
+                        <li>• A Sustainable Development Fee (SDF) of $100 per person per night is applicable for most nationalities.</li>
+                        <li>• Indian nationals have a different SDF of 1,200 INR per person per night.</li>
+                        <li>• Advance booking is highly recommended, especially during peak seasons (2-3 months prior).</li>
+                        <li>• Flights are subject to weather conditions and may be delayed or cancelled.</li>
+                        <li>• Baggage allowance is typically 20kg for checked luggage and 7kg for carry-on.</li>
                       </ul>
                     </div>
                   </div>
@@ -390,6 +450,88 @@ export default function FlightsPage() {
                       </div>
                     </div>
                   ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Domestic & Land Tab */}
+          <TabsContent value="domestic-land" className="space-y-8">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Plane className="w-5 h-5 text-teal-600" />
+                  Domestic Flights
+                </CardTitle>
+                <p className="text-gray-600">
+                  Explore more of Bhutan with domestic flights, connecting Paro to other regions of the country.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <Card className="border-teal-100">
+                    <CardHeader>
+                      <CardTitle className="text-lg">Paro ↔ Bumthang</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-600">Access the spiritual heartland of Bhutan.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-teal-100">
+                    <CardHeader>
+                      <CardTitle className="text-lg">Paro ↔ Gelephu</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-600">Connect to the southern border region.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-teal-100">
+                    <CardHeader>
+                      <CardTitle className="text-lg">Paro ↔ Yongphulla</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-600">Explore the remote eastern landscapes.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Car className="w-5 h-5 text-teal-600" />
+                  Land Border Crossings
+                </CardTitle>
+                <p className="text-gray-600">
+                  Enter Bhutan by land from India through three official border crossings.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <Card className="border-teal-100">
+                    <CardHeader>
+                      <CardTitle className="text-lg">Phuentsholing</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-600">The main and most popular border crossing in the west.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-teal-100">
+                    <CardHeader>
+                      <CardTitle className="text-lg">Gelephu</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-600">Located in the central region of Bhutan.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-teal-100">
+                    <CardHeader>
+                      <CardTitle className="text-lg">Samdrup Jongkhar</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-600">The eastern border crossing, ideal for exploring eastern Bhutan.</p>
+                    </CardContent>
+                  </Card>
                 </div>
               </CardContent>
             </Card>
@@ -432,7 +574,11 @@ export default function FlightsPage() {
                           </ul>
                         </div>
                         <div className="pt-4">
-                          <Button className="w-full btn-teal" size="sm">
+                          <Button 
+                            className="w-full btn-teal" 
+                            size="sm"
+                            onClick={() => handleBookFlight(service)}
+                          >
                             Book Service
                           </Button>
                         </div>
@@ -630,13 +776,14 @@ export default function FlightsPage() {
               Let Tashi Dorji, your trusted Bhutan travel expert, arrange your flights and ensure a smooth journey to the Last Shangri-La. With years of experience and partnerships with both airlines, get the best deals and seamless travel coordination.
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/contact">
-                <Button className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 px-8 py-3">
-                  <Phone className="w-5 h-5 mr-2" />
-                  Book Flights
-                </Button>
-              </Link>
-              <Link href="/tours">
+              <Button 
+                className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 px-8 py-3"
+                onClick={() => handleBookFlight()}
+              >
+                <Plane className="w-5 h-5 mr-2" />
+                Book Flights
+              </Button>
+              <Link to="/tours">
                 <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3">
                   View Tour Packages
                 </Button>
@@ -645,6 +792,13 @@ export default function FlightsPage() {
           </Card>
         </div>
       </div>
+      
+      {/* Flight Booking Form */}
+      <FlightBookingFormLauncher 
+        isOpen={isFlightFormOpen}
+        onClose={() => setIsFlightFormOpen(false)}
+        selectedRoute={selectedRoute}
+      />
     </div>
   );
 }

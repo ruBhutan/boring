@@ -1,49 +1,57 @@
-// Modern Design System for Bhutan Tourism Website
+// Professional Design System for Bhutan Tourism Website
 export const designSystem = {
   colors: {
-    // Primary Brand Colors - Deep Teal & Gold
+    // Primary Brand Colors - Professional Teal Palette
     primary: {
-      50: '#f0fdfa',
-      100: '#ccfbf1',
-      200: '#99f6e4',
-      300: '#5eead4',
-      400: '#2dd4bf',
-      500: '#14b8a6', // Main brand color
-      600: '#0d9488',
-      700: '#0f766e',
-      800: '#115e59',
-      900: '#134e4a',
+      50: 'hsl(173, 100%, 97%)',
+      100: 'hsl(173, 84%, 91%)',
+      200: 'hsl(173, 83%, 80%)',
+      300: 'hsl(173, 82%, 65%)',
+      400: 'hsl(173, 76%, 51%)',
+      500: 'hsl(173, 58%, 39%)', // Main brand color
+      600: 'hsl(173, 56%, 31%)',
+      700: 'hsl(173, 55%, 25%)',
+      800: 'hsl(173, 50%, 21%)',
+      900: 'hsl(173, 46%, 17%)',
+      950: 'hsl(173, 84%, 10%)',
     },
-    // Secondary - Warm Gold
+    // Secondary - Professional Amber
     secondary: {
-      50: '#fffbeb',
-      100: '#fef3c7',
-      200: '#fde68a',
-      300: '#fcd34d',
-      400: '#fbbf24',
-      500: '#f59e0b', // Accent gold
-      600: '#d97706',
-      700: '#b45309',
-      800: '#92400e',
-      900: '#78350f',
+      50: 'hsl(48, 100%, 96%)',
+      100: 'hsl(48, 96%, 89%)',
+      200: 'hsl(48, 97%, 77%)',
+      300: 'hsl(46, 97%, 65%)',
+      400: 'hsl(43, 96%, 56%)',
+      500: 'hsl(38, 92%, 50%)', // Accent amber
+      600: 'hsl(32, 95%, 44%)',
+      700: 'hsl(26, 90%, 37%)',
+      800: 'hsl(23, 83%, 31%)',
+      900: 'hsl(22, 78%, 26%)',
+      950: 'hsl(21, 94%, 14%)',
     },
-    // Neutral Grays
+    // Neutral Professional Grays
     neutral: {
-      50: '#fafafa',
-      100: '#f4f4f5',
-      200: '#e4e4e7',
-      300: '#d4d4d8',
-      400: '#a1a1aa',
-      500: '#71717a',
-      600: '#52525b',
-      700: '#3f3f46',
-      800: '#27272a',
-      900: '#18181b',
+      50: 'hsl(210, 20%, 98%)',
+      100: 'hsl(220, 14%, 96%)',
+      200: 'hsl(220, 13%, 91%)',
+      300: 'hsl(216, 12%, 84%)',
+      400: 'hsl(218, 11%, 65%)',
+      500: 'hsl(220, 9%, 46%)',
+      600: 'hsl(215, 14%, 34%)',
+      700: 'hsl(217, 19%, 27%)',
+      800: 'hsl(215, 28%, 17%)',
+      900: 'hsl(221, 39%, 11%)',
+      950: 'hsl(224, 71%, 4%)',
     },
-    // Success, Warning, Error
-    success: '#10b981',
-    warning: '#f59e0b',
-    error: '#ef4444',
+    // Semantic Colors
+    success: 'hsl(142, 76%, 36%)',
+    warning: 'hsl(38, 92%, 50%)',
+    error: 'hsl(0, 84%, 60%)',
+    info: 'hsl(199, 89%, 48%)',
+    // Accent Colors
+    emerald: 'hsl(160, 84%, 39%)',
+    slate: 'hsl(215, 28%, 17%)',
+    sky: 'hsl(199, 89%, 48%)',
   },
   
   gradients: {

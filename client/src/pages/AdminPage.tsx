@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RoleBasedDashboard from '../components/RoleBasedDashboard';
 import { useAuth } from '../components/AuthContext';
-import { useLocation } from 'wouter';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPage: React.FC = () => {
   const { user, isLoading } = useAuth();
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
+
+  // All hooks must be called before any conditional returns
+  useEffect(() => {
+    if (!isLoading && !user) {
+      navigate('/login');
+    } else if (!isLoading && user && user.role !== 'admin') {
+      navigate('/');
+    }
+  }, [user, isLoading, navigate]);
 
   if (isLoading) {
     return (
@@ -18,13 +27,7 @@ const AdminPage: React.FC = () => {
     );
   }
 
-  if (!user) {
-    setLocation('/login');
-    return null;
-  }
-
-  if (user.role !== 'admin') {
-    setLocation('/');
+  if (!user || user.role !== 'admin') {
     return null;
   }
 

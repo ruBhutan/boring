@@ -16,7 +16,7 @@ import {
     Users
 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 
 export default function FAQPage() {
   const [openItems, setOpenItems] = useState<string[]>([]);
@@ -357,7 +357,7 @@ export default function FAQPage() {
               <p className="text-green-700 mb-4">
                 Our travel experts are here to help with any specific questions about your Bhutan journey.
               </p>
-              <Link href="/contact">
+              <Link to="/contact">
                 <Button className="btn-teal">
                   Contact Our Experts
                 </Button>
@@ -394,7 +394,7 @@ export default function FAQPage() {
               <p className="text-teal-700 mb-4">
                 Found the answers you needed? Start planning your dream Bhutan adventure today.
               </p>
-              <Link href="/tours">
+              <Link to="/tours">
                 <Button className="btn-teal text-white">
                   Explore Tour Packages
                 </Button>
@@ -411,13 +411,13 @@ export default function FAQPage() {
               With all your questions answered, it's time to start planning your journey to the Last Shangri-La.
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/custom-tour">
+              <Link to="/custom-tour">
                 <Button className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100 px-8 py-3">
                   <HelpCircle className="w-5 h-5 mr-2" />
                   Plan Custom Trip
                 </Button>
               </Link>
-              <Link href="/tours">
+              <Link to="/tours">
                 <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3">
                   Browse All Tours
                 </Button>

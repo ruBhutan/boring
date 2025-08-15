@@ -2,9 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bike, Mountain, Clock, Users, MapPin, Star, Shield, Heart, Zap } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { BookNowFormLauncher } from "@/components/FormLauncher";
 
 export default function CyclingToursPage() {
+  const [selectedTour, setSelectedTour] = useState(null);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
+  const handleBookNow = (tour) => {
+    setSelectedTour(tour);
+    setIsBookingModalOpen(true);
+  };
+
   const cyclingTours = [
     {
       id: 1,
@@ -176,7 +186,10 @@ export default function CyclingToursPage() {
                   
                   <div className="flex items-center justify-between">
                     <div className="text-2xl font-bold text-teal-600">{tour.price}</div>
-                    <Button className="btn-teal">
+                    <Button 
+                      className="btn-teal"
+                      onClick={() => handleBookNow(tour)}
+                    >
                       Book Now
                     </Button>
                   </div>
@@ -238,12 +251,12 @@ export default function CyclingToursPage() {
             Join us for an unforgettable eco-friendly journey through Bhutan's pristine landscapes
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact">
+            <Link to="/contact">
               <Button size="lg" className="bg-gradient-to-br from-white to-teal-50 text-teal-600 hover:bg-gray-100">
                 Plan Your Trip
               </Button>
             </Link>
-            <Link href="/tours">
+            <Link to="/tours">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                 View All Tours
               </Button>
@@ -251,6 +264,20 @@ export default function CyclingToursPage() {
           </div>
         </div>
       </section>
+
+      {/* Booking Modal */}
+      {isBookingModalOpen && selectedTour && (
+        <BookNowFormLauncher
+          isOpen={isBookingModalOpen}
+          onClose={() => setIsBookingModalOpen(false)}
+          tourData={{
+            title: selectedTour.title,
+            duration: selectedTour.duration,
+            price: selectedTour.price,
+            groupSize: selectedTour.groupSize
+          }}
+        />
+      )}
     </div>
   );
 }
